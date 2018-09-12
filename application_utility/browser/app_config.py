@@ -13,9 +13,6 @@ class AppConfig(Config):
     for Stand-alone application
     """
 
-    def __init__(self, application: str):
-        super().__init__(application=application)
-
     def load(self):
         """ load file or url by parameter console"""
         self.pref = {"data-set": "default"}
