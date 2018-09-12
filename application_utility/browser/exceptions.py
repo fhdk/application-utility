@@ -1,3 +1,3 @@
 class NoAppInIsoError(Exception):
-    """# never show App-insatll on isos ??"""
+    """# never show App-install on isos ??"""
     pass

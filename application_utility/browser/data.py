@@ -66,7 +66,7 @@ class Data:
                 try:
                     if self.filter not in app["filter"]:
                         logging.debug(f"\tfilter app: {app['name']} {app['filter']} < {self.filter}")
-                        # continue
+                        continue
                 except KeyError:
                     pass
 
@@ -80,13 +80,13 @@ class Data:
                 if keys:
                     if f"!{self.desktop}" in keys:
                         logging.debug(f"\tfilter desktop(not for): {app['name']} {app['desktop']} < {self.desktop}")
-                        # continue
+                        continue
 
                 keys = [x for x in keys if not x.startswith("!")]
                 if keys:
                     if self.desktop != "?" and self.desktop not in keys:
                         logging.debug(f"\tfilter desktop(for): {app['name']} {app['desktop']} < {self.desktop}")
-                        # continue
+                        continue
 
                 ret[-1]["apps"].append(app)
         return ret
