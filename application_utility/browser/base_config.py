@@ -10,7 +10,7 @@ class BaseConfig:
     pass this class to object Applications constructor())
     """
     _PREFERENCES = r"/usr/share/application-utility/preferences.json"
-    _JSON_MERGED = r"/tmp/browser-preferences.json"
+    _JSON_MERGED = r"/tmp/application-preferences.json"
 
     def __init__(self, application: str):
         self.application = application
