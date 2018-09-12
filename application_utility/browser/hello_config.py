@@ -20,7 +20,7 @@ class HelloConfig(Config):
                 logging.basicConfig(level=logging.DEBUG)
             else:
                 pass
-            self.preferences = self.read_json_file(self._PREFERENCES)
+        self.preferences = self.read_json_file(self._PREFERENCES)
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": "/usr/share/application-utility/{}.json".format(
