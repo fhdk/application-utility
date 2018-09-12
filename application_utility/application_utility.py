@@ -31,7 +31,7 @@ from gi.repository import Gtk, GObject, GdkPixbuf
 #
 #     def load(self):
 #         """ load file or url by parameter console"""
-#         self.preferences = {"data-set":"default" }
+#         self.pref = {"data-set":"default" }
 #         self.url = {"desktop": "", "main": ""}
 #         self.file = {"desktop": "", "main": "share/default.json"}
 #         if len(sys.argv) > 1:  # and not "--dev" in sys.argv:

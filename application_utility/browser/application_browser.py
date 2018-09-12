@@ -407,9 +407,9 @@ class ApplicationBrowser(Gtk.Box):
         if self.net_check():
             # noinspection PyBroadException
             try:
-                for download in self.config.preferences["data-sets"]:
-                    url = "{}/{}.json".format(self.config.preferences["url"], download)
-                    file = self.fix_path("{}/{}.json".format(self.config.preferences["user_path"], download))
+                for download in self.config.pref["data-sets"]:
+                    url = "{}/{}.json".format(self.config.pref["url"], download)
+                    file = self.fix_path("{}/{}.json".format(self.config.pref["user_path"], download))
                     req = urllib.request.Request(url=url)
                     with urllib.request.urlopen(req, timeout=2) as response:
                         data = json.loads(response.read().decode("utf8"))

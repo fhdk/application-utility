@@ -6,14 +6,15 @@ import sys
 class BaseConfig:
     """
     set config from env or plugin or standalone App
-    pass this class to object Applications constructor())
+    pass this class to object ApplicationBrowser constructor())
     """
-    _PREFERENCES = r"/usr/share/application-utility/preferences.json"
+    _PREF_FILE = r"/usr/share/application-utility/preferences.json"
+    _DATA_DIR = r"/usr/share/applications-utility"
     _JSON_MERGED = r"/tmp/application-preferences.json"
 
     def __init__(self, application: str):
         self.application = application
-        self.preferences = []
+        self.pref = {}
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": ""}
         self.dev = "--dev" in sys.argv

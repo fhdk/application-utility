@@ -12,8 +12,8 @@ class IsoConfig(Config):
 
     def __init__(self, application):
         # raise NoAppInIsoError()
-        if not os.path.isfile(self.preferences["live_path"]):
-            raise ImportError(path=self.preferences["live_path"])
+        if not os.path.isfile(self.pref["live_path"]):
+            raise ImportError(path=self.pref["live_path"])
         super().__init__(application)
 
     def load(self):

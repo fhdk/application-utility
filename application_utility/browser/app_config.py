@@ -15,13 +15,13 @@ class AppConfig(Config):
 
     def load(self):
         """ load file or url by parameter console"""
-        self.preferences = self.read_json_file(self._PREFERENCES)
+        self.pref = self.read_json_file(self._PREF_FILE)
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": "/usr/share/{}/{}.json".format(
-            self.application, self.preferences["data-set"])}
+            self.application, self.pref["data-set"])}
 
         if self.dev:
-            self.file = {"desktop": "", "main": "share/{}.json".format(self.preferences["data-set"])}
+            self.file = {"desktop": "", "main": "share/{}.json".format(self.pref["data-set"])}
         if len(sys.argv) > 1 and "--dev" not in sys.argv:
             file = sys.argv[1]
             if os.path.isfile(file):
