@@ -81,7 +81,9 @@ setup(
               'application_utility.constants'],
     package_dir={'application_utility': 'application_utility'},
     data_files=[('share/', ['share/advanced.json']),
-                ('share/', ['share/default.json'])],
+                ('share/', ['share/default.json']),
+                ('share/', ['share/preferences.json'])
+                ],
     scripts=["scripts/manjaro-application-utility"],
     install_requires=requirements,
     license="GPL3",
