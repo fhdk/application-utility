@@ -14,6 +14,7 @@ class Config(BaseConfig, Data):
         pass
 
     def __init__(self, application: str):
+        super().__init__()
         BaseConfig.__init__(self, application)
         Data.__init__(self)
         self.load()

@@ -15,8 +15,6 @@ class AppConfig(Config):
 
     def __init__(self):
         super().__init__(application="application-utility")
-        self.url = None
-        self.file = None
 
     def load(self):
         """ load file or url by parameter console"""
