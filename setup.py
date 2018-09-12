@@ -68,7 +68,7 @@ test_requirements = [
 update_databases()
 
 setup(
-    name='',
+    name='application-utility',
     version=find_version("application_utility", "__init__.py"),
     description="Package that provides all mirrors for Manjaro Linux.",
     long_description=README + '\n\n' + CHANGELOG,
@@ -77,7 +77,6 @@ setup(
     url='https://github.com/manjaro/',
     packages=['application_utility',
               'application_utility.browser',
-              'application_utility.config',
               'application_utility.constants',
               'application_utility.translation'],
     package_dir={'application_utility': 'application_utility'},
