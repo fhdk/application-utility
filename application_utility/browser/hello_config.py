@@ -23,5 +23,6 @@ class HelloConfig(Config):
             self.preferences = self.read_json_file(self._PREFERENCES)
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
-        self.file = {"desktop": "", "main": "./data/{}.json".format(self.preferences["data-set"])}
+        self.file = {"desktop": "", "main": "/usr/share/application-utility/{}.json".format(
+            self.preferences["data-set"])}
         return self

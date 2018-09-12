@@ -35,7 +35,7 @@ class Applications(Gtk.Box):
         self.app = "application-utility"
         if isinstance(self.config, HelloConfig):
             self.app = "manjaro-hello"
-            print("manjaro-hello")
+            logging.debug("manjaro-hello", self.config)
         self.detail_box = None
 
         # set data
