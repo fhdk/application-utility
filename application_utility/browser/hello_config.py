@@ -21,6 +21,7 @@ class HelloConfig(Config):
             else:
                 pass
             self.preferences = self.read_json_file(self._PREFERENCES)
+        logging.debug("hello_config.py", self.preferences, self._PREFERENCES)
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": "/usr/share/application-utility/{}.json".format(
