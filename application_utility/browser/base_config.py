@@ -1,6 +1,5 @@
 import collections
 import json
-import os
 import sys
 
 
@@ -17,9 +16,7 @@ class BaseConfig:
         self.preferences = []
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": ""}
-        # self.dev = "--dev" in sys.argv
-        # if self.dev:
-        #     self._PREFERENCES = os.path.dirname(os.path.abspath(__file__)) + "/../../share/preferences.json"
+        self.dev = "--dev" in sys.argv
 
     def load(self):
         """to override live iso ? desktop ?"""
