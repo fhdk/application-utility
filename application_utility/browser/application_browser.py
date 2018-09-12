@@ -25,7 +25,7 @@ TITLE = "Manjaro Application Utility {}".format(__version__)
 GROUP, ICON, PRESENT, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(8))
 
 
-class Applications(Gtk.Box):
+class ApplicationBrowser(Gtk.Box):
     """Class Applications  with viw, title and btns"""
 
     def __init__(self, config: Config, win: Gtk.Window, orientation=Gtk.Orientation.VERTICAL, spacing=1):

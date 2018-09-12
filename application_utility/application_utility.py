@@ -8,7 +8,7 @@ import logging
 import sys
 
 from .browser.app_config import AppConfig
-from .browser.applications import Applications
+from .browser.application_browser import ApplicationBrowser
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject, GdkPixbuf
@@ -79,7 +79,7 @@ class MainApp:
         window.add(self.main_box)
 
         conf = AppConfig(application="application-utility")
-        self.app_box = Applications(conf, window)
+        self.app_box = ApplicationBrowser(conf, window)
         self.main_box.pack_start(self.app_box, True, True, 0)
         self.main_box.show_all()
 

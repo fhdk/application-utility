@@ -1,6 +1,6 @@
 __all__ = ["alpm",
            "app_config",
-           "applications",
+           "application_browser",
            "base_config",
            "config",
            "data",
