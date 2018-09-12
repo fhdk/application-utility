@@ -32,32 +32,6 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
-clean-test:
-	rm -f .coverage
-	rm -fr htmlcov/
-
-lint:
-	flake8 application_utility
-
-test:
-	python setup.py test
-
-coverage:
-	coverage run --source application_utility setup.py test
-	coverage report -m
-	coverage html
-	firefox htmlcov/index.html
-
-docs:
-	mkdocs build
-	pandoc -s -t man docs/index.md -o man/.8
-	pandoc docs/index.md -f markdown -t html -s -o man/.8.html
-	gzip man/.8 -fq
-
-man-page:
-	pandoc -s -t man docs/index.md -o man/.8
-	man man/.8
-
 release: clean
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
@@ -67,17 +41,5 @@ dist: clean
 	python setup.py bdist_wheel
 	ls -l dist
 
-install: clean mo-files
+install:
 	python setup.py install --root=$(DESTDIR) --optimize=1
-
-pot-file:
-	python setup.py extract_messages --output-file locale/application_utility.pot
-
-push-pot:
-	tx push -s
-
-pull-po:
-	tx pull -a
-
-mo-files:
-	python setup.py compile_catalog --directory locale --domain application_utility
