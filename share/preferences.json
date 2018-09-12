@@ -1,7 +1,7 @@
 {
-  "data_set": "default",
-  "user_path": "~/.config",
-  "data_sets": [
+  "data-set": "default",
+  "user-path": "~/.config",
+  "data-sets": [
     "default",
     "advanced"
   ],
