@@ -1,4 +1,9 @@
 {
-    "save-path": "~/.config/hello-apps.json"
+    "save-path": "~/.config/hello-apps.json",
+    "data-sets": [
+        "default",
+        "advanced"
+    ],
+    "data-set": "default"
 }
 

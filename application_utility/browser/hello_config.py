@@ -3,6 +3,7 @@ import os
 import sys
 
 from .config import Config
+from .exceptions import NoAppInIsoError
 
 
 class HelloConfig(Config):
@@ -11,17 +12,14 @@ class HelloConfig(Config):
     """
 
     def load(self):
-        """ load datas"""
+        """ load data"""
         if os.path.isfile("/run/miso/bootmnt/manjaro"):
-            # raise NoAppInIsoError()
-            self.preferences = self.read_json_file(f"/usr/share/manjaro-hello/data/preferences.json")
+            raise NoAppInIsoError()
         else:
             if "--dev" in sys.argv:
                 logging.basicConfig(level=logging.DEBUG)
-                self.preferences = self.read_json_file("data/preferences.json")
-            else:
-                self.preferences = self.read_json_file(f"/usr/share/manjaro-hello/data/preferences.json")
+            self.preferences = self.read_json_file(self._PREFERENCES)
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
-        self.file = {"desktop": "", "main": "./data/{}.json".format(self.preferences["data_set"])}
+        self.file = {"desktop": "", "main": "./data/{}.json".format(self.preferences["data-set"])}
         return self

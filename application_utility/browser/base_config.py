@@ -1,5 +1,6 @@
 import collections
 import json
+import os
 import sys
 
 
@@ -8,15 +9,17 @@ class BaseConfig:
     set config from env or plugin or standalone App
     pass this class to object Applications constructor())
     """
-    _PREFERENCES = r"/usr/share/{}/preferences.json"
+    _PREFERENCES = r"/usr/share/application-utility/preferences.json"
     _JSON_MERGED = r"/tmp/browser-preferences.json"
 
     def __init__(self, application: str):
         self.application = application
-        self.preferences = {}
+        self.preferences = []
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": ""}
         self.dev = "--dev" in sys.argv
+        if self.dev:
+            self._PREFERENCES = os.path.dirname(os.path.abspath(__file__)) + "/../../share/preferences.json"
 
     def load(self):
         """to override live iso ? desktop ?"""
