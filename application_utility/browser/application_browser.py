@@ -69,7 +69,7 @@ class ApplicationBrowser(Gtk.Box):
             self.detail_box.pack_start(self.detail_label, expand=True, fill=True, padding=0)
             # label in Manjaro-Hello
             self.title_label = Gtk.Label()
-            self.title_label.set_markup("<big>Manjaro Application Maintenance</big>"
+            self.title_label.set_markup("<big>Manjaro Application Maintenance: </big>"
                                         "Select/Deselect apps you want to install/remove. "
                                         "Click <b>UPDATE SYSTEM</b> button when ready. ")
         else:
