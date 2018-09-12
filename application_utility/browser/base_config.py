@@ -18,9 +18,8 @@ class BaseConfig:
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": ""}
         # self.dev = "--dev" in sys.argv
-        self.dev = True
-        if self.dev:
-            self._PREFERENCES = os.path.dirname(os.path.abspath(__file__)) + "/../../share/preferences.json"
+        # if self.dev:
+        #     self._PREFERENCES = os.path.dirname(os.path.abspath(__file__)) + "/../../share/preferences.json"
 
     def load(self):
         """to override live iso ? desktop ?"""
