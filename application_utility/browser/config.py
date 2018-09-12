@@ -23,8 +23,8 @@ class Config(BaseConfig, Data):
         """
             TODO
             merge desktop in main in self.json ? and merge url in file ?
-            and use only self._JSON_MERGED ?
-            Always save .json in self._JSON_MERGED ?
+            and use only self._MERGE_FILE ?
+            Always save .json in self._MERGE_FILE ?
         """
         # write temp
         if self.url["main"]:
@@ -38,6 +38,6 @@ class Config(BaseConfig, Data):
                 logging.error(f"ERROR: File not found: {src}")
                 raise ImportError(src)
 
-        shutil.copyfile(src, self._JSON_MERGED)
-        logging.debug(f"json : {self._JSON_MERGED}")
-        self.load_from_file(self._JSON_MERGED)
+        shutil.copyfile(src, self._MERGE_FILE)
+        logging.debug(f"json : {self._MERGE_FILE}")
+        self.load_from_file(self._MERGE_FILE)

@@ -10,7 +10,7 @@ class BaseConfig:
     """
     _PREF_FILE = r"/usr/share/application-utility/preferences.json"
     _DATA_DIR = r"/usr/share/application-utility"
-    _JSON_MERGED = r"/tmp/application-preferences.json"
+    _MERGE_FILE = r"/tmp/application-preferences.json"
 
     def __init__(self, application: str):
         self.application = application
