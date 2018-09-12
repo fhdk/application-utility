@@ -1,0 +1,6 @@
+site_name:
+repo_url: https://gitlab.manjaro.org/fhdk/
+pages:
+    - Home: index.md
+    - Installation: installation.md
+    - Usage: usage.md

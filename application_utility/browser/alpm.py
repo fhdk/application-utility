@@ -1,0 +1,114 @@
+"""
+Module alpm
+Install / remove packages
+use pamac-installer
+"""
+import subprocess
+import glob
+import logging
+
+
+class Alpm:
+    """system alpm commit"""
+    NOTHING = 0
+    REMOVE = 1
+    ADD = 2
+    BOTH = 3
+
+    def __init__(self):
+        """constructor"""
+        self.pkg_list_install = []
+        self.pkg_list_removal = []
+
+    def do_update(self):
+        """run pamac"""
+        result = Alpm.NOTHING
+        if not self.pkg_list_install and not self.pkg_list_removal:
+            return result
+        if self.pkg_list_removal:
+            refresh = self._install_apps(self.pkg_list_removal, False)
+            if not refresh:
+                logging.warning("warning: packages not uninstalled")
+            else:
+                result = Alpm.REMOVE
+        if self.pkg_list_install:
+            refresh = self._install_apps(self.pkg_list_install, True)
+            if not refresh:
+                logging.warning("warning: packages not installed")
+            else:
+                if result == Alpm.NOTHING:
+                    result = Alpm.ADD
+                else:
+                    result = Alpm.BOTH
+        return result
+
+    def set_package(self, package_name: str, install: bool, installed: bool) -> None:
+        """
+        Add or Remove package in lists
+            install: add or remove
+        """
+        if self.to_remove(package_name):
+            self.pkg_list_removal.remove(package_name)
+        else:
+            if not install and installed:
+                self.pkg_list_removal.append(package_name)
+
+        if self.to_install(package_name):
+            self.pkg_list_install.remove(package_name)
+        else:
+            if install and not installed:
+                self.pkg_list_install.append(package_name)
+
+    def clear(self) -> None:
+        """clear lists packages"""
+        self.pkg_list_install = []
+        self.pkg_list_removal = []
+
+    def to_install(self, package_name) -> bool:
+        """package is in list ?"""
+        return package_name in self.pkg_list_install
+
+    def to_remove(self, package_name) -> bool:
+        """package is in list ?"""
+        return package_name in self.pkg_list_removal
+
+    @classmethod
+    def _install_apps(cls, pkg_list: list, install: bool = True) -> bool:
+        """
+        install or remove packages list
+        test presence first package in pacman DB
+        """
+        if not pkg_list:
+            return False
+        if not install:
+            install = ['--remove']
+        else:
+            install = []
+        try:
+            subprocess.run(['pamac-installer'] + install + pkg_list, capture_output=True, check=True)
+        except FileNotFoundError:
+            # next with pamac-qt its in all isos
+            logging.warning('ERROR: Pamac not installed !')
+            raise
+        except subprocess.CalledProcessError as e:
+            # e.returncode > 0
+            logging.warning(f"ERROR in alpm commit: {e.returncode} ?\n{e.stderr}")
+        # after test if "cancel" btn
+        if not install:
+            return cls.app_installed(pkg_list[0])
+        return not cls.app_installed(pkg_list[0])
+
+    @property
+    def empty(self):
+        """2 lists are empty ?"""
+        return not self.pkg_list_removal and not self.pkg_list_install
+
+    @staticmethod
+    def app_installed(package: str) -> bool:
+        """test if package is installed"""
+        if glob.glob(f"/var/lib/pacman/local/{package}-[0-9]*"):
+            return True
+        return False
+
+    def __str__(self):
+        return f"pkg list install: {self.pkg_list_install}\n pkg list removal: {self.pkg_list_removal}"

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+        <title>application-utility</title>
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="./css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="./js/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/highlight.pack.js"></script> 
+    </head>
+
+    <body class="homepage">
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href=".">application-utility</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href=".">Home</a>
+                    </li>
+                    <li >
+                        <a href="installation/">Installation</a>
+                    </li>
+                    <li >
+                        <a href="usage/">Usage</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li class="disabled">
+                        <a rel="next" >
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="installation/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/manjaro/application-utility/edit/master/docs/index.md"><i class="fa fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#name">NAME</a></li>
+        <li class="main "><a href="#synopsis">SYNOPSIS</a></li>
+        <li class="main "><a href="#description">DESCRIPTION</a></li>
+        <li class="main "><a href="#important">IMPORTANT</a></li>
+        <li class="main "><a href="#operation">OPERATION</a></li>
+        <li class="main "><a href="#network-connection">Network connection</a></li>
+            <li><a href="#modes">MODES</a></li>
+            <li><a href="#files-overview">FILES OVERVIEW</a></li>
+            <li><a href="#general-info-about-arguments">GENERAL INFO ABOUT ARGUMENTS</a></li>
+        <li class="main "><a href="#arguments-methods-and-options">ARGUMENTS, METHODS AND OPTIONS</a></li>
+            <li><a href="#methods">METHODS</a></li>
+            <li><a href="#api">API</a></li>
+            <li><a href="#misc">MISC</a></li>
+            <li><a href="#exit-status">Exit status:</a></li>
+            <li><a href="#configuration-flow-of-application-utility">Configuration flow of application-utility</a></li>
+            <li><a href="#api-arguments">API arguments</a></li>
+        <li class="main "><a href="#examples">EXAMPLES</a></li>
+            <li><a href="#commands">Commands</a></li>
+            <li><a href="#commands-requiring-sudo">Commands requiring sudo</a></li>
+            <li><a href="#advanced-use-samples-beware-of-the-dragons">Advanced use samples - BEWARE OF THE DRAGONS</a></li>
+        <li class="main "><a href="#more-info">MORE INFO</a></li>
+        <li class="main "><a href="#reporting-bugs">REPORTING BUGS</a></li>
+        <li class="main "><a href="#see-also">SEE ALSO</a></li>
+        <li class="main "><a href="#authors">AUTHORS</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>% application-utility(8) application-utility 4.10.x User Manual
+%
+% March, 2018</p>
+<h1 id="name">NAME</h1>
+<p>application-utility - generate pacman mirrorlist for Manjaro Linux</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p>application-utility [-h] [-f [NUMBER]] [-i [-d]] [-m METHOD]
+                [-c COUNTRY [COUNTRY...] | [--geoip]]
+                [-l] [-lc] [-q] [-s] [-t SECONDS] [-v] [-n]
+                [--api] [-S/-B BRANCH] [-p PREFIX]
+                        [-P PROTO [PROTO...]] [-R] [-U URL]</p>
+<h1 id="description">DESCRIPTION</h1>
+<p>Generates mirrorlist with up-to-date mirrors for Manjaro Linux.
+Default is to rank all mirrors by reponse time.
+If no arguments are given application-utility lists available options.
+application-utility requires access to files which are read-only
+so it must be run with <em>su</em> or <em>sudo</em>.</p>
+<p>To create a mirrorlist using all default use</p>
+<pre><code>application-utility -f
+</code></pre>
+<p>The mirrorlist generation process can be refined through arguments
+and arguments with options, for example</p>
+<pre><code>application-utility --country Denmark --timeout 5
+</code></pre>
+<h1 id="important">IMPORTANT</h1>
+<p>After all operations <em>ALWAYS</em> syncronize and update your system with</p>
+<pre><code>sudo pacman -Syyu
+</code></pre>
+<h1 id="operation">OPERATION</h1>
+<p>application-utility tries to provide <strong>ONLY</strong> up-to-date mirrors <strong>if</strong> they
+are available in your chosen mirror pool. This means - at any given time -
+the number of available mirrors will vary depending on when the mirror
+last syncronized with the master repo server. If no up-to-date mirrors
+is available in your chosen mirror pool, your mirror list will not be changed.
+This behavior can be overridden if so desired by using the <em>-s/--no-status</em> switch.</p>
+<h1 id="network-connection">Network connection</h1>
+<p>To be able to download the latest status file from repo.manjaro.org
+application-utility verifies network connection by opening up to
+three different websites. These sites are</p>
+<ol>
+<li>wikipedia.org</li>
+<li>github.com</li>
+<li>bitbucket.org</li>
+</ol>
+<p>The sites are chosen due to their generic nature and general availability.</p>
+<h2 id="modes">MODES</h2>
+<ol>
+<li>The number of mirrors</li>
+<li>application-utility -f [number]</li>
+<li>More control (custom mirror pool)</li>
+<li>-c COUNTRY[[,COUNTRY]...]</li>
+<li>Full control (custom mirror pool)</li>
+<li>-i [-d/--default]</li>
+</ol>
+<h2 id="files-overview">FILES OVERVIEW</h2>
+<ul>
+<li><strong>The configuration</strong>: <em><code>/etc/application-utility.conf</code></em></li>
+<li>The file holds configuration for application-utility.</li>
+<li><strong>The mirrorlist</strong>: <em><code>/etc/pacman.d/mirrorlist</code></em></li>
+<li>The file contains a number of servers which <code>pacman</code> uses to update your system.</li>
+<li><strong>Manjaro mirror pool</strong>: <em><code>/usr/share/application-utility/mirrors.json</code></em></li>
+<li>The worldwide mirrorpool comes with installation.</li>
+<li>At runtime the file is downloaded from Github and compared with the systems file.</li>
+<li>If the files differs, your local file will be replaced.</li>
+<li><strong>Manjaro mirror pool status</strong>: <em><code>/var/lib/application-utility/status.json</code></em></li>
+<li>The mirrorpool status file.</li>
+<li>It is the data you see displayed at repo.manjaro.org.</li>
+<li>The file is downloaded and saved on every run of application-utility.</li>
+<li><strong>Custom mirror pool</strong>: <em><code>/var/lib/application-utility/custom-mirrors.json</code></em></li>
+<li>The file is your custom mirror pool</li>
+<li>It is created using <strong><code>-i/--interactive</code></strong> or <strong><code>-c/--country</code></strong> argument.</li>
+</ul>
+<p>If you are stunned by this message</p>
+<pre><code>.: WARNING No mirrors in selection
+.: INFO The mirrors has not changed
+</code></pre>
+<p>This is not an error, it is a feature.
+The reason: You have limited your mirror pool too much and none of your selected mirrors are up-to-date.</p>
+<p><strong>Suggested solutions</strong>:</p>
+<ul>
+<li>Remove limitations on countries and/or protocols</li>
+<li>Do a complete reset of your list with <em><code>application-utility -c all -aP all</code></em></li>
+</ul>
+<h2 id="general-info-about-arguments">GENERAL INFO ABOUT ARGUMENTS</h2>
+<p>Some options are mutual exclusive and will throw an arguments error:</p>
+<ul>
+<li><strong>--country</strong>, <strong>--fasttrack</strong>, <strong>--geoip</strong></li>
+<li><strong>--fasttrack</strong> and <strong>--nostatus</strong></li>
+</ul>
+<p>Some arguments requires another argument present to have effect.
+If such conditions rise application-utility will throw an arguments error.</p>
+<p>The arguments can appear in any order except for arguments which takes additional options
+in which case the options must follow immediately after the argument with or without space,
+for example</p>
+<pre><code>application-utility -f
+application-utility -f 5
+application-utility -f5
+</code></pre>
+<p>application-utility always attempt to download the lastest available data
+from <a href="http://repo.manjaro.org">http://repo.manjaro.org</a>.
+These data is always used during mirrorlist generation to ensure that you connect to a mirror
+which is up-to-date for your systems branch.</p>
+<h1 id="arguments-methods-and-options">ARGUMENTS, METHODS AND OPTIONS</h1>
+<h2 id="methods">METHODS</h2>
+<p>-c, --country <em>COUNTRY</em> [[<em>COUNTRY</em>]...]
+:   Creates a custom mirror pool with supplied countries.</p>
+<p>-f, --fasttrack [<em>NUMBER</em>]
+:   Generates a random mirrorlist for the users current selected branch, mirrors are randomly selected from the users current mirror pool, either a custom pool or the default pool, the randomly selected mirrors are ranked by their current access time. The higher number the higher possibility of a fast mirror. If a number is given the resulting mirrorlist contains that number of servers.</p>
+<p>-i, --interactive [--default]
+:   This is a function designed to leave full control over countries, mirrors and protocols to the user. This function <strong>DOES NOT</strong> take into consideration up-to-date mirrors. The optional <strong>--default</strong> forces application-utility to load the default mirror file and ignore any preset custom pool, thus allowing for reselecting mirrors for a new custom pool.</p>
+<h2 id="api">API</h2>
+<p>-a, --api
+:   Instructs application-utility to activate processing of API arguments.</p>
+<p>-B, -S, --set-branch <em>BRANCH</em>
+:   Permanent change branch, using <em>stable</em>, <em>testing</em> or <em>unstable</em>.</p>
+<p>-p, --prefix <em>PREFIX</em>
+:   Add a path prefix to application-utility file-handling eg. <em>/mnt/install</em> or <em>$mnt</em>.</p>
+<p>-P, --proto, --protocols <em>PROTO</em> [<em>PROTO</em>] ...
+:   Write protocols to configuration,  using <em>all</em> or <em>http</em>, <em>https</em>, <em>ftp</em> and <em>ftps</em>.</p>
+<p>-R, --re-branch
+:   Replace branch in mirrorlist.</p>
+<p>-U, --url <em>URL</em>
+:   Replace mirrorlist with supplied url.</p>
+<h2 id="misc">MISC</h2>
+<p>-G, --get-branch
+:   Return branch from configuration.</p>
+<p>-g--geoip
+:   Use geolocation if possible, if geoip is not available all mirrors.</p>
+<p>-h, --help
+:   Show the help message.</p>
+<p>-l, --list, --country-list
+:   Lists available mirror countries.</p>
+<p>-lc, --country-config
+:   Lists custom selected countries.</p>
+<p>-m, --method <em>METHOD</em>
+:   Default method is <em>rank</em> but <em>random</em> can be selected.</p>
+<p>-n, --no-mirrorlist
+:   Use to skip generation of mirrorlist.</p>
+<p>-q, --quiet
+:   Make application-utility silent.</p>
+<p>-s, --no-status
+:   Ignore up-to-date status for system branch.</p>
+<p>-t, --timeout <em>SECONDS</em>
+:   Change the number of seconds waiting for a server response, SSL enabled mirrors has this value doubled to compensate for the time spent on exchanging encryption keys.</p>
+<p>-v, --version
+:   Show the version of application-utility.</p>
+<h2 id="exit-status">Exit status:</h2>
+<pre><code>0     : OK
+1     : Problem with argument
+2     : Problem accessing systemfiles
+3     : Missing mirror file
+BRANCH: Value from config
+</code></pre>
+<h2 id="configuration-flow-of-application-utility">Configuration flow of application-utility</h2>
+<p>At launch an internal default configuration is setup,
+file configuration is applied then the commandline is parsed and applied.</p>
+<h2 id="api-arguments">API arguments</h2>
+<p>The arguments modifies key elements of application-utility configuration according to the users needs.</p>
+<p>The actions performed by the API are in strict order and performed <em>before any</em> other actions.
+This also means that ordinary arguments supplied in conjunction with api might be ignored.
+Eg. <strong>-U</strong> argument terminates application-utility when branch and mirrorlist has been written.</p>
+<ol>
+<li>If <em>p</em>  <em>PREFIX</em></li>
+<li>add <em>PREFIX</em> to internal file configuration</li>
+<li>If <em>-S/-B</em> <em>BRANCH</em></li>
+<li>apply <em>BRANCH</em> to internal configuration</li>
+<li>replace branch in application-utility.conf with <em>BRANCH</em></li>
+<li>If <em>-U</em> <em>URL</em></li>
+<li>apply internal configuration to a mirrorlist with <em>URL</em></li>
+<li><em>sys.exit(0)</em></li>
+<li>If <em>-P</em> <em>PROTO</em> [<em>PROTO</em>] ...</li>
+<li>replace protocols in application-utility.conf with <em>PROTO</em></li>
+<li>If <em>-R</em></li>
+<li>replace branch in mirrorlist with <em>-S/-B</em> <em>BRANCH</em></li>
+</ol>
+<p>When done application-utility checks the internet connection and
+if possible download the latest datafiles for creating the mirrorlist.
+At this point it is possible to interrupt further processing.</p>
+<p>If the <em>-n/--no-mirrorlist</em> argument is present application-utility will now exit.</p>
+<h1 id="examples">EXAMPLES</h1>
+<p>Most optional arguments are self explaining others require explanation.
+The API functions is mainly designed to help packagers and iso-builders.
+However it can be of use for everyone because it takes the hazzle out of
+editing your application-utility configuration.</p>
+<h2 id="commands">Commands</h2>
+<ul>
+<li>
+<p>Which countries has mirrors?</p>
+<p><em>application-utility --country-list</em></p>
+</li>
+<li>
+<p>Which countries in my custom mirror pool</p>
+<p>*application-utility --country-config</p>
+</li>
+<li>
+<p>What branch am I on</p>
+<p><em>application-utility --get-branch</em></p>
+</li>
+</ul>
+<h2 id="commands-requiring-sudo">Commands requiring sudo</h2>
+<ul>
+<li>
+<p>I want to permanently change branch to unstable, use mirrors from Germany and France, use only https and http protocol in that order</p>
+<p><em>sudo application-utility --country Germany,France --api --set-branch unstable --procotol https http</em></p>
+</li>
+<li>
+<p>Create a mirrorlist with German mirrors</p>
+<p><em>sudo application-utility --country Germany</em></p>
+</li>
+<li>
+<p>If you want more countries in your mirrorlist add them they will be written to your custom mirror pool</p>
+<p><em>sudo application-utility --country Germany France Denmark</em></p>
+</li>
+<li>
+<p>Create a mirrorlist with 5 mirrors up-to-date on your branch</p>
+<p><em>sudo application-utility --fastrack 5</em></p>
+</li>
+<li>
+<p>I want to choose my mirrors</p>
+<p><em>sudo application-utility --interactive</em></p>
+</li>
+<li>
+<p>I have a custom mirror list and I want to create a new custom mirror list?</p>
+<p><em>sudo application-utility --interactive --default</em></p>
+</li>
+<li>
+<p>I have a custom mirror list - can I reset it?</p>
+<p><em>sudo application-utility --country all</em></p>
+</li>
+</ul>
+<h2 id="advanced-use-samples-beware-of-the-dragons">Advanced use samples - BEWARE OF THE DRAGONS</h2>
+<ul>
+<li>
+<p>Change system branch and dont change the mirrorlist</p>
+<p><em>sudo application-utility -naS unstable</em></p>
+</li>
+<li>
+<p>Change system branch and replace branch in mirrorlist and quit</p>
+<p><em>sudo application-utility -naRS unstable</em></p>
+</li>
+<li>
+<p>Change protocols you will accept but dont touch the mirrorlist</p>
+<p><em>sudo application-utility -naP https http</em></p>
+</li>
+<li>
+<p>A packager can write directly to a mounted systems datafiles using either a path or an environment variable replacing the branch in both configuration and mirrorlist leaving the mirrors as is</p>
+<p><em>sudo application-utility -anR -p $prefix -S $branch -P https</em></p>
+</li>
+<li>
+<p>It is also possible to specify a mirror in which case the mirrorlist is created and application-utility terminate</p>
+<p><em>sudo application-utility -ap $prefix -S $branch -U $url</em></p>
+</li>
+</ul>
+<h1 id="more-info">MORE INFO</h1>
+<ul>
+<li><a href="https://wiki.manjaro.org/index.php?title=application-utility">https://wiki.manjaro.org/index.php?title=application-utility</a></li>
+<li><a href="https://wiki.manjaro.org/index.php?title=Create_your_own_Custom_Mirrorlist">https://wiki.manjaro.org/index.php?title=Create_your_own_Custom_Mirrorlist</a></li>
+</ul>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p><a href="https://github.com/manjaro/application-utility/issues">https://github.com/manjaro/application-utility/issues</a></p>
+<h1 id="see-also">SEE ALSO</h1>
+<p>The application-utility source code and all documentation may be downloaded from <a href="https://github.com/manjaro/application-utility/archive/master.zip">https://github.com/manjaro/application-utility/archive/master.zip</a></p>
+<h1 id="authors">AUTHORS</h1>
+<pre><code>Esclapion &lt;esclapion@manjaro.org&gt;
+philm &lt;philm@manjaro.org&gt;
+Ramon Buldó &lt;rbuldo@gmail.com&gt;
+Hugo Posnic &lt;huluti@manjaro.org&gt;
+Frede Hundewadt &lt;echo ZmhAbWFuamFyby5vcmcK | base64 -d&gt;
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '.';</script>
+        <script src="./js/base.js"></script>
+        <script src="./search/require.js"></script>
+        <script src="./search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 0.17.3
+Build Date UTC : 2018-04-01 13:10:22
+-->

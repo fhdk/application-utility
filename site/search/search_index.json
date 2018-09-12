@@ -1,0 +1,149 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "% application-utility(8) application-utility 4.10.x User Manual\n%\n% March, 2018\n\n\nNAME\n\n\napplication-utility - generate pacman mirrorlist for Manjaro Linux\n\n\nSYNOPSIS\n\n\napplication-utility [-h] [-f [NUMBER]] [-i [-d]] [-m METHOD]\n                [-c COUNTRY [COUNTRY...] | [--geoip]]\n                [-l] [-lc] [-q] [-s] [-t SECONDS] [-v] [-n]\n                [--api] [-S/-B BRANCH] [-p PREFIX]\n                        [-P PROTO [PROTO...]] [-R] [-U URL]\n\n\nDESCRIPTION\n\n\nGenerates mirrorlist with up-to-date mirrors for Manjaro Linux.\nDefault is to rank all mirrors by reponse time.\nIf no arguments are given application-utility lists available options.\napplication-utility requires access to files which are read-only\nso it must be run with \nsu\n or \nsudo\n.\n\n\nTo create a mirrorlist using all default use\n\n\napplication-utility -f\n\n\n\nThe mirrorlist generation process can be refined through arguments\nand arguments with options, for example\n\n\napplication-utility --country Denmark --timeout 5\n\n\n\nIMPORTANT\n\n\nAfter all operations \nALWAYS\n syncronize and update your system with\n\n\nsudo pacman -Syyu\n\n\n\nOPERATION\n\n\napplication-utility tries to provide \nONLY\n up-to-date mirrors \nif\n they\nare available in your chosen mirror pool. This means - at any given time -\nthe number of available mirrors will vary depending on when the mirror\nlast syncronized with the master repo server. If no up-to-date mirrors\nis available in your chosen mirror pool, your mirror list will not be changed.\nThis behavior can be overridden if so desired by using the \n-s/--no-status\n switch.\n\n\nNetwork connection\n\n\nTo be able to download the latest status file from repo.manjaro.org\napplication-utility verifies network connection by opening up to\nthree different websites. These sites are\n\n\n\n\nwikipedia.org\n\n\ngithub.com\n\n\nbitbucket.org\n\n\n\n\nThe sites are chosen due to their generic nature and general availability.\n\n\nMODES\n\n\n\n\nThe number of mirrors\n\n\napplication-utility -f [number]\n\n\nMore control (custom mirror pool)\n\n\n-c COUNTRY[[,COUNTRY]...]\n\n\nFull control (custom mirror pool)\n\n\n-i [-d/--default]\n\n\n\n\nFILES OVERVIEW\n\n\n\n\nThe configuration\n: \n/etc/application-utility.conf\n\n\nThe file holds configuration for application-utility.\n\n\nThe mirrorlist\n: \n/etc/pacman.d/mirrorlist\n\n\nThe file contains a number of servers which \npacman\n uses to update your system.\n\n\nManjaro mirror pool\n: \n/usr/share/application-utility/mirrors.json\n\n\nThe worldwide mirrorpool comes with installation.\n\n\nAt runtime the file is downloaded from Github and compared with the systems file.\n\n\nIf the files differs, your local file will be replaced.\n\n\nManjaro mirror pool status\n: \n/var/lib/application-utility/status.json\n\n\nThe mirrorpool status file.\n\n\nIt is the data you see displayed at repo.manjaro.org.\n\n\nThe file is downloaded and saved on every run of application-utility.\n\n\nCustom mirror pool\n: \n/var/lib/application-utility/custom-mirrors.json\n\n\nThe file is your custom mirror pool\n\n\nIt is created using \n-i/--interactive\n or \n-c/--country\n argument.\n\n\n\n\nIf you are stunned by this message\n\n\n.: WARNING No mirrors in selection\n.: INFO The mirrors has not changed\n\n\n\nThis is not an error, it is a feature.\nThe reason: You have limited your mirror pool too much and none of your selected mirrors are up-to-date.\n\n\nSuggested solutions\n:\n\n\n\n\nRemove limitations on countries and/or protocols\n\n\nDo a complete reset of your list with \napplication-utility -c all -aP all\n\n\n\n\nGENERAL INFO ABOUT ARGUMENTS\n\n\nSome options are mutual exclusive and will throw an arguments error:\n\n\n\n\n--country\n, \n--fasttrack\n, \n--geoip\n\n\n--fasttrack\n and \n--nostatus\n\n\n\n\nSome arguments requires another argument present to have effect.\nIf such conditions rise application-utility will throw an arguments error.\n\n\nThe arguments can appear in any order except for arguments which takes additional options\nin which case the options must follow immediately after the argument with or without space,\nfor example\n\n\napplication-utility -f\napplication-utility -f 5\napplication-utility -f5\n\n\n\napplication-utility always attempt to download the lastest available data\nfrom \nhttp://repo.manjaro.org\n.\nThese data is always used during mirrorlist generation to ensure that you connect to a mirror\nwhich is up-to-date for your systems branch.\n\n\nARGUMENTS, METHODS AND OPTIONS\n\n\nMETHODS\n\n\n-c, --country \nCOUNTRY\n [[\nCOUNTRY\n]...]\n:   Creates a custom mirror pool with supplied countries.\n\n\n-f, --fasttrack [\nNUMBER\n]\n:   Generates a random mirrorlist for the users current selected branch, mirrors are randomly selected from the users current mirror pool, either a custom pool or the default pool, the randomly selected mirrors are ranked by their current access time. The higher number the higher possibility of a fast mirror. If a number is given the resulting mirrorlist contains that number of servers.\n\n\n-i, --interactive [--default]\n:   This is a function designed to leave full control over countries, mirrors and protocols to the user. This function \nDOES NOT\n take into consideration up-to-date mirrors. The optional \n--default\n forces application-utility to load the default mirror file and ignore any preset custom pool, thus allowing for reselecting mirrors for a new custom pool.\n\n\nAPI\n\n\n-a, --api\n:   Instructs application-utility to activate processing of API arguments.\n\n\n-B, -S, --set-branch \nBRANCH\n\n:   Permanent change branch, using \nstable\n, \ntesting\n or \nunstable\n.\n\n\n-p, --prefix \nPREFIX\n\n:   Add a path prefix to application-utility file-handling eg. \n/mnt/install\n or \n$mnt\n.\n\n\n-P, --proto, --protocols \nPROTO\n [\nPROTO\n] ...\n:   Write protocols to configuration,  using \nall\n or \nhttp\n, \nhttps\n, \nftp\n and \nftps\n.\n\n\n-R, --re-branch\n:   Replace branch in mirrorlist.\n\n\n-U, --url \nURL\n\n:   Replace mirrorlist with supplied url.\n\n\nMISC\n\n\n-G, --get-branch\n:   Return branch from configuration.\n\n\n-g--geoip\n:   Use geolocation if possible, if geoip is not available all mirrors.\n\n\n-h, --help\n:   Show the help message.\n\n\n-l, --list, --country-list\n:   Lists available mirror countries.\n\n\n-lc, --country-config\n:   Lists custom selected countries.\n\n\n-m, --method \nMETHOD\n\n:   Default method is \nrank\n but \nrandom\n can be selected.\n\n\n-n, --no-mirrorlist\n:   Use to skip generation of mirrorlist.\n\n\n-q, --quiet\n:   Make application-utility silent.\n\n\n-s, --no-status\n:   Ignore up-to-date status for system branch.\n\n\n-t, --timeout \nSECONDS\n\n:   Change the number of seconds waiting for a server response, SSL enabled mirrors has this value doubled to compensate for the time spent on exchanging encryption keys.\n\n\n-v, --version\n:   Show the version of application-utility.\n\n\nExit status:\n\n\n0     : OK\n1     : Problem with argument\n2     : Problem accessing systemfiles\n3     : Missing mirror file\nBRANCH: Value from config\n\n\n\nConfiguration flow of application-utility\n\n\nAt launch an internal default configuration is setup,\nfile configuration is applied then the commandline is parsed and applied.\n\n\nAPI arguments\n\n\nThe arguments modifies key elements of application-utility configuration according to the users needs.\n\n\nThe actions performed by the API are in strict order and performed \nbefore any\n other actions.\nThis also means that ordinary arguments supplied in conjunction with api might be ignored.\nEg. \n-U\n argument terminates application-utility when branch and mirrorlist has been written.\n\n\n\n\nIf \np\n  \nPREFIX\n\n\nadd \nPREFIX\n to internal file configuration\n\n\nIf \n-S/-B\n \nBRANCH\n\n\napply \nBRANCH\n to internal configuration\n\n\nreplace branch in application-utility.conf with \nBRANCH\n\n\nIf \n-U\n \nURL\n\n\napply internal configuration to a mirrorlist with \nURL\n\n\nsys.exit(0)\n\n\nIf \n-P\n \nPROTO\n [\nPROTO\n] ...\n\n\nreplace protocols in application-utility.conf with \nPROTO\n\n\nIf \n-R\n\n\nreplace branch in mirrorlist with \n-S/-B\n \nBRANCH\n\n\n\n\nWhen done application-utility checks the internet connection and\nif possible download the latest datafiles for creating the mirrorlist.\nAt this point it is possible to interrupt further processing.\n\n\nIf the \n-n/--no-mirrorlist\n argument is present application-utility will now exit.\n\n\nEXAMPLES\n\n\nMost optional arguments are self explaining others require explanation.\nThe API functions is mainly designed to help packagers and iso-builders.\nHowever it can be of use for everyone because it takes the hazzle out of\nediting your application-utility configuration.\n\n\nCommands\n\n\n\n\n\n\nWhich countries has mirrors?\n\n\napplication-utility --country-list\n\n\n\n\n\n\nWhich countries in my custom mirror pool\n\n\n*application-utility --country-config\n\n\n\n\n\n\nWhat branch am I on\n\n\napplication-utility --get-branch\n\n\n\n\n\n\nCommands requiring sudo\n\n\n\n\n\n\nI want to permanently change branch to unstable, use mirrors from Germany and France, use only https and http protocol in that order\n\n\nsudo application-utility --country Germany,France --api --set-branch unstable --procotol https http\n\n\n\n\n\n\nCreate a mirrorlist with German mirrors\n\n\nsudo application-utility --country Germany\n\n\n\n\n\n\nIf you want more countries in your mirrorlist add them they will be written to your custom mirror pool\n\n\nsudo application-utility --country Germany France Denmark\n\n\n\n\n\n\nCreate a mirrorlist with 5 mirrors up-to-date on your branch\n\n\nsudo application-utility --fastrack 5\n\n\n\n\n\n\nI want to choose my mirrors\n\n\nsudo application-utility --interactive\n\n\n\n\n\n\nI have a custom mirror list and I want to create a new custom mirror list?\n\n\nsudo application-utility --interactive --default\n\n\n\n\n\n\nI have a custom mirror list - can I reset it?\n\n\nsudo application-utility --country all\n\n\n\n\n\n\nAdvanced use samples - BEWARE OF THE DRAGONS\n\n\n\n\n\n\nChange system branch and dont change the mirrorlist\n\n\nsudo application-utility -naS unstable\n\n\n\n\n\n\nChange system branch and replace branch in mirrorlist and quit\n\n\nsudo application-utility -naRS unstable\n\n\n\n\n\n\nChange protocols you will accept but dont touch the mirrorlist\n\n\nsudo application-utility -naP https http\n\n\n\n\n\n\nA packager can write directly to a mounted systems datafiles using either a path or an environment variable replacing the branch in both configuration and mirrorlist leaving the mirrors as is\n\n\nsudo application-utility -anR -p $prefix -S $branch -P https\n\n\n\n\n\n\nIt is also possible to specify a mirror in which case the mirrorlist is created and application-utility terminate\n\n\nsudo application-utility -ap $prefix -S $branch -U $url\n\n\n\n\n\n\nMORE INFO\n\n\n\n\nhttps://wiki.manjaro.org/index.php?title=application-utility\n\n\nhttps://wiki.manjaro.org/index.php?title=Create_your_own_Custom_Mirrorlist\n\n\n\n\nREPORTING BUGS\n\n\nhttps://github.com/manjaro/application-utility/issues\n\n\nSEE ALSO\n\n\nThe application-utility source code and all documentation may be downloaded from \nhttps://github.com/manjaro/application-utility/archive/master.zip\n\n\nAUTHORS\n\n\nEsclapion <esclapion@manjaro.org>\nphilm <philm@manjaro.org>\nRamon Buld\u00f3 <rbuldo@gmail.com>\nHugo Posnic <huluti@manjaro.org>\nFrede Hundewadt <echo ZmhAbWFuamFyby5vcmcK | base64 -d>",
+            "title": "Home"
+        },
+        {
+            "location": "/#name",
+            "text": "application-utility - generate pacman mirrorlist for Manjaro Linux",
+            "title": "NAME"
+        },
+        {
+            "location": "/#synopsis",
+            "text": "application-utility [-h] [-f [NUMBER]] [-i [-d]] [-m METHOD]\n                [-c COUNTRY [COUNTRY...] | [--geoip]]\n                [-l] [-lc] [-q] [-s] [-t SECONDS] [-v] [-n]\n                [--api] [-S/-B BRANCH] [-p PREFIX]\n                        [-P PROTO [PROTO...]] [-R] [-U URL]",
+            "title": "SYNOPSIS"
+        },
+        {
+            "location": "/#description",
+            "text": "Generates mirrorlist with up-to-date mirrors for Manjaro Linux.\nDefault is to rank all mirrors by reponse time.\nIf no arguments are given application-utility lists available options.\napplication-utility requires access to files which are read-only\nso it must be run with  su  or  sudo .  To create a mirrorlist using all default use  application-utility -f  The mirrorlist generation process can be refined through arguments\nand arguments with options, for example  application-utility --country Denmark --timeout 5",
+            "title": "DESCRIPTION"
+        },
+        {
+            "location": "/#important",
+            "text": "After all operations  ALWAYS  syncronize and update your system with  sudo pacman -Syyu",
+            "title": "IMPORTANT"
+        },
+        {
+            "location": "/#operation",
+            "text": "application-utility tries to provide  ONLY  up-to-date mirrors  if  they\nare available in your chosen mirror pool. This means - at any given time -\nthe number of available mirrors will vary depending on when the mirror\nlast syncronized with the master repo server. If no up-to-date mirrors\nis available in your chosen mirror pool, your mirror list will not be changed.\nThis behavior can be overridden if so desired by using the  -s/--no-status  switch.",
+            "title": "OPERATION"
+        },
+        {
+            "location": "/#network-connection",
+            "text": "To be able to download the latest status file from repo.manjaro.org\napplication-utility verifies network connection by opening up to\nthree different websites. These sites are   wikipedia.org  github.com  bitbucket.org   The sites are chosen due to their generic nature and general availability.",
+            "title": "Network connection"
+        },
+        {
+            "location": "/#modes",
+            "text": "The number of mirrors  application-utility -f [number]  More control (custom mirror pool)  -c COUNTRY[[,COUNTRY]...]  Full control (custom mirror pool)  -i [-d/--default]",
+            "title": "MODES"
+        },
+        {
+            "location": "/#files-overview",
+            "text": "The configuration :  /etc/application-utility.conf  The file holds configuration for application-utility.  The mirrorlist :  /etc/pacman.d/mirrorlist  The file contains a number of servers which  pacman  uses to update your system.  Manjaro mirror pool :  /usr/share/application-utility/mirrors.json  The worldwide mirrorpool comes with installation.  At runtime the file is downloaded from Github and compared with the systems file.  If the files differs, your local file will be replaced.  Manjaro mirror pool status :  /var/lib/application-utility/status.json  The mirrorpool status file.  It is the data you see displayed at repo.manjaro.org.  The file is downloaded and saved on every run of application-utility.  Custom mirror pool :  /var/lib/application-utility/custom-mirrors.json  The file is your custom mirror pool  It is created using  -i/--interactive  or  -c/--country  argument.   If you are stunned by this message  .: WARNING No mirrors in selection\n.: INFO The mirrors has not changed  This is not an error, it is a feature.\nThe reason: You have limited your mirror pool too much and none of your selected mirrors are up-to-date.  Suggested solutions :   Remove limitations on countries and/or protocols  Do a complete reset of your list with  application-utility -c all -aP all",
+            "title": "FILES OVERVIEW"
+        },
+        {
+            "location": "/#general-info-about-arguments",
+            "text": "Some options are mutual exclusive and will throw an arguments error:   --country ,  --fasttrack ,  --geoip  --fasttrack  and  --nostatus   Some arguments requires another argument present to have effect.\nIf such conditions rise application-utility will throw an arguments error.  The arguments can appear in any order except for arguments which takes additional options\nin which case the options must follow immediately after the argument with or without space,\nfor example  application-utility -f\napplication-utility -f 5\napplication-utility -f5  application-utility always attempt to download the lastest available data\nfrom  http://repo.manjaro.org .\nThese data is always used during mirrorlist generation to ensure that you connect to a mirror\nwhich is up-to-date for your systems branch.",
+            "title": "GENERAL INFO ABOUT ARGUMENTS"
+        },
+        {
+            "location": "/#arguments-methods-and-options",
+            "text": "",
+            "title": "ARGUMENTS, METHODS AND OPTIONS"
+        },
+        {
+            "location": "/#methods",
+            "text": "-c, --country  COUNTRY  [[ COUNTRY ]...]\n:   Creates a custom mirror pool with supplied countries.  -f, --fasttrack [ NUMBER ]\n:   Generates a random mirrorlist for the users current selected branch, mirrors are randomly selected from the users current mirror pool, either a custom pool or the default pool, the randomly selected mirrors are ranked by their current access time. The higher number the higher possibility of a fast mirror. If a number is given the resulting mirrorlist contains that number of servers.  -i, --interactive [--default]\n:   This is a function designed to leave full control over countries, mirrors and protocols to the user. This function  DOES NOT  take into consideration up-to-date mirrors. The optional  --default  forces application-utility to load the default mirror file and ignore any preset custom pool, thus allowing for reselecting mirrors for a new custom pool.",
+            "title": "METHODS"
+        },
+        {
+            "location": "/#api",
+            "text": "-a, --api\n:   Instructs application-utility to activate processing of API arguments.  -B, -S, --set-branch  BRANCH \n:   Permanent change branch, using  stable ,  testing  or  unstable .  -p, --prefix  PREFIX \n:   Add a path prefix to application-utility file-handling eg.  /mnt/install  or  $mnt .  -P, --proto, --protocols  PROTO  [ PROTO ] ...\n:   Write protocols to configuration,  using  all  or  http ,  https ,  ftp  and  ftps .  -R, --re-branch\n:   Replace branch in mirrorlist.  -U, --url  URL \n:   Replace mirrorlist with supplied url.",
+            "title": "API"
+        },
+        {
+            "location": "/#misc",
+            "text": "-G, --get-branch\n:   Return branch from configuration.  -g--geoip\n:   Use geolocation if possible, if geoip is not available all mirrors.  -h, --help\n:   Show the help message.  -l, --list, --country-list\n:   Lists available mirror countries.  -lc, --country-config\n:   Lists custom selected countries.  -m, --method  METHOD \n:   Default method is  rank  but  random  can be selected.  -n, --no-mirrorlist\n:   Use to skip generation of mirrorlist.  -q, --quiet\n:   Make application-utility silent.  -s, --no-status\n:   Ignore up-to-date status for system branch.  -t, --timeout  SECONDS \n:   Change the number of seconds waiting for a server response, SSL enabled mirrors has this value doubled to compensate for the time spent on exchanging encryption keys.  -v, --version\n:   Show the version of application-utility.",
+            "title": "MISC"
+        },
+        {
+            "location": "/#exit-status",
+            "text": "0     : OK\n1     : Problem with argument\n2     : Problem accessing systemfiles\n3     : Missing mirror file\nBRANCH: Value from config",
+            "title": "Exit status:"
+        },
+        {
+            "location": "/#configuration-flow-of-application-utility",
+            "text": "At launch an internal default configuration is setup,\nfile configuration is applied then the commandline is parsed and applied.",
+            "title": "Configuration flow of application-utility"
+        },
+        {
+            "location": "/#api-arguments",
+            "text": "The arguments modifies key elements of application-utility configuration according to the users needs.  The actions performed by the API are in strict order and performed  before any  other actions.\nThis also means that ordinary arguments supplied in conjunction with api might be ignored.\nEg.  -U  argument terminates application-utility when branch and mirrorlist has been written.   If  p    PREFIX  add  PREFIX  to internal file configuration  If  -S/-B   BRANCH  apply  BRANCH  to internal configuration  replace branch in application-utility.conf with  BRANCH  If  -U   URL  apply internal configuration to a mirrorlist with  URL  sys.exit(0)  If  -P   PROTO  [ PROTO ] ...  replace protocols in application-utility.conf with  PROTO  If  -R  replace branch in mirrorlist with  -S/-B   BRANCH   When done application-utility checks the internet connection and\nif possible download the latest datafiles for creating the mirrorlist.\nAt this point it is possible to interrupt further processing.  If the  -n/--no-mirrorlist  argument is present application-utility will now exit.",
+            "title": "API arguments"
+        },
+        {
+            "location": "/#examples",
+            "text": "Most optional arguments are self explaining others require explanation.\nThe API functions is mainly designed to help packagers and iso-builders.\nHowever it can be of use for everyone because it takes the hazzle out of\nediting your application-utility configuration.",
+            "title": "EXAMPLES"
+        },
+        {
+            "location": "/#commands",
+            "text": "Which countries has mirrors?  application-utility --country-list    Which countries in my custom mirror pool  *application-utility --country-config    What branch am I on  application-utility --get-branch",
+            "title": "Commands"
+        },
+        {
+            "location": "/#commands-requiring-sudo",
+            "text": "I want to permanently change branch to unstable, use mirrors from Germany and France, use only https and http protocol in that order  sudo application-utility --country Germany,France --api --set-branch unstable --procotol https http    Create a mirrorlist with German mirrors  sudo application-utility --country Germany    If you want more countries in your mirrorlist add them they will be written to your custom mirror pool  sudo application-utility --country Germany France Denmark    Create a mirrorlist with 5 mirrors up-to-date on your branch  sudo application-utility --fastrack 5    I want to choose my mirrors  sudo application-utility --interactive    I have a custom mirror list and I want to create a new custom mirror list?  sudo application-utility --interactive --default    I have a custom mirror list - can I reset it?  sudo application-utility --country all",
+            "title": "Commands requiring sudo"
+        },
+        {
+            "location": "/#advanced-use-samples-beware-of-the-dragons",
+            "text": "Change system branch and dont change the mirrorlist  sudo application-utility -naS unstable    Change system branch and replace branch in mirrorlist and quit  sudo application-utility -naRS unstable    Change protocols you will accept but dont touch the mirrorlist  sudo application-utility -naP https http    A packager can write directly to a mounted systems datafiles using either a path or an environment variable replacing the branch in both configuration and mirrorlist leaving the mirrors as is  sudo application-utility -anR -p $prefix -S $branch -P https    It is also possible to specify a mirror in which case the mirrorlist is created and application-utility terminate  sudo application-utility -ap $prefix -S $branch -U $url",
+            "title": "Advanced use samples - BEWARE OF THE DRAGONS"
+        },
+        {
+            "location": "/#more-info",
+            "text": "https://wiki.manjaro.org/index.php?title=application-utility  https://wiki.manjaro.org/index.php?title=Create_your_own_Custom_Mirrorlist",
+            "title": "MORE INFO"
+        },
+        {
+            "location": "/#reporting-bugs",
+            "text": "https://github.com/manjaro/application-utility/issues",
+            "title": "REPORTING BUGS"
+        },
+        {
+            "location": "/#see-also",
+            "text": "The application-utility source code and all documentation may be downloaded from  https://github.com/manjaro/application-utility/archive/master.zip",
+            "title": "SEE ALSO"
+        },
+        {
+            "location": "/#authors",
+            "text": "Esclapion <esclapion@manjaro.org>\nphilm <philm@manjaro.org>\nRamon Buld\u00f3 <rbuldo@gmail.com>\nHugo Posnic <huluti@manjaro.org>\nFrede Hundewadt <echo ZmhAbWFuamFyby5vcmcK | base64 -d>",
+            "title": "AUTHORS"
+        },
+        {
+            "location": "/installation/",
+            "text": "Installation\n\n\nAt the command line:\n\n\n$ easy_install application-utility\n\n\n\nOr, if you have virtualenvwrapper installed::\n\n\n$ mkvirtualenv application-utility\n$ pip install application-utility",
+            "title": "Installation"
+        },
+        {
+            "location": "/installation/#installation",
+            "text": "At the command line:  $ easy_install application-utility  Or, if you have virtualenvwrapper installed::  $ mkvirtualenv application-utility\n$ pip install application-utility",
+            "title": "Installation"
+        },
+        {
+            "location": "/usage/",
+            "text": "Usage\n\n\nTo use application-utility in a Python project:\n\n\nimport pacman_mirrors",
+            "title": "Usage"
+        },
+        {
+            "location": "/usage/#usage",
+            "text": "To use application-utility in a Python project:  import pacman_mirrors",
+            "title": "Usage"
+        }
+    ]
+}
