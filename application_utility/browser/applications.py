@@ -16,10 +16,11 @@ from gi.repository import Pamac
 from .hello_config import HelloConfig
 from .config import Config
 from .alpm import Alpm
+from application_utility import __version__
 
 # Applications class constants
-VERSION = "0.8"
-TITLE = "Manjaro Application Utility {}".format(VERSION)
+
+TITLE = "Manjaro Application Utility {}".format(__version__)
 
 GROUP, ICON, PRESENT, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(8))
 
@@ -35,8 +36,7 @@ class Applications(Gtk.Box):
         self.app = "application-utility"
         if isinstance(self.config, HelloConfig):
             self.app = "manjaro-hello"
-            logging.debug("manjaro-hello", self.config)
-        self.detail_box = None
+        self.detail_box = Gtk.InfoBar()
 
         # set data
         self.app_store = list()
