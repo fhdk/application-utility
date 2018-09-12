@@ -13,25 +13,30 @@ class AppConfig(Config):
     for Stand-alone application
     """
 
+    def __init__(self):
+        super().__init__(application="application-utility")
+        self.url = None
+        self.file = None
+
     def load(self):
         """ load file or url by parameter console"""
-        self.pref = self.read_json_file(self._PREF_FILE)
+        self.pref = {"data-set": "default"}
         self.url = {"desktop": "", "main": ""}
-        self.file = {"desktop": "", "main": "/usr/share/{}/{}.json".format(
-            self.application, self.pref["data-set"])}
-
-        if self.dev:
-            self.file = {"desktop": "", "main": "share/{}.json".format(self.pref["data-set"])}
-        if len(sys.argv) > 1 and "--dev" not in sys.argv:
+        self.file = {"desktop": "", "main": f"{self._DATA_DIR}/default.json"}
+        if len(sys.argv) > 1:  # and not "--dev" in sys.argv:
             file = sys.argv[1]
             if os.path.isfile(file):
                 self.file["main"] = file
             else:
-                try:
-                    requests.get(file)
-                    # TODO save in self._JSON_MERGED
-                except ConnectionError:
-                    logging.critical('json data not found')
-                else:
-                    self.url["main"] = file
+                if file.startswith("http"):
+                    try:
+                        # TODO make only head() ?
+                        requests.get(file)
+                        self.url["main"] = file
+                        logging.info(f"json to use: [{self.url['main']}")
+                        # TODO save in self._JSONMERGED
+                    except ConnectionError:
+                        logging.critical('json data not found')
+                    # else:
+                    # self.file["main"] = file
         return self
