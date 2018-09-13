@@ -80,7 +80,7 @@ setup(
               'application_utility.translation',
               'application_utility.constants'],
     package_dir={'application_utility': 'application_utility'},
-    data_files=[('share/application-utility', ['desktop/application-utility.desktop']),
+    data_files=[('share/applications', ['desktop/application-utility.desktop']),
                 ('share/application-utility', ['share/advanced.json',
                                                'share/default.json',
                                                'share/preferences.json'])
