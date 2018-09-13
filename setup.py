@@ -80,10 +80,10 @@ setup(
               'application_utility.translation',
               'application_utility.constants'],
     package_dir={'application_utility': 'application_utility'},
-    data_files=[('desktop/application-utility.desktop', ['share/applications/application-utility.desktop']),
-                ('share/application-utility', ['share/advanced.json']),
-                ('share/application-utility', ['share/default.json']),
-                ('share/application-utility', ['share/preferences.json'])
+    data_files=[('share/application-utility', ['desktop/application-utility.desktop']),
+                ('share/application-utility', ['share/advanced.json',
+                                               'share/default.json',
+                                               'share/preferences.json'])
                 ],
     scripts=["scripts/manjaro-application-utility"],
     install_requires=requirements,
