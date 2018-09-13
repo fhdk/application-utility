@@ -67,11 +67,13 @@ class ApplicationBrowser(Gtk.Box):
             self.detail_label = Gtk.Label()
             self.detail_label.set_line_wrap(True)
             self.detail_box.pack_start(self.detail_label, expand=True, fill=True, padding=0)
+
             # label in Manjaro-Hello
             self.title_label = Gtk.Label()
             self.title_label.set_markup("<b>Manjaro Application Maintenance: </b>"
                                         " Select/Deselect apps you want to install/remove. "
                                         " <b>UPDATE SYSTEM</b> when ready. ")
+
         else:
             # stand alone title box
             self.title_box = Gtk.Box()
@@ -79,7 +81,7 @@ class ApplicationBrowser(Gtk.Box):
             title_image.set_size_request(100, 100)
             title_image.set_from_file("/usr/share/icons/manjaro/maia/96x96.png")
             self.title_box.pack_start(title_image, expand=False, fill=False, padding=0)
-            # label with hello and stand alone
+            # stand alone label
             self.title_label = Gtk.Label()
             self.title_label.set_markup("<b><big>Manjaro Application Maintenance</big></b>\n"
                                         "Select/Deselect apps you want to install/remove.\n"
