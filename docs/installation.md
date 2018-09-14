@@ -2,9 +2,9 @@
 
 At the command line:
 
-    $ easy_install 
+    easy_install
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv 
-    $ pip install 
+    mkvirtualenv
+    pip install

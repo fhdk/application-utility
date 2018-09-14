@@ -2,4 +2,4 @@
 
 To use  in a Python project:
 
-    import application_utility
+    import application_utility.browser

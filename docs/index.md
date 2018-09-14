@@ -4,8 +4,6 @@
 
 # NAME
 
-
-
 # SYNOPSIS
 
 # DESCRIPTION
