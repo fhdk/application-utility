@@ -96,7 +96,7 @@ Before you submit a pull request, check that it meets these guidelines:
 ## Developing environment
 
 * An editor of choice e.g.
-   * Visual Studio Code `yay -S visual-studio-code`
+   * Visual Studio Code `pamac install code`
    * PyCharm Community `pacman -Syu pycharm-community`
 * Pandoc converter `pacman -Syu pandoc`
 * Python environment
