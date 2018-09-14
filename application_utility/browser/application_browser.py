@@ -27,18 +27,17 @@ GROUP, ICON, PRESENT, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = lis
 class ApplicationBrowser(Gtk.Box):
     """Class Applications  with viw, title and btns"""
 
-    def __init__(self, config: Config, win: Gtk.Window, orientation=Gtk.Orientation.VERTICAL, spacing=1):
+    def __init__(self, config: Config, window: Gtk.Window, orientation=Gtk.Orientation.VERTICAL, spacing=1):
         super().__init__(orientation=orientation, spacing=spacing, expand=True)
         self.config = config
-        print(f"config: {dir(config)}")
         self.orientation = Gtk.Orientation.VERTICAL
-        self.parent = win
+        self.parent = window
         self.app = "application-utility"
         if isinstance(self.config, HelloConfig):
             self.app = "manjaro-hello"
         self.detail_box = Gtk.InfoBar()
 
-        # set data
+        # initialize data storage
         self.app_store = list()
         self.group_store = list()
         self.tree_view = Gtk.TreeView()
@@ -82,7 +81,7 @@ class ApplicationBrowser(Gtk.Box):
                 pix_buf48 = Gtk.IconTheme.get_default().load_icon(icon, 48, 0)
                 pix_buf64 = Gtk.IconTheme.get_default().load_icon(icon, 64, 0)
                 pix_buf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
-                win.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
+                window.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
             # stand alone title box
             self.title_box = Gtk.Box()
             title_image = Gtk.Image()
@@ -191,9 +190,9 @@ class ApplicationBrowser(Gtk.Box):
         tree_view.set_activate_on_single_click(True)
         tree_view.props.has_tooltip = True
         tree_view.connect("query-tooltip", self.on_query_tooltip_tree_view)
-        # if isinstance(self.config, HelloConfig):
-        #     # test Application detail
-        tree_view.connect("button-press-event", self.on_tree_dblclick)
+        if isinstance(self.config, HelloConfig):
+            # test Application detail
+            tree_view.connect("button-press-event", self.on_tree_dblclick)
 
         # column model: icon
         icon = Gtk.CellRendererPixbuf()
@@ -226,7 +225,7 @@ class ApplicationBrowser(Gtk.Box):
         # column model: install column
         toggle = Gtk.CellRendererToggle()
         toggle.connect("toggled", self.on_app_toggle)
-        column = Gtk.TreeViewColumn("Installed", toggle, active=ACTIVE)
+        column = Gtk.TreeViewColumn("Install/Installed", toggle, active=ACTIVE)
         # column.set_sizing(Gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_resizable(False)  # not possible with last :(
         column.set_max_width(40)
