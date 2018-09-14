@@ -17,7 +17,7 @@ class Data:
         self._json = []
         self.filter = ""
         self.group = "All"
-        self.desktop = os.environ.get("XDG_SESSION_DESKTOP", "?").lower()
+        self.desktop = [os.environ.get("XDG_SESSION_DESKTOP", "?").lower(), "?"]
 
     def load_from_file(self, filename: str = ''):
         """
@@ -30,6 +30,14 @@ class Data:
         # self.__dict__.update(self.json) ??
         # ValueError: dictionary update sequence element #0 has length 4; 2 is required
         # self.all()
+
+    # @property
+    # def filter(self) -> str:
+    #     return self.filter
+    #
+    # @filter.setter
+    # def filter(self, value: str) ->None:
+    #     self.filter = value
 
     @property
     def json(self) -> list:
@@ -77,7 +85,7 @@ class Data:
                     pass
 
                 """
-                add destop filters
+                add desktop filters
                     "desktop": ["kde","gnome"] = only for kde and gnome
                     "desktop": ["!kde","!gnome"] = all except for kde and gnome
                     -

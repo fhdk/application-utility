@@ -9,6 +9,7 @@ import sys
 
 from .browser.app_config import AppConfig
 from .browser.application_browser import ApplicationBrowser
+from application_utility.__init__ import __version__
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject, GdkPixbuf
@@ -23,23 +24,12 @@ class MainApp:
 
     def __init__(self):
         """main app window"""
-        window = Gtk.Window(title='Manjaro Application Utility', border_width=6)
+        window = Gtk.Window(title=f"Manjaro Application Utility {__version__}", border_width=6)
         window.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         window.connect('delete-event', Gtk.main_quit)
         window.connect('destroy', self.on_main_window_destroy)
 
         window.set_default_size(800, 650)
-
-        """
-        TODO ?
-        icon="system-software-install"
-        pixbuf24 = Gtk.IconTheme.get_default().load_icon(icon, 24, 0)
-        pixbuf32 = Gtk.IconTheme.get_default().load_icon(icon, 32, 0)
-        pixbuf48 = Gtk.IconTheme.get_default().load_icon(icon, 48, 0)
-        pixbuf64 = Gtk.IconTheme.get_default().load_icon(icon, 64, 0)
-        pixbuf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
-        self.set_icon_list([pixbuf24, pixbuf32, pixbuf48, pixbuf64, pixbuf96])
-        """
 
         self.main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         window.add(self.main_box)

@@ -75,6 +75,14 @@ class ApplicationBrowser(Gtk.Box):
                                         " <b>UPDATE SYSTEM</b> when ready. ")
 
         else:
+            if not isinstance(self.config, HelloConfig):
+                icon = "system-software-install"
+                pix_buf24 = Gtk.IconTheme.get_default().load_icon(icon, 24, 0)
+                pix_buf32 = Gtk.IconTheme.get_default().load_icon(icon, 32, 0)
+                pix_buf48 = Gtk.IconTheme.get_default().load_icon(icon, 48, 0)
+                pix_buf64 = Gtk.IconTheme.get_default().load_icon(icon, 64, 0)
+                pix_buf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
+                win.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
             # stand alone title box
             self.title_box = Gtk.Box()
             title_image = Gtk.Image()

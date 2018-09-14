@@ -23,14 +23,6 @@ class BaseConfig:
         """to override live iso ? desktop ?"""
         raise NotImplementedError
 
-    # @property
-    # def filter(self) ->str:
-    #     return self.apps.filter
-    #
-    # @filter.setter
-    # def filter(self, value: str) ->None:
-    #     self.apps.filter = value
-
     @staticmethod
     def read_json_file(filename, dictionary=True):
         """
