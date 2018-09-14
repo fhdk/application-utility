@@ -116,7 +116,7 @@ class ApplicationBrowser(Gtk.Box):
         self.update_system_button.set_sensitive(False)
 
         # Group filter
-        # exemple: https://gitlab.gnome.org/GNOME/pygobject/blob/master/examples/demo/demos/combobox.py#L90
+        # example: https://gitlab.gnome.org/GNOME/pygobject/blob/master/examples/demo/demos/combobox.py#L90
         self.group_store = self.load_groups_data()
         group_combo = Gtk.ComboBox.new_with_model(self.group_store)
         group_combo.connect("changed", self.on_group_filter_changed)
@@ -183,9 +183,9 @@ class ApplicationBrowser(Gtk.Box):
         tree_view.set_activate_on_single_click(True)
         tree_view.props.has_tooltip = True
         tree_view.connect("query-tooltip", self.on_query_tooltip_tree_view)
-        if isinstance(self.config, HelloConfig):
-            # test Application detail
-            tree_view.connect("button-press-event", self.on_tree_dblclick)
+        # if isinstance(self.config, HelloConfig):
+        #     # test Application detail
+        tree_view.connect("button-press-event", self.on_tree_dblclick)
 
         # column model: icon
         icon = Gtk.CellRendererPixbuf()

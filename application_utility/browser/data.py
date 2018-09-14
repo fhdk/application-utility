@@ -38,11 +38,16 @@ class Data:
             - desktop : self.desktop
             - advanced 0/1 : self.filter
         """
-        logging.debug("\n--- read datas.json with FILTERS ---\n")
+        logging.debug("\n--- read data.json with FILTERS ---\n")
         logging.debug(f"my desktop: {self.desktop}")
         logging.debug(f"filter    : {self.filter}")
         logging.debug(f"groups    : {self.group}")
-        ret = []
+        result = []
+        """
+        filter apps based on desktop
+        what about WM like openbox?
+        create a user choice?
+        """
         for group in self._json:
             if self.group != "All":
                 if group['name'] != self.group:
@@ -58,9 +63,10 @@ class Data:
                 # not in json file
                 pass
 
-            ret.append(
-                {"name": f"{group['name']}", "icon": f"{group['icon']}", "description": f"{group['description']}",
-                 "apps": []})
+            result.append({"name": f"{group['name']}",
+                           "icon": f"{group['icon']}",
+                           "description": f"{group['description']}",
+                           "apps": []})
 
             for app in group["apps"]:
                 try:
@@ -74,6 +80,8 @@ class Data:
                 add destop filters
                     "desktop": ["kde","gnome"] = only for kde and gnome
                     "desktop": ["!kde","!gnome"] = all except for kde and gnome
+                    -
+                    this should probably be a user choice
                 """
                 keys = app.get('desktop', [])
 
@@ -88,8 +96,8 @@ class Data:
                         logging.debug(f"\tfilter desktop(for): {app['name']} {app['desktop']} < {self.desktop}")
                         continue
 
-                ret[-1]["apps"].append(app)
-        return ret
+                result[-1]["apps"].append(app)
+        return result
 
     @classmethod
     def _read_json_file(cls, filename: str, dictionary: bool = True) -> list:

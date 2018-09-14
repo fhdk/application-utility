@@ -16,6 +16,7 @@ class Config(BaseConfig, Data):
     def __init__(self, application: str):
         BaseConfig.__init__(self, application)
         Data.__init__(self)
+        self.application = application
         self.load()
         self.merge_json()
 
@@ -28,7 +29,7 @@ class Config(BaseConfig, Data):
         """
         # write temp
         if self.url["main"]:
-            src = "/tmp/{self.application}-download.json"
+            src = f"/tmp/{self.application}-download.json"
             urllib.request.urlretrieve(self.url["main"], src)
             logging.info(f"URL: [{self.url['main']} downloaded")
         else:
