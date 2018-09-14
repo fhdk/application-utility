@@ -1,37 +1,32 @@
 # Contributing
 
-Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given.
+Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.
 
-You can contribute in many ways:
+You can contribute in many ways...
 
 ## Types of Contributions
 
 ### Report Bugs
 
-Report bugs at [Manjaro Gitlab](https://gitlab.manjaro.org/fhdk/).
+Report bugs at [Manjaro Gitlab](https://gitlab.manjaro.org/fhdk/application-utility/issues).
 
 If you are reporting a bug, please include:
 
-- Your operating system name and version.
+- Your Manjaro Edition.
 - Any details about your local setup that might be helpful in troubleshooting.
 - Detailed steps to reproduce the bug.
 
 ### Fix Bugs
 
-Look through the Gitlab issues for bugs. Anything tagged with "bug"
-is open to whoever wants to implement it.
+Look through the Gitlab issues for bugs. Anything tagged with "bug" is open to whoever wants to implement it.
 
 ### Implement Features
 
-Look through the Gitlab issues for features. Anything tagged with "feature"
-is open to whoever wants to implement it.
+Look through the Gitlab issues for features. Anything tagged with "feature" is open to whoever wants to implement it.
 
 ### Write Documentation
 
- could always use more documentation, whether as part of the
-official  docs, in docstrings, or even on the web in blog posts,
-articles, and such.
+The app could always use more documentation, whether as part of the official  docs, in docstrings, or even on the web in blog posts, articles, and such.
 
 ### Translations
 
@@ -39,7 +34,7 @@ Help us to ship  in your language by help translating.
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at [Manjaro Gitlab](https://gitlab.manjaro.org/fhdk//issues).
+The best way to send feedback is to file an issue at [Manjaro Gitlab](https://gitlab.manjaro.org/fhdk/application-utility/issues).
 
 If you are proposing a feature:
 
@@ -50,17 +45,18 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `` for local development.
+Ready to contribute? Here's how to set up `application-utility` for local development.
 
-* Fork the `` repo on GitHub.
+* Fork the `application-utility` repo on Manjaro Gitlab.
 * Clone your fork locally:
     
 ```
-$ git clone https://gitlab.manjaro.org/your-name-here/.git
+$ git clone https://gitlab.manjaro.org/your-name-here/application-utility.git
 ```
     
 * Install your local copy into a virtualenv. Assuming you have [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) installed, this is how you set up your fork for local development
 * Remember to `source /usr/bin/virtualenvwrapper.sh` to get the virtualenv CLI
+
 ```    
 $ mkvirtualenv 
 $ cd /
@@ -106,11 +102,10 @@ Before you submit a pull request, check that it meets these guidelines:
 * Python environment
 
 ```
-$ git clone https://gitlab.manjaro.org/fhdk/.git
+$ git clone https://gitlab.manjaro.org/fhdk/application-utility.git
 $ cd 
 $ sudo pacman -Syu python-pip python-virtualenvwrapper
 $ mkvirtualenv application-utility
 $ python setup.py develop
 $ pip install mkdocs babel
 ```
-
