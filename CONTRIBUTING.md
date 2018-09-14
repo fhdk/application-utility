@@ -109,8 +109,8 @@ Before you submit a pull request, check that it meets these guidelines:
 $ git clone https://gitlab.manjaro.org/fhdk/.git
 $ cd 
 $ sudo pacman -Syu python-pip python-virtualenvwrapper
-$ mkvirtualenv 
+$ mkvirtualenv application-utility
 $ python setup.py develop
-$ pip install mkdocs coverage babel flake8 npyscreen transifex-client
+$ pip install mkdocs babel
 ```
 
