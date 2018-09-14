@@ -33,9 +33,16 @@ class ApplicationBrowser(Gtk.Box):
         self.orientation = Gtk.Orientation.VERTICAL
         self.parent = window
         self.app = "application-utility"
-        if isinstance(self.config, HelloConfig):
-            self.app = "manjaro-hello"
-        self.detail_box = Gtk.InfoBar()
+        if not isinstance(self.config, HelloConfig):
+            icon = "system-software-install"
+            pix_buf24 = Gtk.IconTheme.get_default().load_icon(icon, 24, 0)
+            pix_buf32 = Gtk.IconTheme.get_default().load_icon(icon, 32, 0)
+            pix_buf48 = Gtk.IconTheme.get_default().load_icon(icon, 48, 0)
+            pix_buf64 = Gtk.IconTheme.get_default().load_icon(icon, 64, 0)
+            pix_buf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
+            window.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
+
+        self.info_bar_appstream = Gtk.InfoBar()
 
         # initialize data storage
         self.app_store = list()
@@ -46,82 +53,58 @@ class ApplicationBrowser(Gtk.Box):
         self.app_browser_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, expand=True)
         self.add(self.app_browser_box)
 
-        # create title box
-        if isinstance(self.config, HelloConfig):
-            # hello title box
-            self.title_box = Gtk.InfoBar()
-            self.title_box.set_message_type(Gtk.MessageType.INFO)
-            self.title_box.set_show_close_button(True)
-            self.title_box.set_revealed(True)
-            self.title_box.connect("response", self.on_remove_title_box)
+        # InfoBar title
+        self.info_bar_title = Gtk.InfoBar()
+        self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
+        self.info_bar_title.set_show_close_button(True)
+        self.info_bar_title.set_revealed(True)
+        self.info_bar_title.connect("response", self.on_remove_title_box)
+        # title label
+        self.title_label = Gtk.Label()
+        self.title_label.set_markup("<b>Manjaro Application Maintenance: </b>"
+                                    " Select/Deselect apps you want to install/remove. "
+                                    " <b>UPDATE SYSTEM</b> when ready. ")
+        # pack title info
+        self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
+        # pack title info to app browser box
+        self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
 
-            # panel appstream detail
-            self.detail_box = Gtk.InfoBar()
-            self.detail_box.set_message_type(Gtk.MessageType.INFO)
-            self.detail_box.set_show_close_button(True)
-            self.detail_box.set_revealed(True)
-            self.detail_box.connect("response", self.on_remove_detail_box)
-            self.app_browser_box.pack_end(self.detail_box, expand=False, fill=True, padding=0)
+        # InfoBar appstream detail
+        self.info_bar_appstream = Gtk.InfoBar()
+        self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
+        self.info_bar_appstream.set_show_close_button(True)
+        self.info_bar_appstream.set_revealed(True)
+        self.info_bar_appstream.connect("response", self.on_remove_detail_box)
+        # app stream data
+        self.detail_label = Gtk.Label()
+        self.detail_label.set_line_wrap(True)
+        self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
 
-            self.detail_label = Gtk.Label()
-            self.detail_label.set_line_wrap(True)
-            self.detail_box.pack_start(self.detail_label, expand=True, fill=True, padding=0)
-
-            # label in Manjaro-Hello
-            self.title_label = Gtk.Label()
-            self.title_label.set_markup("<b>Manjaro Application Maintenance: </b>"
-                                        " Select/Deselect apps you want to install/remove. "
-                                        " <b>UPDATE SYSTEM</b> when ready. ")
-
-        else:
-            if not isinstance(self.config, HelloConfig):
-                icon = "system-software-install"
-                pix_buf24 = Gtk.IconTheme.get_default().load_icon(icon, 24, 0)
-                pix_buf32 = Gtk.IconTheme.get_default().load_icon(icon, 32, 0)
-                pix_buf48 = Gtk.IconTheme.get_default().load_icon(icon, 48, 0)
-                pix_buf64 = Gtk.IconTheme.get_default().load_icon(icon, 64, 0)
-                pix_buf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
-                window.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
-            # stand alone title box
-            self.title_box = Gtk.Box()
-            title_image = Gtk.Image()
-            title_image.set_size_request(100, 100)
-            title_image.set_from_file("/usr/share/icons/manjaro/maia/96x96.png")
-            self.title_box.pack_start(title_image, expand=False, fill=False, padding=0)
-            # stand alone label
-            self.title_label = Gtk.Label()
-            self.title_label.set_markup("<b><big>Manjaro Application Maintenance</big></b>\n"
-                                        "Select/Deselect apps you want to install/remove.\n"
-                                        "Click <b>UPDATE SYSTEM</b> button when ready.\n")
-        self.title_box.pack_start(self.title_label, expand=True, fill=True, padding=0)
-
-        # pack title box to app browser box
-        self.app_browser_box.pack_start(self.title_box, expand=False, fill=True, padding=0)
+        # pack appstream info to app browser box
+        self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
 
         # button box
         self.button_box = Gtk.Box(spacing=10)
-
         # advanced button
         advanced_button = Gtk.ToggleButton(label="Advanced")
         advanced_button.set_tooltip_text("Toggle an extended selection of packages...")
         advanced_button.connect("clicked", self.on_advanced_clicked)
-
         # download button
         download_button = Gtk.Button(label="download")
         download_button.set_tooltip_text("Download the most recent selection of packages...")
         download_button.connect("clicked", self.on_download_clicked)
-
         # reset button
         reset_button = Gtk.Button(label="reset")
         download_button.set_tooltip_text("Reset your current selections...")
         reset_button.connect("clicked", self.on_reload_clicked)
-
         # update system button
         self.update_system_button = Gtk.Button(label="UPDATE SYSTEM")
         self.update_system_button.set_tooltip_text("Apply your current selections to the system...")
         self.update_system_button.connect("clicked", self.on_update_system_clicked)
         self.update_system_button.set_sensitive(False)
 
+        # pack advanced button
+        self.button_box.pack_start(advanced_button, expand=False, fill=False, padding=10)
         # Group filter
         # example: https://gitlab.gnome.org/GNOME/pygobject/blob/master/examples/demo/demos/combobox.py#L90
         self.group_store = self.load_groups_data()
@@ -131,14 +114,11 @@ class ApplicationBrowser(Gtk.Box):
         group_combo.pack_start(renderer_text, True)
         group_combo.add_attribute(renderer_text, "text", 0)
         group_combo.set_active(0)
-
         # pack group combo combo
         self.button_box.pack_start(group_combo, False, False, 10)
-
         # pack update system button
         self.button_box.pack_end(self.update_system_button, expand=False, fill=False, padding=10)
-
-        # with Hello, we have btn "HOME"
+        # with Hello, we have btn "HOME" so check if we are Manjaro Hello
         if not isinstance(self.config, HelloConfig):
             # create close button if stand alone
             close_button = Gtk.Button(label="close")
@@ -146,15 +126,11 @@ class ApplicationBrowser(Gtk.Box):
             close_button.connect("clicked", self.on_close_clicked)
             # pack close button
             self.button_box.pack_end(close_button, expand=False, fill=False, padding=10)
-
         # pack reload button
         self.button_box.pack_end(reset_button, expand=False, fill=False, padding=10)
 
         # pack download button
         self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
-
-        # pack advanced button
-        self.button_box.pack_end(advanced_button, expand=False, fill=False, padding=10)
 
         # pack app browser
         self.app_browser_box.pack_start(self.button_box, expand=False, fill=False, padding=10)
@@ -177,8 +153,8 @@ class ApplicationBrowser(Gtk.Box):
 
         # show time
         self.show_all()
-        if self.detail_box:
-            self.detail_box.hide()
+        if self.info_bar_appstream:
+            self.info_bar_appstream.hide()
 
     def create_view_tree(self):
         """create gtk view and model"""
@@ -190,9 +166,7 @@ class ApplicationBrowser(Gtk.Box):
         tree_view.set_activate_on_single_click(True)
         tree_view.props.has_tooltip = True
         tree_view.connect("query-tooltip", self.on_query_tooltip_tree_view)
-        if isinstance(self.config, HelloConfig):
-            # test Application detail
-            tree_view.connect("button-press-event", self.on_tree_dblclick)
+        tree_view.connect("button-press-event", self.on_tree_dblclick)
 
         # column model: icon
         icon = Gtk.CellRendererPixbuf()
@@ -235,7 +209,7 @@ class ApplicationBrowser(Gtk.Box):
         return tree_view, app_store
 
     def load_app_data(self):
-        # not use dataset for the moment
+        # not use data set for the moment
         store = Gtk.TreeStore(str, str, str, str, str, bool, str, bool)
         for group in self.config.json:
             if group["apps"]:  # if group is empty after filters
@@ -279,7 +253,10 @@ class ApplicationBrowser(Gtk.Box):
         return store
 
     def reload_app_data(self, refresh: bool = False):
-        """Refresh only if source json changed"""
+        """
+        Reload application data
+        :param refresh: Refresh only if source json changed
+        """
         self.alpm.clear()
         self.app_store.clear()
         if refresh:
@@ -292,8 +269,8 @@ class ApplicationBrowser(Gtk.Box):
             self.tree_view.expand_all()
 
     def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
-        if self.title_box:
-            self.title_box.hide()
+        if self.info_bar_title:
+            self.info_bar_title.hide()
             # Or not destroy ? for use set_title_box
             # self.title_box.destroy()
             # self.title_box = None
@@ -302,10 +279,10 @@ class ApplicationBrowser(Gtk.Box):
         while len(html) < 200:
             html = html + " "
         if isinstance(self.config, HelloConfig):
-            self.title_box.set_message_type(color)
+            self.info_bar_title.set_message_type(color)
             self.title_label.set_markup("<big>Manjaro Application Maintenance</big> " + html)
             self.title_label.set_markup(html)
-            self.title_box.show()
+            self.info_bar_title.show()
         else:
             dialog = Gtk.MessageDialog(self, parent=self.parent,
                                        message_type=color,
@@ -315,8 +292,8 @@ class ApplicationBrowser(Gtk.Box):
             dialog.destroy()
 
     def on_remove_detail_box(self, panel: Gtk.InfoBar, id: str):
-        if self.detail_box:
-            self.detail_box.hide()
+        if self.info_bar_appstream:
+            self.info_bar_appstream.hide()
 
     def set_detail_box(self, pkg: str):
         """
@@ -332,8 +309,7 @@ class ApplicationBrowser(Gtk.Box):
         as ?
         https://stackoverflow.com/questions/11549480/load-and-show-an-image-from-the-web-in-python-with-gtk-3
         """
-
-        if not self.title_box:
+        if not self.info_bar_title:
             return
 
         pkg = self.config(pkg)
@@ -345,8 +321,8 @@ class ApplicationBrowser(Gtk.Box):
 
         detail = db.get_pkg_details(pkg['pkg'], pkg['name'])
         if detail:
-            if self.title_box:
-                self.title_box.hide()
+            if self.info_bar_title:
+                self.info_bar_title.hide()
             if not detail.get_long_desc() and not detail.get_url():  # ? not detail.get_screenshot() ?
                 return
             # logging.info(dir(detail))
@@ -366,7 +342,7 @@ class ApplicationBrowser(Gtk.Box):
             # logging.info(detail.get_screenshot())
 
             self.detail_label.set_markup(html)
-            self.detail_box.show()
+            self.info_bar_appstream.show()
 
     def on_close_clicked(self, widget):
         Gtk.main_quit()

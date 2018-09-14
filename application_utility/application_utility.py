@@ -47,11 +47,10 @@ class MainApp:
 
     def main(self):
         logging.basicConfig(level=logging.DEBUG)
+        MainApp()
         Gtk.main()
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
-    m = MainApp()
-    m.main()
+    self.main()
 
