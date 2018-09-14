@@ -7,7 +7,7 @@ Package providing a simple application utility for Manjaro Linux.
 ## Features
 
 - A GUI for selecting common applications for installation or removal.
-- Integrates with Manjaro Hello 
+- Integrates with Manjaro Hello
 
 ## Technologies
 
