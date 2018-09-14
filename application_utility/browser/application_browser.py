@@ -6,17 +6,16 @@ import logging
 import os
 import urllib.request
 
+from .hello_config import HelloConfig
+from .config import Config
+from .alpm import Alpm
+from application_utility import __version__
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 gi.require_version('Pamac', '1.0')
 from gi.repository import Pamac
-
-from .hello_config import HelloConfig
-from .config import Config
-from .alpm import Alpm
-from application_utility import __version__
 
 # Applications class constants
 
@@ -31,6 +30,7 @@ class ApplicationBrowser(Gtk.Box):
     def __init__(self, config: Config, win: Gtk.Window, orientation=Gtk.Orientation.VERTICAL, spacing=1):
         super().__init__(orientation=orientation, spacing=spacing, expand=True)
         self.config = config
+        print(f"config: {dir(config)}")
         self.orientation = Gtk.Orientation.VERTICAL
         self.parent = win
         self.app = "application-utility"

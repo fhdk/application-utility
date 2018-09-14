@@ -45,13 +45,13 @@ class MainApp:
     def on_main_window_destroy(widget):
         Gtk.main_quit()
 
-    def run(self):
+    def main(self):
         logging.basicConfig(level=logging.DEBUG)
-        MainApp()
         Gtk.main()
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    MainApp()
-    Gtk.main()
+    m = MainApp()
+    m.main()
+
