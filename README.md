@@ -1,13 +1,14 @@
-# 
+# Manjaro Application Utility
 
-Package that provides a simple application utility for Manjaro Linux.
+Package providing a simple application utility for Manjaro Linux.
 
 - Free software: GPL license
 
 ## Features
 
 - A GUI for selecting common applications for installation or removal.
+- Integrates with Manjaro Hello 
 
 ## Technologies
 
- is build with Python and Gtk3.
+Manjaro Application Utility is build with Python and Gtk3.
