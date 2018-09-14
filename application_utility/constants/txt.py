@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with application-utility.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Authors: Frede Hundewadt <echo ZmhAbWFuamFyby5vcmcK | base64 -d>
+# Authors: fhdk
+#
 
 """application-utility Text Module"""
 
