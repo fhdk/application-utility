@@ -38,74 +38,73 @@ The best way to send feedback is to file an issue at [Manjaro Gitlab](https://gi
 
 If you are proposing a feature:
 
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+- Explain in detail how it would work.
+- Keep the scope as narrow as possible, to make it easier to implement.
+- Remember that this is a volunteer-driven project, and that contributions are welcome :)
 
-## Get Started!
+## Get Started
 
 Ready to contribute? Here's how to set up `application-utility` for local development.
 
-* Fork the `application-utility` repo on Manjaro Gitlab.
-* Clone your fork locally:
-    
-```
-$ git clone https://gitlab.manjaro.org/your-name-here/application-utility.git
-```
-    
-* Install your local copy into a virtualenv. Assuming you have [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) installed, this is how you set up your fork for local development
-* Remember to `source /usr/bin/virtualenvwrapper.sh` to get the virtualenv CLI
+- Fork the `application-utility` repo on Manjaro Gitlab.
+- Clone your fork locally:
 
-```    
-$ mkvirtualenv 
-$ cd /
-$ python setup.py develop
+```bash
+git clone https://gitlab.manjaro.org/your-name-here/application-utility.git
 ```
 
-* Create a branch for local development:
+- Install your local copy into a virtualenv. Assuming you have [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) installed, this is how you set up your fork for local development
+- Remember to `source /usr/bin/virtualenvwrapper.sh` to get the virtualenv CLI
 
+```bash
+mkvirtualenv
+cd /
+python setup.py develop
 ```
-$ git checkout -b name-of-your-bugfix-or-feature
+
+- Create a branch for local development:
+
+```bash
+git checkout -b name-of-your-bugfix-or-feature
 ```
 
    Now you can make your changes locally.
 
-* When you're done making changes, commit your changes and push your branch to gitlab:
+- When you're done making changes, commit your changes and push your branch to gitlab:
 
-```
-$ git add
-$ git commit -m "Your detailed description of your changes."
-$ git push origin name-of-your-bugfix-or-feature
+```bash
+git add
+git commit -m "Your detailed description of your changes."
+git push origin name-of-your-bugfix-or-feature
 ```
 
-* Submit a pull request through the Gitlab website.
+- Submit a pull request through the Gitlab website.
 
 ## Pull Request Guidelines
 
 Before you submit a pull request, check that it meets these guidelines:
 
-* The pull request should include tests.
-* If the pull request adds functionality, the docs should be updated. Put
+- The pull request should include tests.
+- If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.md.
 
 ## Tips
 
+### Developing environment
 
-## Developing environment
+An editor of choice e.g.
 
-* An editor of choice e.g.
-   * Visual Studio Code `pamac install code`
-   * PyCharm Community `pacman -Syu pycharm-community`
-* Pandoc converter `pacman -Syu pandoc`
-* Python environment
+- Visual Studio Code `pamac install code`
+- PyCharm Community `pacman -Syu pycharm-community`
+- Pandoc converter `pacman -Syu pandoc`
+- Python environment
 
-```
-$ git clone https://gitlab.manjaro.org/fhdk/application-utility.git
-$ cd 
-$ sudo pacman -Syu python-pip python-virtualenvwrapper
-$ mkvirtualenv application-utility
-$ python setup.py develop
-$ pip install mkdocs babel
+```bash
+git clone https://gitlab.manjaro.org/fhdk/application-utility.git
+cd
+sudo pacman -Syu python-pip python-virtualenvwrapper
+mkvirtualenv application-utility
+python setup.py develop
+pip install mkdocs babel flake8
 ```
