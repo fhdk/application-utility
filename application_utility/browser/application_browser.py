@@ -97,14 +97,13 @@ class ApplicationBrowser(Gtk.Box):
         reset_button = Gtk.Button(label="reset")
         download_button.set_tooltip_text("Reset your current selections...")
         reset_button.connect("clicked", self.on_reload_clicked)
+
         # update system button
         self.update_system_button = Gtk.Button(label="UPDATE SYSTEM")
         self.update_system_button.set_tooltip_text("Apply your current selections to the system...")
         self.update_system_button.connect("clicked", self.on_update_system_clicked)
         self.update_system_button.set_sensitive(False)
 
-        # pack advanced button
-        self.button_box.pack_start(advanced_button, expand=False, fill=False, padding=10)
         # Group filter
         # example: https://gitlab.gnome.org/GNOME/pygobject/blob/master/examples/demo/demos/combobox.py#L90
         self.group_store = self.load_groups_data()
@@ -114,10 +113,17 @@ class ApplicationBrowser(Gtk.Box):
         group_combo.pack_start(renderer_text, True)
         group_combo.add_attribute(renderer_text, "text", 0)
         group_combo.set_active(0)
-        # pack group combo combo
+
+        # Packing button box
+        # advanced button
+        self.button_box.pack_start(advanced_button, expand=False, fill=False, padding=10)
+
+        # group combo combo
         self.button_box.pack_start(group_combo, False, False, 10)
-        # pack update system button
+
+        # update system button
         self.button_box.pack_end(self.update_system_button, expand=False, fill=False, padding=10)
+
         # with Hello, we have btn "HOME" so check if we are Manjaro Hello
         if not isinstance(self.config, HelloConfig):
             # create close button if stand alone
@@ -126,28 +132,31 @@ class ApplicationBrowser(Gtk.Box):
             close_button.connect("clicked", self.on_close_clicked)
             # pack close button
             self.button_box.pack_end(close_button, expand=False, fill=False, padding=10)
-        # pack reload button
+
+        # reload button
         self.button_box.pack_end(reset_button, expand=False, fill=False, padding=10)
 
-        # pack download button
+        # download button
         self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
 
-        # pack app browser
+        # pack button box to app browser
         self.app_browser_box.pack_start(self.button_box, expand=False, fill=False, padding=10)
 
-        # create view
+        # create view and app store
         self.tree_view, self.app_store = self.create_view_tree()
 
         # create a scrollable window
         app_window = Gtk.ScrolledWindow()
         app_window.set_vexpand(True)
         app_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        # add window to tree view
         app_window.add(self.tree_view)
 
         # setup grid
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_homogeneous(True)
+        # add grid to app browser
         self.app_browser_box.add(grid)
         grid.attach(app_window, 0, 0, 5, len(self.app_store))
 
@@ -200,6 +209,7 @@ class ApplicationBrowser(Gtk.Box):
         toggle = Gtk.CellRendererToggle()
         toggle.connect("toggled", self.on_app_toggle)
         column = Gtk.TreeViewColumn("Install/Installed", toggle, active=ACTIVE)
+
         # column.set_sizing(Gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_resizable(False)  # not possible with last :(
         column.set_max_width(40)
