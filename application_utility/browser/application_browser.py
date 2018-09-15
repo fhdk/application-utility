@@ -214,6 +214,7 @@ class ApplicationBrowser(Gtk.Box):
         renderer = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn(f"{txt.COL_APPLICATION}", renderer, text=APPLICATION)
         # column.set_resizable(False)
+        column.set_cell_data_func(renderer, self.treeview_cell_app_data_function, None)
         tree_view.append_column(column)
 
         # column model: description column
@@ -300,6 +301,14 @@ class ApplicationBrowser(Gtk.Box):
         """hide checkbox for groups"""
         value = model.get(iter_a, GROUP)
         renderer_cell.set_visible(not value[0])
+
+    def treeview_cell_app_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
+        """change font if installed"""
+        value = model.get(iter_a, INSTALLED)
+        if value[0]:
+            renderer_cell.props.weight = 600
+        else:
+            renderer_cell.props.weight = 400
 
     def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
         if self.info_bar_title:
