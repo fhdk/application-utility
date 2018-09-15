@@ -226,6 +226,7 @@ class ApplicationBrowser(Gtk.Box):
         toggle = Gtk.CellRendererToggle()
         toggle.connect("toggled", self.on_app_toggle)
         column = Gtk.TreeViewColumn(f"{txt.COL_ACTION}", toggle, active=ACTIVE)
+        column.set_cell_data_func(toggle, self.treeview_cell_check_data_function, None)
 
         # column.set_sizing(Gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_resizable(False)  # not possible with last :(
@@ -294,6 +295,11 @@ class ApplicationBrowser(Gtk.Box):
         self.tree_view.set_model(self.app_store)
         if self.config.group != "*":
             self.tree_view.expand_all()
+
+    def treeview_cell_check_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
+        """hide checkbox for groups"""
+        value = model.get(iter_a, GROUP)
+        renderer_cell.set_visible(not value[0])
 
     def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
         if self.info_bar_title:
