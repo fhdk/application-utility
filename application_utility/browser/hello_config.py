@@ -40,10 +40,10 @@ class HelloConfig(Config):
                 logging.basicConfig(level=logging.DEBUG)
             else:
                 logging.basicConfig(level=logging.DEBUG)
-        logging.debug("_PREF_FILE is", self._PREF_FILE)
+        logging.debug("_PREF_FILE is %s", self._PREF_FILE)
         self.pref = self.read_json_file(self._PREF_FILE)
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": f"{self._DATA_DIR}/{self.pref['data-set']}.json"}
-        logging.debug("self.file is", self.file)
+        logging.debug("self.file is %s", self.file)
         return self
