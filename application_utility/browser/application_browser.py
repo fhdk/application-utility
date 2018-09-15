@@ -39,7 +39,7 @@ from gi.repository import Pamac
 
 TITLE = f"{txt.MAU} v.{__version__}"
 
-GROUP, ICON, PRESENT, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(8))
+GROUP, ICON, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(7))
 
 
 class ApplicationBrowser(Gtk.Box):
@@ -204,12 +204,6 @@ class ApplicationBrowser(Gtk.Box):
         column = Gtk.TreeViewColumn(f"{txt.COL_GROUP}", renderer, text=GROUP)
         tree_view.append_column(column)
 
-        # column model: installed or not column
-        renderer = Gtk.CellRendererText()  # TODO a renderer icon "check" in same column "name" ?
-        column = Gtk.TreeViewColumn("", renderer, text=PRESENT)
-        column.set_max_width(17)
-        tree_view.append_column(column)
-
         # column model: app name column
         renderer = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn(f"{txt.COL_APPLICATION}", renderer, text=APPLICATION)
@@ -239,7 +233,7 @@ class ApplicationBrowser(Gtk.Box):
 
     def load_app_data(self):
         # not use data set for the moment
-        store = Gtk.TreeStore(str, str, str, str, str, bool, str, bool)
+        store = Gtk.TreeStore(str, str, str, str, bool, str, bool)
         for group in self.config.json:
             if group["apps"]:  # if group is empty after filters
                 g_desc = group["description"]
@@ -248,7 +242,7 @@ class ApplicationBrowser(Gtk.Box):
                 index = store.append(None,
                                      [group["name"],
                                       group["icon"],
-                                      None, None, g_desc, None, None, None])
+                                      None, g_desc, None, None, None])
                 for app in group["apps"]:
                     status = app["installed"]
                     installed = " "
@@ -264,7 +258,6 @@ class ApplicationBrowser(Gtk.Box):
 
                     tree_item = (None,
                                  app["icon"],
-                                 installed,  # check is to install or installed ? not clear for user
                                  app["name"],
                                  app["description"],
                                  status,
