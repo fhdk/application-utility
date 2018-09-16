@@ -83,7 +83,8 @@ setup(
     data_files=[('share/applications', ['desktop/application-utility.desktop']),
                 ('share/application-utility', ['share/advanced.json',
                                                'share/default.json',
-                                               'share/preferences.json'])
+                                               'share/preferences.json']),
+                ('share/locale/da/LC_MESSAGES', ['locale/da/LC_MESSAGES/application_utility.mo']),
                 ],
     scripts=["scripts/manjaro-application-utility"],
     install_requires=requirements,
