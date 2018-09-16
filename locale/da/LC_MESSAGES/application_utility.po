@@ -1,0 +1,119 @@
+# Translations template for application-utility.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the application-utility
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: application-utility 1.0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-09-16 18:43+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: application_utility/constants/txt.py:29
+msgid "Manjaro Application Maintenance"
+msgstr "Manjaro Program Vedligeholdelse"
+
+#: application_utility/constants/txt.py:30
+msgid "Manjaro Program Hjælper"
+msgstr ""
+
+#: application_utility/constants/txt.py:31
+msgid "Select/Deselect apps you want to install/remove"
+msgstr "Vælg/Fravælg programmer du vil installere/fjerne"
+
+#: application_utility/constants/txt.py:32
+msgid "when ready"
+msgstr "når du er klar"
+
+#: application_utility/constants/txt.py:34
+msgid "advanced"
+msgstr "avanceret"
+
+#: application_utility/constants/txt.py:35
+msgid "Toggle an extended selection of packages"
+msgstr "Skift til et udvidet udvalg af programmer"
+
+#: application_utility/constants/txt.py:36
+msgid "download"
+msgstr "download"
+
+#: application_utility/constants/txt.py:37
+msgid "Download the most recent selection of packages"
+msgstr "Download det seneste program udvalg"
+
+#: application_utility/constants/txt.py:38
+msgid "reset"
+msgstr "nulstil"
+
+#: application_utility/constants/txt.py:39
+msgid "Reset your current selections"
+msgstr "Nulstil dine nuværende valg"
+
+#: application_utility/constants/txt.py:40
+msgid "UPDATE SYSTEM"
+msgstr "OPDATER SYSTEMET"
+
+#: application_utility/constants/txt.py:41
+msgid "Apply your current selections to the system"
+msgstr "Opdater systemet med dine nuværende valg"
+
+#: application_utility/constants/txt.py:42
+msgid "close"
+msgstr "luk"
+
+#: application_utility/constants/txt.py:43
+msgid "Discard selections and close app"
+msgstr "Ignorer alle valg og luk programmet"
+
+#: application_utility/constants/txt.py:45
+msgid "Group"
+msgstr "Gruppe"
+
+#: application_utility/constants/txt.py:46
+msgid "Application"
+msgstr "Program"
+
+#: application_utility/constants/txt.py:47
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: application_utility/constants/txt.py:48
+msgid "Install/Remove"
+msgstr "Tilføj/Fjern"
+
+#: application_utility/constants/txt.py:49
+msgid "Installed"
+msgstr "Installeret"
+
+#: application_utility/constants/txt.py:50
+msgid "to remove"
+msgstr "bliver fjernes"
+
+#: application_utility/constants/txt.py:52
+msgid "Your selections has been reset"
+msgstr "Dine valg er nulstillet"
+
+#: application_utility/constants/txt.py:53
+msgid "App data has been downloaded and list is reset"
+msgstr "Program udvalget er hentet og listen nulstillet"
+
+#: application_utility/constants/txt.py:54
+msgid "Your system has been updated"
+msgstr "Dit system er nu opdateret"
+
+#: application_utility/constants/txt.py:55
+msgid "Download not available"
+msgstr "Download er ikke tilgængelig"
+
+#: application_utility/constants/txt.py:56
+msgid "server could not be reached"
+msgstr "server kan ikke kontaktes"
+
