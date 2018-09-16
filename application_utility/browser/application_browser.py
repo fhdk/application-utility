@@ -289,6 +289,7 @@ class ApplicationBrowser(Gtk.Box):
         self.tree_view.set_model(self.app_store)
         if self.config.group != "*":
             self.tree_view.expand_all()
+        self.update_system_button.set_sensitive(not self.alpm.empty)
 
     def treeview_cell_check_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
         """hide checkbox for groups"""
