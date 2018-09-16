@@ -43,3 +43,15 @@ dist: clean
 
 install:
 	python setup.py install --root=$(DESTDIR) --optimize=1
+
+pot-file:
+	python setup.py extract_messages --output-file locale/application_utility.pot
+
+push-pot:
+	tx push -s
+
+pull-po:
+	tx pull -a
+
+mo-files:
+	python setup.py compile_catalog --directory locale --domain application_utility
