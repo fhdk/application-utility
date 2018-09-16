@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # This file is part of application-utility.
 #
@@ -23,4 +23,39 @@
 from application_utility.translation import i18n
 
 _ = i18n.language.gettext
+# gitlab
+GITLAB = "gitlab.manjaro.org"
+# header
+MAM = _("Manjaro Application Maintenance")
+MAU = _("Manjaro Application Utility")
+SELECT_APPS = _("Select/Deselect apps you want to install/remove")
+WHEN_READY = _("when ready")
+# buttons
+BTN_ADVANCED = _("advanced")
+BTN_ADVANCED_TIP = _("Toggle an extended selection of packages")
+BTN_DOWNLOAD = _("download")
+BTN_DOWNLOAD_TIP = _("Download the most recent selection of packages")
+BTN_RESET = _("reset")
+BTN_RESET_TIP = _("Reset your current selections...")
+BTN_UPDATE_SYSTEM = _("UPDATE SYSTEM")
+BTN_UPDATE_SYSTEM_TIP = _("Apply your current selections to the system")
+BTN_CLOSE = _("close")
+BTN_CLOSE_TIP = _("Discard selections and close app")
+# tree view columns
+COL_GROUP = _("Group")
+COL_APPLICATION = _("Application")
+COL_DESCRIPTION = _("Description")
+COL_ACTION = _("Install/Remove")
+PKG_INSTALLED_TIP = _("Installed")
+PKG_REMOVE_TIP = _("to remove")
+# message
+SELECTION_RESET = _("Your selections has been reset")
+DOWNLOAD_COMPLETE = _("App data has been downloaded and list is reset")
+SYSTEM_UPDATED = _("Your system has been updated")
+DOWNLOAD_NA = _("Download not available")
+SERVER_NA = _("server could not be reached")
+
+
+
+
 

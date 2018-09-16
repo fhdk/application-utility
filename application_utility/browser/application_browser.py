@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # This file is part of application-utility.
 #
@@ -28,6 +28,7 @@ from .hello_config import HelloConfig
 from .config import Config
 from .alpm import Alpm
 from application_utility import __version__
+from application_utility.constants import txt
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -37,7 +38,7 @@ from gi.repository import Pamac
 
 # Applications class constants
 
-TITLE = "Manjaro Application Utility {}".format(__version__)
+TITLE = f"{txt.MAU} v.{__version__}"
 
 GROUP, ICON, PRESENT, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(8))
 
@@ -79,9 +80,8 @@ class ApplicationBrowser(Gtk.Box):
         self.info_bar_title.connect("response", self.on_remove_title_box)
         # title label
         self.title_label = Gtk.Label()
-        self.title_label.set_markup("<b>Manjaro Application Maintenance: </b>"
-                                    " Select/Deselect apps you want to install/remove. "
-                                    " <b>UPDATE SYSTEM</b> when ready. ")
+        self.title_label.set_markup(f"<b>{txt.MAM}: </b> "
+                                    f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
         # pack title info
         self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
         # pack title info to app browser box
@@ -104,21 +104,21 @@ class ApplicationBrowser(Gtk.Box):
         # button box
         self.button_box = Gtk.Box(spacing=10)
         # advanced button
-        advanced_button = Gtk.ToggleButton(label="Advanced")
-        advanced_button.set_tooltip_text("Toggle an extended selection of packages...")
+        advanced_button = Gtk.ToggleButton(label=f"{txt.BTN_ADVANCED}")
+        advanced_button.set_tooltip_text(f"{txt.BTN_ADVANCED_TIP}")
         advanced_button.connect("clicked", self.on_advanced_clicked)
         # download button
-        download_button = Gtk.Button(label="download")
-        download_button.set_tooltip_text("Download the most recent selection of packages...")
+        download_button = Gtk.Button(label=f"{txt.BTN_DOWNLOAD}")
+        download_button.set_tooltip_text(f"{txt.BTN_DOWNLOAD_TIP}")
         download_button.connect("clicked", self.on_download_clicked)
         # reset button
-        reset_button = Gtk.Button(label="reset")
-        download_button.set_tooltip_text("Reset your current selections...")
+        reset_button = Gtk.Button(label=f"{txt.BTN_RESET}")
+        download_button.set_tooltip_text(f"{txt.BTN_RESET_TIP}")
         reset_button.connect("clicked", self.on_reload_clicked)
 
         # update system button
-        self.update_system_button = Gtk.Button(label="UPDATE SYSTEM")
-        self.update_system_button.set_tooltip_text("Apply your current selections to the system...")
+        self.update_system_button = Gtk.Button(label=f"{txt.BTN_UPDATE_SYSTEM}")
+        self.update_system_button.set_tooltip_text(f"{txt.BTN_UPDATE_SYSTEM_TIP}")
         self.update_system_button.connect("clicked", self.on_update_system_clicked)
         self.update_system_button.set_sensitive(False)
 
@@ -145,8 +145,8 @@ class ApplicationBrowser(Gtk.Box):
         # with Hello, we have btn "HOME" so check if we are Manjaro Hello
         if not isinstance(self.config, HelloConfig):
             # create close button if stand alone
-            close_button = Gtk.Button(label="close")
-            close_button.set_tooltip_text("Discard selections and close app...")
+            close_button = Gtk.Button(label=f"{txt.BTN_CLOSE}")
+            close_button.set_tooltip_text(f"{txt.BTN_CLOSE_TIP}")
             close_button.connect("clicked", self.on_close_clicked)
             # pack close button
             self.button_box.pack_end(close_button, expand=False, fill=False, padding=10)
@@ -202,7 +202,7 @@ class ApplicationBrowser(Gtk.Box):
 
         # column model: group name column
         renderer = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Group", renderer, text=GROUP)
+        column = Gtk.TreeViewColumn(f"{txt.COL_GROUP}", renderer, text=GROUP)
         tree_view.append_column(column)
 
         # column model: installed or not column
@@ -213,20 +213,20 @@ class ApplicationBrowser(Gtk.Box):
 
         # column model: app name column
         renderer = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Application", renderer, text=APPLICATION)
+        column = Gtk.TreeViewColumn(f"{txt.COL_APPLICATION}", renderer, text=APPLICATION)
         # column.set_resizable(False)
         tree_view.append_column(column)
 
         # column model: description column
         renderer = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Description", renderer, text=DESCRIPTION)
+        column = Gtk.TreeViewColumn(f"{txt.COL_DESCRIPTION}", renderer, text=DESCRIPTION)
         column.set_resizable(True)  # for test
         tree_view.append_column(column)
 
         # column model: install column
         toggle = Gtk.CellRendererToggle()
         toggle.connect("toggled", self.on_app_toggle)
-        column = Gtk.TreeViewColumn("Install/Installed", toggle, active=ACTIVE)
+        column = Gtk.TreeViewColumn(f"{txt.COL_ACTION}", toggle, active=ACTIVE)
 
         # column.set_sizing(Gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_resizable(False)  # not possible with last :(
@@ -275,7 +275,7 @@ class ApplicationBrowser(Gtk.Box):
     def load_groups_data(self):
         """create gtk store and set data"""
         store = Gtk.ListStore(str)
-        store.append(["All"])
+        store.append(["*"])
         for g in self.config.categories:
             store.append([g])
         return store
@@ -293,7 +293,7 @@ class ApplicationBrowser(Gtk.Box):
                 self.group_store = self.load_groups_data()
         self.app_store = self.load_app_data()
         self.tree_view.set_model(self.app_store)
-        if self.config.group != "All":
+        if self.config.group != "*":
             self.tree_view.expand_all()
 
     def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
@@ -308,7 +308,7 @@ class ApplicationBrowser(Gtk.Box):
             html = html + " "
         if isinstance(self.config, HelloConfig):
             self.info_bar_title.set_message_type(color)
-            self.title_label.set_markup("<big>Manjaro Application Maintenance</big> " + html)
+            self.title_label.set_markup(f"<big>{txt.MAM}</big> " + html)
             self.title_label.set_markup(html)
             self.info_bar_title.show()
         else:
@@ -395,7 +395,7 @@ class ApplicationBrowser(Gtk.Box):
 
     def on_reload_clicked(self, widget):
         self.reload_app_data()
-        self.set_title_box("Your selections has been reset.")
+        self.set_title_box(f"{txt.SELECTION_RESET}")
 
     def on_group_filter_changed(self, combo):
         """filter grid by one group"""
@@ -407,7 +407,7 @@ class ApplicationBrowser(Gtk.Box):
             self.app_store.clear()
             self.app_store = self.load_app_data()
             self.tree_view.set_model(self.app_store)
-            if self.config.group != "All":
+            if self.config.group != "*":
                 self.tree_view.expand_all()
 
     def on_advanced_clicked(self, widget):
@@ -415,7 +415,7 @@ class ApplicationBrowser(Gtk.Box):
         if widget.get_active():
             self.config.filter = "advanced"
         else:
-            self.config.filter = ""
+            self.config.filter = "default"
         self.reload_app_data(False)
 
     def on_download_clicked(self, widget):
@@ -432,13 +432,13 @@ class ApplicationBrowser(Gtk.Box):
                         data = json.loads(response.read().decode("utf8"))
                         self.write_json_file(data, file)
                 self.reload_app_data(True)
-                self.set_title_box("App data has been downloaded and list is reset.")
+                self.set_title_box(txt.DOWLOAD_COMPLETE)
             except Exception as e:
                 logging.error(e)
 
         else:
             # or re-use panal-title for dialogs info ? it's more gtk3 ?
-            self.set_title_box("Download not available\nThe server 'gitlab.manjaro.org' could not be reached",
+            self.set_title_box(f"{txt.DOWNLOAD_NA}\n{txt.GITLAB} {txt.SERVER_NA}",
                                Gtk.MessageType.ERROR)
 
     def on_query_tooltip_tree_view(self, widget: Gtk.TreeView, x, y, keyboard_tip: bool, tooltip):
@@ -447,10 +447,10 @@ class ApplicationBrowser(Gtk.Box):
         if is_found:
             value = model.get(iter_a, INSTALLED)
             if value[0]:
-                msg = "Installed"
+                msg = f"{txt.PKG_INSTALLED_TIP}"
                 active = model.get(iter_a, ACTIVE)
                 if not active[0]:
-                    msg = msg + " , to remove"
+                    msg = msg + f" , {txt.PKG_REMOVE_TIP}"
                 tooltip.set_markup(msg)
                 widget.set_tooltip_row(tooltip, path)
                 return True
@@ -473,7 +473,7 @@ class ApplicationBrowser(Gtk.Box):
 
     def on_update_system_clicked(self, widget):
         if self.alpm.do_update() != self.alpm.NOTHING:
-            self.set_title_box("Your system has been updated.", Gtk.MessageType.INFO)
+            self.set_title_box(f"{txt.SYSTEM_UPDATED}", Gtk.MessageType.INFO)
             # reload json for view new apps installed
             self.reload_app_data(True)
 
@@ -493,7 +493,7 @@ class ApplicationBrowser(Gtk.Box):
     def net_check():
         """Check for internet connection"""
         resp = None
-        host = "https://gitlab.manjaro.org"
+        host = f"https://{txt.GITLAB}"
         # noinspection PyBroadException
         try:
             resp = urllib.request.urlopen(host, timeout=2)

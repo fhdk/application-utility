@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # This file is part of application-utility.
 #
@@ -37,7 +37,7 @@ class Data:
         self.filename = ""
         self._json = []
         self.filter = ""
-        self.group = "All"
+        self.group = "*"
         self.desktop = [os.environ.get("XDG_SESSION_DESKTOP", "?").lower(), "?"]
 
     def load_from_file(self, filename: str = ''):
@@ -78,7 +78,7 @@ class Data:
         create a user choice?
         """
         for group in self._json:
-            if self.group != "All":
+            if self.group != "*":
                 if group['name'] != self.group:
                     logging.debug(f"filter group : {group['name']} <> {self.group}")
                     continue
