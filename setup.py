@@ -85,7 +85,7 @@ setup(
                                                'share/preferences.json']),
                 ('share/locale/da/LC_MESSAGES', ['locale/da/LC_MESSAGES/application_utility.mo']),
                 ],
-    scripts=[],
+    scripts=["scripts/manjaro-application-utility"],
     install_requires=requirements,
     license="GPL3",
     zip_safe=False,
