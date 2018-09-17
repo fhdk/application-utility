@@ -37,7 +37,7 @@ class Data:
         self._json = []
         self.filter = ""
         self.group = "*"
-        self.desktop = [os.environ.get("XDG_SESSION_DESKTOP", "?").lower(), "?"]
+        self.desktop = [os.environ.get("XDG_SESSION_DESKTOP", "?").lower()]
 
     def load_from_file(self, filename: str = ''):
         """

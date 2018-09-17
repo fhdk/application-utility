@@ -45,7 +45,7 @@ class AppConfig(Config):
                         requests.get(file)
                         self.url["main"] = file
                         logging.info(f"json to use: f{self.url['main']}")
-                        # TODO save in self._JSONMERGED
+                        # TODO save in self._MERGE_FILE
                     except ConnectionError:
                         logging.critical('json data not found')
                     # else:
