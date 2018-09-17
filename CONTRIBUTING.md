@@ -102,9 +102,9 @@ An editor of choice e.g.
 
 ```bash
 git clone https://gitlab.manjaro.org/fhdk/application-utility.git
-cd
+cd application-utility
 sudo pacman -Syu python-pip python-virtualenvwrapper
 mkvirtualenv application-utility
 python setup.py develop
-pip install mkdocs babel flake8
+pip install mkdocs coverage babel flake8 transifex-client
 ```
