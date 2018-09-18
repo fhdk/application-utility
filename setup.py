@@ -18,14 +18,14 @@ def update_databases():
     _adv = None
     _def = None
     try:
-        with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/advanced.json") as response:
+        with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/applications.json") as response:
             _adv = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
         with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/default.json") as response:
             _def = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
     except (HTTPException, json.JSONDecodeError, URLError, timeout):
         pass
     if _adv:
-        with open("share/advanced.json", "w") as outfile:
+        with open("share/applications.json", "w") as outfile:
             json.dump(apps, outfile, sort_keys=True, indent=2)
     if _def:
         with open("share/default.json", "w") as outfile:
@@ -70,18 +70,17 @@ update_databases()
 setup(
     name='application-utility',
     version=find_version("application_utility", "__init__.py"),
-    description="Package that provides all mirrors for Manjaro Linux.",
+    description="Manjaro Application Utility for simple application maintenance.",
     long_description=README + '\n\n' + CHANGELOG,
     author="fhdk, papajoke",
     author_email='fh@manjaro.org',
-    url='https://github.com/manjaro/',
+    url='https://github.manjaro.org/fhdk/aplication-utility',
     packages=['application_utility',
               'application_utility.browser',
               'application_utility.translation',
               'application_utility.constants'],
     package_dir={'application_utility': 'application_utility'},
-    data_files=[('share/application-utility', ['share/advanced.json',
-                                               'share/default.json',
+    data_files=[('share/application-utility', ['share/applications.json',
                                                'share/preferences.json']),
                 ('share/locale/da/LC_MESSAGES', ['locale/da/LC_MESSAGES/application_utility.mo']),
                 ],
