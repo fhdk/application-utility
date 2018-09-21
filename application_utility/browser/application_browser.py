@@ -71,34 +71,48 @@ class ApplicationBrowser(Gtk.Box):
         self.app_browser_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, expand=True)
         self.add(self.app_browser_box)
 
-        # InfoBar title
-        self.info_bar_title = Gtk.InfoBar()
-        self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
-        self.info_bar_title.set_show_close_button(True)
-        self.info_bar_title.set_revealed(True)
-        self.info_bar_title.connect("response", self.on_remove_title_box)
-        # title label
-        self.title_label = Gtk.Label()
-        self.title_label.set_markup(f"<b>{txt.MAM}: </b> "
-                                    f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
-        # pack title info
-        self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
-        # pack title info to app browser box
-        self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+        if isinstance(self.config, HelloConfig):
+            # InfoBar title
+            self.info_bar_title = Gtk.InfoBar()
+            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_title.set_show_close_button(True)
+            self.info_bar_title.set_revealed(True)
+            self.info_bar_title.connect("response", self.on_remove_title_box)
+            # title label
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"<b>{txt.MAM}: </b> "
+                                        f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
 
-        # InfoBar appstream detail
-        self.info_bar_appstream = Gtk.InfoBar()
-        self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
-        self.info_bar_appstream.set_show_close_button(True)
-        self.info_bar_appstream.set_revealed(True)
-        self.info_bar_appstream.connect("response", self.on_remove_detail_box)
-        # app stream data
-        self.detail_label = Gtk.Label()
-        self.detail_label.set_line_wrap(True)
-        self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
+            # InfoBar appstream detail
+            self.info_bar_appstream = Gtk.InfoBar()
+            self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_appstream.set_show_close_button(True)
+            self.info_bar_appstream.set_revealed(True)
+            self.info_bar_appstream.connect("response", self.on_remove_detail_box)
+            # app stream data
+            self.detail_label = Gtk.Label()
+            self.detail_label.set_line_wrap(True)
+            self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
 
-        # pack appstream info to app browser box
-        self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
+            # pack title info
+            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            # pack title info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+            # pack appstream info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
+        else:
+            # create title box
+            self.title_box = Gtk.Box()
+            self.title_image = Gtk.Image()
+            self.title_image.set_size_request(100, 100)
+            self.title_image.set_from_file("/usr/share/icons/manjaro/maia/96x96.png")
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"<b>{txt.MAM}: </b>\n"
+                                        f"{txt.SELECT_APPS}\n"
+                                        f"<b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
+            self.title_box.pack_start(self.title_image, expand=False, fill=False, padding=0)
+            self.title_box.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            self.app_browser_box.pack_start(self.title_box, expand=False, fill=True, padding=0)
 
         # button box
         self.button_box = Gtk.Box(spacing=10)
@@ -415,7 +429,7 @@ class ApplicationBrowser(Gtk.Box):
             self.config.filter = "advanced"
         else:
             self.config.filter = "default"
-        self.reload_app_data(False)
+        self.reload_app_data()
 
     def on_download_clicked(self, widget):
         # TODO to rewrite with config ...

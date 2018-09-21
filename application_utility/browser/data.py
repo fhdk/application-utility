@@ -23,7 +23,7 @@ import glob
 import json
 import logging
 import os
-from typing import Iterator
+from typing import Iterator, List, Any
 
 import gi
 
@@ -32,12 +32,18 @@ from gi.repository import Pamac
 
 
 class Data:
+    group: str
+    filter: str
+    _json: List[dict]
+    filename: str
+    env: List[str]
+
     def __init__(self):
-        self.filename = ""
         self._json = []
+        self.env = os.environ.get("XDG_SESSION_DESKTOP", "?").lower()
+        self.filename = ""
         self.filter = ""
         self.group = "*"
-        self.desktop = [os.environ.get("XDG_SESSION_DESKTOP", "?").lower()]
 
     def load_from_file(self, filename: str = ''):
         """
@@ -80,12 +86,12 @@ class Data:
             if self.group != "*":
                 if group['name'] != self.group:
                     logging.debug(f"filter group : {group['name']} <> {self.group}")
-                    continue
+                    # continue
 
             try:
                 if self.filter not in group["filter"]:
                     logging.debug(f"filter group : {group['name']} {group['filter']} < {self.filter}")
-                    continue
+                    # continue
 
             except KeyError:
                 # not in json file
@@ -100,7 +106,7 @@ class Data:
                 try:
                     if self.filter not in app["filter"]:
                         logging.debug(f"\tfilter app: {app['name']} {app['filter']} < {self.filter}")
-                        continue
+                        # continue
                 except KeyError:
                     pass
 
@@ -116,13 +122,13 @@ class Data:
                 if keys:
                     if f"!{self.desktop}" in keys:
                         logging.debug(f"\tfilter desktop(not for): {app['name']} {app['desktop']} < {self.desktop}")
-                        continue
+                        # continue
 
                 keys = [x for x in keys if not x.startswith("!")]
                 if keys:
-                    if self.desktop != "?" and self.desktop not in keys:
+                    if self.env != "?" and self.env not in keys:
                         logging.debug(f"\tfilter desktop(for): {app['name']} {app['desktop']} < {self.desktop}")
-                        continue
+                        # continue
 
                 result[-1]["apps"].append(app)
         return result
@@ -143,7 +149,7 @@ class Data:
                 with open(filename, "r") as infile:
                     result = json.load(infile)
 
-            # transform strcture/datas
+            # transform structure/data
             db = Pamac.Database(config=Pamac.Config(conf_path="/etc/pamac.conf"))
             db.enable_appstream()
             for group in result:
@@ -163,7 +169,8 @@ class Data:
                             if len(d) > 58:
                                 d = d[:56] + ".."
                             app['description'] = d
-                        # app['icon'] = detail.get_icon() why not ?
+                        # icon might not be available in the current icon theme
+                        # app['icon'] = detail.get_icon()  # why not ?
 
         except OSError:
             pass
