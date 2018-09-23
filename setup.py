@@ -65,12 +65,12 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
-update_databases()
+# update_databases()
 
 setup(
     name='application-utility',
     version=find_version("application_utility", "__init__.py"),
-    description="Package that provides all mirrors for Manjaro Linux.",
+    description="Manjaro Application Utility.",
     long_description=README + '\n\n' + CHANGELOG,
     author="fhdk, papajoke",
     author_email='fh@manjaro.org',
