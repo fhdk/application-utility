@@ -65,7 +65,7 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
-# update_databases()
+update_databases()
 
 setup(
     name='application-utility',
