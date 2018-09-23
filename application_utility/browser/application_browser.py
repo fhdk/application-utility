@@ -112,7 +112,7 @@ class ApplicationBrowser(Gtk.Box):
         download_button.connect("clicked", self.on_download_clicked)
         # reset button
         reset_button = Gtk.Button(label=f"{txt.BTN_RESET}")
-        download_button.set_tooltip_text(f"{txt.BTN_RESET_TIP}")
+        reset_button.set_tooltip_text(f"{txt.BTN_RESET_TIP}")
         reset_button.connect("clicked", self.on_reload_clicked)
 
         # update system button
@@ -154,7 +154,7 @@ class ApplicationBrowser(Gtk.Box):
         self.button_box.pack_end(reset_button, expand=False, fill=False, padding=10)
 
         # download button
-        self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
+        # self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
 
         # pack button box to app browser
         self.app_browser_box.pack_start(self.button_box, expand=False, fill=False, padding=10)

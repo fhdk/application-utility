@@ -116,13 +116,13 @@ class Data:
                 if keys:
                     if f"!{self.desktop}" in keys:
                         logging.debug(f"\tfilter desktop(not for): {app['name']} {app['desktop']} < {self.desktop}")
-                        continue
+                        # continue
 
                 keys = [x for x in keys if not x.startswith("!")]
                 if keys:
                     if self.desktop != "?" and self.desktop not in keys:
                         logging.debug(f"\tfilter desktop(for): {app['name']} {app['desktop']} < {self.desktop}")
-                        continue
+                        # continue
 
                 result[-1]["apps"].append(app)
         return result
