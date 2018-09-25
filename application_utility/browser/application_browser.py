@@ -39,7 +39,7 @@ from gi.repository import Pamac
 
 TITLE = f"{txt.MAU} v.{__version__}"
 
-GROUP, ICON, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(7))
+GROUP, ICON, PRESENT, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(8))
 
 
 class ApplicationBrowser(Gtk.Box):
@@ -71,34 +71,48 @@ class ApplicationBrowser(Gtk.Box):
         self.app_browser_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, expand=True)
         self.add(self.app_browser_box)
 
-        # InfoBar title
-        self.info_bar_title = Gtk.InfoBar()
-        self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
-        self.info_bar_title.set_show_close_button(True)
-        self.info_bar_title.set_revealed(True)
-        self.info_bar_title.connect("response", self.on_remove_title_box)
-        # title label
-        self.title_label = Gtk.Label()
-        self.title_label.set_markup(f"<b>{txt.MAM}: </b> "
-                                    f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
-        # pack title info
-        self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
-        # pack title info to app browser box
-        self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+        if isinstance(self.config, HelloConfig):
+            # InfoBar title
+            self.info_bar_title = Gtk.InfoBar()
+            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_title.set_show_close_button(True)
+            self.info_bar_title.set_revealed(True)
+            self.info_bar_title.connect("response", self.on_remove_title_box)
+            # title label
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"<b>{txt.MAM}: </b> "
+                                        f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
 
-        # InfoBar appstream detail
-        self.info_bar_appstream = Gtk.InfoBar()
-        self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
-        self.info_bar_appstream.set_show_close_button(True)
-        self.info_bar_appstream.set_revealed(True)
-        self.info_bar_appstream.connect("response", self.on_remove_detail_box)
-        # app stream data
-        self.detail_label = Gtk.Label()
-        self.detail_label.set_line_wrap(True)
-        self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
+            # InfoBar appstream detail
+            self.info_bar_appstream = Gtk.InfoBar()
+            self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_appstream.set_show_close_button(True)
+            self.info_bar_appstream.set_revealed(True)
+            self.info_bar_appstream.connect("response", self.on_remove_detail_box)
+            # app stream data
+            self.detail_label = Gtk.Label()
+            self.detail_label.set_line_wrap(True)
+            self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
 
-        # pack appstream info to app browser box
-        self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
+            # pack title info
+            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            # pack title info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+            # pack appstream info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
+        else:
+            # create title box
+            self.title_box = Gtk.Box()
+            self.title_image = Gtk.Image()
+            self.title_image.set_size_request(100, 100)
+            self.title_image.set_from_file("/usr/share/icons/manjaro/maia/96x96.png")
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"<b>{txt.MAM}: </b>\n"
+                                        f"{txt.SELECT_APPS}\n"
+                                        f"<b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
+            self.title_box.pack_start(self.title_image, expand=False, fill=False, padding=0)
+            self.title_box.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            self.app_browser_box.pack_start(self.title_box, expand=False, fill=True, padding=0)
 
         # button box
         self.button_box = Gtk.Box(spacing=10)
@@ -112,7 +126,7 @@ class ApplicationBrowser(Gtk.Box):
         download_button.connect("clicked", self.on_download_clicked)
         # reset button
         reset_button = Gtk.Button(label=f"{txt.BTN_RESET}")
-        reset_button.set_tooltip_text(f"{txt.BTN_RESET_TIP}")
+        download_button.set_tooltip_text(f"{txt.BTN_RESET_TIP}")
         reset_button.connect("clicked", self.on_reload_clicked)
 
         # update system button
@@ -154,7 +168,7 @@ class ApplicationBrowser(Gtk.Box):
         self.button_box.pack_end(reset_button, expand=False, fill=False, padding=10)
 
         # download button
-        # self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
+        self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
 
         # pack button box to app browser
         self.app_browser_box.pack_start(self.button_box, expand=False, fill=False, padding=10)
@@ -204,11 +218,16 @@ class ApplicationBrowser(Gtk.Box):
         column = Gtk.TreeViewColumn(f"{txt.COL_GROUP}", renderer, text=GROUP)
         tree_view.append_column(column)
 
+        # column model: installed or not column
+        renderer = Gtk.CellRendererText()  # TODO a renderer icon "check" in same column "name" ?
+        column = Gtk.TreeViewColumn("", renderer, text=PRESENT)
+        column.set_max_width(17)
+        tree_view.append_column(column)
+
         # column model: app name column
         renderer = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn(f"{txt.COL_APPLICATION}", renderer, text=APPLICATION)
         # column.set_resizable(False)
-        column.set_cell_data_func(renderer, self.treeview_cell_app_data_function, None)
         tree_view.append_column(column)
 
         # column model: description column
@@ -221,7 +240,6 @@ class ApplicationBrowser(Gtk.Box):
         toggle = Gtk.CellRendererToggle()
         toggle.connect("toggled", self.on_app_toggle)
         column = Gtk.TreeViewColumn(f"{txt.COL_ACTION}", toggle, active=ACTIVE)
-        column.set_cell_data_func(toggle, self.treeview_cell_check_data_function, None)
 
         # column.set_sizing(Gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_resizable(False)  # not possible with last :(
@@ -233,7 +251,7 @@ class ApplicationBrowser(Gtk.Box):
 
     def load_app_data(self):
         # not use data set for the moment
-        store = Gtk.TreeStore(str, str, str, str, bool, str, bool)
+        store = Gtk.TreeStore(str, str, str, str, str, bool, str, bool)
         for group in self.config.json:
             if group["apps"]:  # if group is empty after filters
                 g_desc = group["description"]
@@ -242,7 +260,7 @@ class ApplicationBrowser(Gtk.Box):
                 index = store.append(None,
                                      [group["name"],
                                       group["icon"],
-                                      None, g_desc, None, None, None])
+                                      None, None, g_desc, None, None, None])
                 for app in group["apps"]:
                     status = app["installed"]
                     installed = " "
@@ -258,6 +276,7 @@ class ApplicationBrowser(Gtk.Box):
 
                     tree_item = (None,
                                  app["icon"],
+                                 installed,  # check is to install or installed ? not clear for user
                                  app["name"],
                                  app["description"],
                                  status,
@@ -289,20 +308,6 @@ class ApplicationBrowser(Gtk.Box):
         self.tree_view.set_model(self.app_store)
         if self.config.group != "*":
             self.tree_view.expand_all()
-        self.update_system_button.set_sensitive(not self.alpm.empty)
-
-    def treeview_cell_check_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
-        """hide checkbox for groups"""
-        value = model.get(iter_a, GROUP)
-        renderer_cell.set_visible(not value[0])
-
-    def treeview_cell_app_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
-        """change font if installed"""
-        value = model.get(iter_a, INSTALLED)
-        if value[0]:
-            renderer_cell.props.weight = 600
-        else:
-            renderer_cell.props.weight = 400
 
     def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
         if self.info_bar_title:
@@ -424,7 +429,7 @@ class ApplicationBrowser(Gtk.Box):
             self.config.filter = "advanced"
         else:
             self.config.filter = "default"
-        self.reload_app_data(False)
+        self.reload_app_data()
 
     def on_download_clicked(self, widget):
         # TODO to rewrite with config ...

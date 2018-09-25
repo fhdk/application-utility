@@ -29,19 +29,14 @@ class BaseConfig:
     """
     _PREF_FILE = r"/usr/share/application-utility/preferences.json"
     _DATA_DIR = r"/usr/share/application-utility"
-    _MERGE_FILE = r"/tmp/{}-preferences.json"
+    _MERGE_FILE = r"/tmp/application-preferences.json"
 
     def __init__(self, application: str):
         self.application = application
-        self._MERGE_FILE = self._MERGE_FILE.format(application)
-        print(self._MERGE_FILE)
         self.pref = {}
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": ""}
         self.dev = "--dev" in sys.argv
-        if self.dev:
-            self._DATA_DIR = "./share"
-            self._PREF_FILE = "./share/preferences.json"
 
     def load(self):
         """to override live iso ? desktop ?"""

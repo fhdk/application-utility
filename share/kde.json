@@ -1,0 +1,112 @@
+{
+    "apps": [
+        {
+            "name": "Akregator",
+            "icon": "akregator",
+            "description": "News feed reader",
+            "pkg": "akregator"
+        },
+        {
+            "name": "Dolphin",
+            "icon": "dolphin",
+            "description": "Filemanager",
+            "pkg": "dolphin"
+        },
+        {
+            "name": "Dragon Player",
+            "icon": "dragon",
+            "description": "Videoafspiller",
+            "pkg": "dragon"
+        },
+        {
+            "name": "Falkon",
+            "icon": "falkon",
+            "description": "Web Browser",
+            "pkg": "falkon"
+        },
+        {
+            "name": "Gwenview",
+            "icon": "gwenview",
+            "description": "Image Viewer",
+            "pkg": "gwenview"
+        },
+        {
+            "name": "JuK",
+            "icon": "juk",
+            "description": "Music Player",
+            "pkg": "juk"
+        },
+        {
+            "name": "K3b",
+            "icon": "k3b",
+            "description": "Disc burner",
+            "pkg": "k3b"
+        },
+        {
+            "name": "KAddressBook",
+            "icon": "kaddressbook",
+            "description": "Address book manager",
+            "pkg": "kaddressbook"
+        },
+        {
+            "name": "Kalarm",
+            "icon": "kalarm",
+            "description": "Personal Alarm Scheduler",
+            "pkg": "kalarm"
+        },
+        {
+            "name": "Kamoso",
+            "icon": "kamoso",
+            "description": "Use webcam for pictures and video",
+            "pkg": "kamoso"
+        },
+        {
+            "name": "Kate",
+            "icon": "kate",
+            "description": "Advanced text editor",
+            "pkg": "kate"
+        },
+        {
+            "name": "KCalc",
+            "icon": "kcalc",
+            "description": "Scientific calculator",
+            "pkg": "kcalc"
+        },
+        {
+            "name": "Kdenlive",
+            "icon": "kdenlive",
+            "description": "Video editor",
+            "pkg": "kdenlive"
+        },
+        {
+            "name": "Kfind",
+            "icon": "kfind",
+            "description": "Locate files/folders",
+            "pkg": "kfinde"
+        },
+        {
+            "name": "KNotes",
+            "icon": "knotes",
+            "description": "Sticky notes",
+            "pkg": "knotes"
+        },
+        {
+            "name": "Konqueror",
+            "icon": "konqueror",
+            "description": "File Manager and Web Browser",
+            "pkg": "kate"
+        },
+        {
+            "name": "Okular",
+            "icon": "okular",
+            "description": "Document Viewer",
+            "pkg": "okular"
+        },
+        {
+            "name": "Opera",
+            "icon": "opera",
+            "description": "Fast and secure webbrowser",
+            "pkg": "opera"
+        }
+    ]
+}

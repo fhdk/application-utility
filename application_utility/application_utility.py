@@ -18,6 +18,7 @@
 #          papajoke
 
 import gi
+
 import requests
 from requests.exceptions import ConnectionError
 import os
@@ -35,6 +36,9 @@ from gi.repository import Gtk, GObject, GdkPixbuf
 # cat /usr/lib/python3.7/site-packages/gi/overrides/Gtk.py
 # doc api
 # https://lazka.github.io/pgi-docs/Gtk-3.0/index.html
+#
+# https://pygobject.readthedocs.io/en/latest/devguide/dev_environ.html
+#
 
 
 class MainApp:
