@@ -423,7 +423,7 @@ class ApplicationBrowser(Gtk.Box):
         if widget.get_active():
             self.config.filter = "advanced"
         else:
-            self.config.filter = "default"
+            self.config.filter = ""
         self.reload_app_data(False)
 
     def on_download_clicked(self, widget):
