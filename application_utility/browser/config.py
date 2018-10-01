@@ -22,7 +22,8 @@ import logging
 import os
 import shutil
 import urllib.request
-
+import json
+import collections
 from .data import Data
 from .base_config import BaseConfig
 
@@ -62,3 +63,26 @@ class Config(BaseConfig, Data):
         shutil.copyfile(src, self._MERGE_FILE)
         logging.debug(f"json : {self._MERGE_FILE}")
         self.load_from_file(self._MERGE_FILE)
+
+        iso_file = self.get_iso_filename()
+        if iso_file:
+            # iso to merge found
+            #iso_json = json.loads(iso_file)
+            with open(iso_file, "rb") as infile:
+                iso_json = json.loads(
+                    infile.read().decode("utf8"),
+                    object_pairs_hook=collections.OrderedDict)
+            for group in iso_json:
+                print(type(group))
+                print(group)
+                for app in group['apps']:
+                    print(app)
+                    print(type(app))
+                    #exit(1)
+                    self.append_app(group, app)
+            #exit(1)
+            # save merged
+            self.save_apps_to_json(self._MERGE_FILE)
+            # load complete json
+            self.load_from_file(self._MERGE_FILE)
+            #exit(0)

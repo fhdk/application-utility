@@ -75,104 +75,45 @@ class BaseConfig:
             pass
         return result
 
-    @staticmethod
-    def get_arg_value(key: str, default: str = "") ->str:
-        """read param value"""
-        for arg in sys.argv:
-            if arg.lower().startswith(f"--{key}="):
-                value = arg[len(key)+3:]
-                if value.startswith('"'):
-                    value = value[1:-1]
-                return value
-        return default
-
-    def get_datafile(self, filedefault: str, key: str = "file") ->str:
-        """read param,
-        if value is url then download file
-        return empty if not exists
-        """
-        arg_file = self.get_arg_value(key, filedefault)
-        if arg_file.startswith("http"):
-            arg_file = self.download_file(arg_file)
-        if os.path.isfile(arg_file):
-            return arg_file
-        else:
-            logging.warning("File not exist ? %s", arg_file)
-
-    @staticmethod
-    def download_file(src: str) ->str:
-        """download file in tmp file
-            return file name
-        """
-        try:
-            ret = requests.head(src, allow_redirects=True)
-            if ret.status_code < 300:
-                logging.info("iso json to use: %s", src)
-                request = requests.get(src, allow_redirects=True)
-                #TODO create /tmp/m-apps ?
-                tmp_file = tempfile.NamedTemporaryFile(delete=False) # dir="m-apps"
-                tmp_file.write(request.content)
-                tmp_file.close()
-                return tmp_file.name
-            else:
-                logging.debug("url %s bad access", src)
-        except requests.exceptions.ConnectionError:
-            logging.debug("url %s not found", src)
-        except requests.exceptions.MissingSchema:
-            logging.debug("bad url %s", src)
-        return None
-
-    @staticmethod
-    def get_desktop() ->str:
-        """ get local desktop"""
-        desktop = BaseConfig.get_arg_value("desktop")
-        if not desktop:
-            desktop = os.environ.get("DESKTOP_SESSION", "?").lower()
-            desktops = {
-                "awesome": "awesome",
-                "bspwm": "bspwm",
-                "budgie-desktop": "budgie",
-                "cinnamon": "cinnamon",
-                "deepin": "deepin",
-                "i3": "i3",
-                "jade": "webdad",
-                "jwm": "/usr/share/xsessions/jwm",
-                "kde": "/usr/share/xsessions/plasma",
-                "lxde": "lxde",
-                "lxqt": "/usr/share/xsessions/lxqt",
-                "mate": "mate",
-                "openbox": "openbox"
-            }
-            for de_key, de_value in desktops.items():
-                if desktop == de_value:
-                    return de_key
-        # return the ? if no result from the dictionary
-        return desktop
-
-    def get_iso_filename(self) ->str:
-        """get filename from env, if url create temp file
-        can use parameter:
-            app.py --iso="https://gitlab.manjaro.org/papajoke/application-utility/raw/dev/share/kde.json"
-            app.py --iso="/home/****.json"
-            app.py --desktop=gnome
-        """
+    def get_iso_filename(self):
+        """get filename from env, if url create temp file"""
         # TODO
-        # to rewrite by a maintainer
-
-        desktop = self.get_desktop()
+        # to rewrite by a maintener
+        desktop = os.environ.get("XDG_SESSION_DESKTOP", "none").lower()
+        # convert for some desktop parameter : exemples
+        switcher = {
+            "e": "enlightenment",
+            "i3": "i3",
+            #"openbox" : self.get_make_a_new_test_env()
+        }
+        desktop = switcher.get(desktop, desktop)
         # test if exist
         src = f"{self._DATA_DIR}/{desktop}.json"
-        src = self.get_datafile(src, "iso")
-        if src and not os.path.isfile(src):
+        if not os.path.isfile(src):
             logging.warning("iso not found: %s", src)
 
             # TODO rewrite with self.preferences ... ?
-            # TODO get Packages-Desktop and parse maintainers tags?
+            # TODO use txt.OFFICIAL_ISO_URL
             if desktop in ("xfce", "kde", "gnome"):
-                src = f"{txt.OFFICIAL_ISO_URL}/{desktop}/{desktop}.json"
+                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/tree/master/manjaro/{desktop}.json"
             else:
-                src = f"{txt.COMMUNITY_ISO_URL}/{desktop}/{desktop}.json"
+                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/tree/master/community/{desktop}.json"
             logging.debug("find iso url: %s", src)
-            return self.download_file(src)
+            try:
+                ret = requests.head(src, allow_redirects=True)
+                if ret.status_code < 300:
+                    logging.info("iso json to use: %s", src)
+                    request = requests.get(src, allow_redirects=True)
+                    tmp_file = tempfile.NamedTemporaryFile(delete=False)
+                    tmp_file.write(request.content)
+                    tmp_file.close()
+                    return tmp_file.name
+                else:
+                    logging.debug("url %s bad access", src)
+            except requests.exceptions.ConnectionError:
+                logging.debug("url %s not found", src)
+            except requests.exceptions.MissingSchema:
+                logging.debug("bad url %s", src)
+            return None
         else:
             return src
