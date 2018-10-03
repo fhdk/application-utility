@@ -78,9 +78,7 @@ class Config(BaseConfig, Data):
                 for app in group['apps']:
                     print(app)
                     print(type(app))
-                    #exit(1)
                     self.append_app(group, app)
-            #exit(1)
             # save merged
             self.save_apps_to_json(self._MERGE_FILE)
             # load complete json
