@@ -45,5 +45,6 @@ class HelloConfig(Config):
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": f"{self._DATA_DIR}/{self.pref['data-set']}.json"}
+        self.file["main"] = self.get_datafile(self.file["main"], "file")
         logging.debug("self.file is %s", self.file)
         return self

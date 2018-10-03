@@ -89,6 +89,7 @@ class BaseConfig:
     def get_datafile(self, filedefault: str, key: str = "file") ->str:
         """read param,
         if value is url then download file
+        return empty if not exists
         """
         arg_file = self.get_arg_value(key, filedefault)
         if arg_file.startswith("http"):
@@ -140,7 +141,7 @@ class BaseConfig:
         # to rewrite by a maintener
 
         desktop = self.get_desktop()
-        # convert for some desktop parameter : exemples
+        # TODO convert for some desktop parameter : exemples
         switcher = {
             "e": "enlightenment",
             "i3": "i3",

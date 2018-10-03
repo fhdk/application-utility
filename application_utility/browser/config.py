@@ -49,17 +49,10 @@ class Config(BaseConfig, Data):
             and use only self._MERGE_FILE ?
             Always save .json in self._MERGE_FILE ?
         """
-        # write temp
-        if self.url["main"]:
-            src = f"/tmp/{self.application}-download.json"
-            urllib.request.urlretrieve(self.url["main"], src)
-            logging.info(f"URL: [{self.url['main']} downloaded")
-        else:
-            src = self.file["main"]
-            logging.info(f"json to merge : {src}")
-            if not os.path.isfile(src):
-                logging.error(f"ERROR: File not found: {src}")
-                raise ImportError(src)
+        src = self.file["main"]
+        logging.info(f"json to merge : {src}")
+        if not src or not os.path.isfile(src):
+            raise ImportError(f"ERROR: json file not found: {src}")
 
         shutil.copyfile(src, self._MERGE_FILE)
         logging.debug(f"json : {self._MERGE_FILE}")
