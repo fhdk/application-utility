@@ -37,6 +37,7 @@ class Config(BaseConfig, Data):
     def __init__(self, application: str):
         BaseConfig.__init__(self, application)
         Data.__init__(self)
+        self.desktop = self.get_desktop()
         self.application = application
         self.load()
         self.merge_json()

@@ -34,7 +34,6 @@ class AppConfig(Config):
         self.pref = {"data-set": "default"}
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": f"{self._DATA_DIR}/default.json"}
-        self.desktop = os.environ.get("XDG_SESSION_DESKTOP")
 
         if len(sys.argv) > 1:  # and not "--dev" in sys.argv:
             file = sys.argv[1]

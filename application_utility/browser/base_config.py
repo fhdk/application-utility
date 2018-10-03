@@ -126,7 +126,7 @@ class BaseConfig:
         """ get local desktop"""
         desktop = BaseConfig.get_arg_value("desktop")
         if not desktop:
-            desktop = os.environ.get("XDG_SESSION_DESKTOP", "none")
+            desktop = os.environ.get("XDG_SESSION_DESKTOP", "?")
         return desktop.lower()
 
     def get_iso_filename(self) ->str:
