@@ -172,6 +172,7 @@ class Data:
     def save_apps_to_json(self, filename):
         with open(filename, "w") as data_file:
             json.dump(self._json, data_file, indent=2) #sort_keys=True
+            data_file.flush()
 
     @property
     def categories(self) -> Iterator[str]:
