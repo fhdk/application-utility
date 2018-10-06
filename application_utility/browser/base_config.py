@@ -127,7 +127,15 @@ class BaseConfig:
         """ get local desktop"""
         desktop = BaseConfig.get_arg_value("desktop")
         if not desktop:
-            desktop = os.environ.get("XDG_SESSION_DESKTOP", "?")
+            desktop = os.environ.get("DESKTOP_SESSION", "?").lower()
+            switcher = {
+                "budgie-desktop": "budgie",
+                "/usr/share/xsessions/plasma": "kde",
+                "/usr/share/xsessions/lxqt": "lxqt",
+                "jade": "webdad",
+                "/usr/share/xsessions/jwm": "jwm"
+            }
+            desktop = switcher.get(desktop, desktop)
         return desktop.lower()
 
     def get_iso_filename(self) ->str:
@@ -141,13 +149,6 @@ class BaseConfig:
         # to rewrite by a maintener
 
         desktop = self.get_desktop()
-        # TODO convert for some desktop parameter : exemples
-        switcher = {
-            "e": "enlightenment",
-            "i3": "i3",
-            #"deepin" : self.get_make_a_new_test_env()
-        }
-        desktop = switcher.get(desktop, desktop)
         # test if exist
         src = f"{self._DATA_DIR}/{desktop}.json"
         src = self.get_datafile(src, "iso")
