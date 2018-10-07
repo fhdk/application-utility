@@ -28,6 +28,7 @@ import requests
 
 from application_utility.constants import txt
 
+
 class BaseConfig:
     """
     set config from env or plugin or standalone App
