@@ -24,6 +24,8 @@ from application_utility.translation import i18n
 _ = i18n.language.gettext
 # gitlab
 GITLAB = "gitlab.manjaro.org"
+OFFICIAL_ISO_URL = "https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/raw/manjaro-architect/manjaro"
+COMMUNITY_ISO_URL = "https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/raw/manjaro-architect/community"
 # header
 MAM = _("Manjaro Application Maintenance")
 MAU = _("Manjaro Application Utility")
