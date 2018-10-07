@@ -153,7 +153,7 @@ class BaseConfig:
             app.py --desktop=gnome
         """
         # TODO
-        # to rewrite by a maintener
+        # to rewrite by a maintainer
 
         desktop = self.get_desktop()
         # test if exist
