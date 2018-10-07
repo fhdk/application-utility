@@ -136,7 +136,7 @@ class BaseConfig:
                 "deepin": "deepin",
                 "i3": "i3",
                 "jade": "webdad",
-                "LXDE": "lxde",
+                "lxde": "lxde",
                 "mate": "mate",
                 "openbox": "openbox",
                 "/usr/share/xsessions/plasma": "kde",
