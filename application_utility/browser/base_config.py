@@ -145,9 +145,7 @@ class BaseConfig:
             }
             for de_key, de_value in desktops.items():
                 if desktop == de_value:
-                    desktop = de_key
-                    break
-        return desktop
+                    return de_key
 
     def get_iso_filename(self) ->str:
         """get filename from env, if url create temp file
