@@ -71,20 +71,36 @@ class ApplicationBrowser(Gtk.Box):
         self.app_browser_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, expand=True)
         self.add(self.app_browser_box)
 
-        # InfoBar title
-        self.info_bar_title = Gtk.InfoBar()
-        self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
-        self.info_bar_title.set_show_close_button(True)
-        self.info_bar_title.set_revealed(True)
-        self.info_bar_title.connect("response", self.on_remove_title_box)
-        # title label
-        self.title_label = Gtk.Label()
-        self.title_label.set_markup(f"<b>{txt.MAM}: </b> "
-                                    f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
-        # pack title info
-        self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
-        # pack title info to app browser box
-        self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+        if not isinstance(self.config, HelloConfig):
+            # InfoBar title
+            self.info_bar_title = Gtk.InfoBar()
+            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_title.set_show_close_button(True)
+            self.info_bar_title.set_revealed(True)
+            self.info_bar_title.connect("response", self.on_remove_title_box)
+            # title label
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
+            # pack title info
+            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            # pack title info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+
+        else:
+            # InfoBar title
+            self.info_bar_title = Gtk.Box()
+            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_title.set_show_close_button(True)
+            self.info_bar_title.set_revealed(True)
+            self.info_bar_title.connect("response", self.on_remove_title_box)
+            # title label
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"<b>{txt.MAM}</b>\n"
+                                        f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
+            # pack title info
+            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            # pack title info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
 
         # InfoBar appstream detail
         self.info_bar_appstream = Gtk.InfoBar()
