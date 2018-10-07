@@ -41,7 +41,6 @@ class BaseConfig:
     def __init__(self, application: str):
         self.application = application
         self._MERGE_FILE = self._MERGE_FILE.format(application)
-        print(self._MERGE_FILE)
         self.pref = {}
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": ""}
