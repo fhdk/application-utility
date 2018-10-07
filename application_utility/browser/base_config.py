@@ -147,7 +147,6 @@ class BaseConfig:
                 if desktop == de_value:
                     desktop = de_key
                     break
-            # desktop = switcher.get(desktop, desktop)
         return desktop.lower()
 
     def get_iso_filename(self) ->str:
