@@ -26,6 +26,7 @@ import tempfile
 import requests
 #from requests.exceptions import ConnectionError
 
+from application_utility.constants import txt
 
 class BaseConfig:
     """
@@ -164,9 +165,9 @@ class BaseConfig:
 
             # TODO rewrite with self.preferences ... ?
             if desktop in ("xfce", "kde", "gnome"):
-                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/tree/master/manjaro/{desktop}.json"
+                src = f"{txt.OFFICIAL_ISO_URL}/{desktop}/{desktop}.json"
             else:
-                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/tree/master/community/{desktop}.json"
+                src = f"{txt.COMMUNITY_ISO_URL}/{desktop}/{desktop}.json"
             logging.debug("find iso url: %s", src)
             return self.download_file(src)
         else:
