@@ -128,10 +128,18 @@ class BaseConfig:
         if not desktop:
             desktop = os.environ.get("DESKTOP_SESSION", "?").lower()
             switcher = {
+                "awesome": "awesome",
+                "bspwm": "bspwm",
                 "budgie-desktop": "budgie",
+                "cinnamon": "cinnamon",
+                "deepin": "deepin",
+                "i3": "i3",
+                "jade": "webdad",
+                "LXDE": "lxde",
+                "mate": "mate",
+                "openbox": "openbox",
                 "/usr/share/xsessions/plasma": "kde",
                 "/usr/share/xsessions/lxqt": "lxqt",
-                "jade": "webdad",
                 "/usr/share/xsessions/jwm": "jwm"
             }
             desktop = switcher.get(desktop, desktop)
