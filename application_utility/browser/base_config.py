@@ -167,6 +167,7 @@ class BaseConfig:
             logging.warning("iso not found: %s", src)
 
             # TODO rewrite with self.preferences ... ?
+            # TODO get Packages-Desktop and parse maintainers tags?
             if desktop in ("xfce", "kde", "gnome"):
                 src = f"{txt.OFFICIAL_ISO_URL}/{desktop}/{desktop}.json"
             else:
