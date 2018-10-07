@@ -128,7 +128,7 @@ class BaseConfig:
         desktop = BaseConfig.get_arg_value("desktop")
         if not desktop:
             desktop = os.environ.get("DESKTOP_SESSION", "?").lower()
-            switcher = {
+            desktops = {
                 "awesome": "awesome",
                 "bspwm": "bspwm",
                 "budgie-desktop": "budgie",
@@ -136,14 +136,18 @@ class BaseConfig:
                 "deepin": "deepin",
                 "i3": "i3",
                 "jade": "webdad",
+                "jwm": "/usr/share/xsessions/jwm",
+                "kde": "/usr/share/xsessions/plasma",
                 "lxde": "lxde",
+                "lxqt": "/usr/share/xsessions/lxqt",
                 "mate": "mate",
-                "openbox": "openbox",
-                "/usr/share/xsessions/plasma": "kde",
-                "/usr/share/xsessions/lxqt": "lxqt",
-                "/usr/share/xsessions/jwm": "jwm"
+                "openbox": "openbox"
             }
-            desktop = switcher.get(desktop, desktop)
+            for de_key, de_value in desktops.items():
+                if desktop == de_value:
+                    desktop = de_key
+                    break
+            # desktop = switcher.get(desktop, desktop)
         return desktop.lower()
 
     def get_iso_filename(self) ->str:
