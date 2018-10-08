@@ -133,10 +133,45 @@ class BaseConfig:
                 "/usr/share/xsessions/plasma": "kde",
                 "/usr/share/xsessions/lxqt": "lxqt",
                 "jade": "webdad",
-                "/usr/share/xsessions/jwm": "jwm"
+                "/usr/share/xsessions/jwm": "jwm",
+                "awesome": "awesome",
+                "bspwm": "bspwm",
+                "cinnamon": "cinnamon",
+                "deepin": "deepin",
+                "i3": "i3",
+                "lxde": "lxde",
+                "mate": "mate",
+                "openbox": "openbox",
+                "gnome": "gnome",
+                "xfce": "xfce",
             }
-            desktop = switcher.get(desktop, desktop)
+            desktop = switcher.get(desktop, "?")
         return desktop.lower()
+
+    @staticmethod
+    def get_manjaro_desktop(find_desktop: str, prefix: bool = True) ->str:
+        """return generator on all manjaro desktop available"""
+        desks = ["xfce", "kde", "gnome"]
+        if find_desktop in desks:
+            if prefix:
+                find_desktop = "manjaro/"+find_desktop
+            return find_desktop
+        desks = ["openbox", "mate", "deepin", "bspwm", "cinnamon", "lxqt", "awesome", "budgie", "lxde", "i3", "webdad"]
+        if find_desktop in desks:
+            if prefix:
+                find_desktop = "community/"+find_desktop
+            return find_desktop
+        return ""
+
+    #TODO to remove or move to tests
+    @staticmethod
+    def get_desktop_tests():
+        for test in ["LXDE", "lxde", 'MATE', 'mate', "budgie-desktop", "/usr/share/xsessions/plasma"]:
+            os.environ["DESKTOP_SESSION"] = test
+            desktop = BaseConfig.get_desktop()
+            print("desktop", desktop, "for env:"+test)
+            desktop = BaseConfig.get_manjaro_desktop(desktop)
+            print("\t", desktop)
 
     def get_iso_filename(self) ->str:
         """get filename from env, if url create temp file
@@ -155,13 +190,15 @@ class BaseConfig:
         if src and not os.path.isfile(src):
             logging.warning("iso not found: %s", src)
 
-            # TODO rewrite with self.preferences ... ?
             # TODO use txt.OFFICIAL_ISO_URL
-            if desktop in ("xfce", "kde", "gnome"):
-                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/tree/master/manjaro/{desktop}.json"
-            else:
-                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/tree/master/community/{desktop}.json"
-            logging.debug("find iso url: %s", src)
-            return self.download_file(src)
+            desktop = self.get_manjaro_desktop(desktop)
+            if desktop:
+                src = f"https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/raw/manjaro-architect/{desktop}/apps.json"
+                logging.debug("find iso url: %s", src)
+                return self.download_file(src)
         else:
             return src
+
+#test desktops
+#BaseConfig.get_desktop_tests()
+#exit(0)
