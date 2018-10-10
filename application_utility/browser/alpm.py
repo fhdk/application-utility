@@ -22,9 +22,13 @@ Module alpm
 Install / remove packages
 use pamac-installer
 """
-import subprocess
+import gi
 import glob
 import logging
+import subprocess
+
+gi.require_version("Pamac", "1.0")
+from gi.repository import Pamac
 
 
 class Alpm:
