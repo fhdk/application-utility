@@ -131,3 +131,10 @@ class Alpm:
 
     def __str__(self):
         return f"pkg list install: {self.pkg_list_install}\n pkg list removal: {self.pkg_list_removal}"
+
+    @staticmethod
+    def pkg_exist(pkgname: str) ->bool:
+        """check if a package exist"""
+        config = Pamac.Config(conf_path="/etc/pamac.conf")
+        db = Pamac.Database(config=config)
+        return bool(db.search_pkgs(pkgname))
