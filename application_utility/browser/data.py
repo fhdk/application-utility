@@ -155,7 +155,7 @@ class Data:
                     use pamac/appstream for locale description
                     """
                     app['appstream'] = False
-                    detail = db.get_pkg_details(app['pkg'], app['name'])
+                    detail = db.get_pkg_details(app['pkg'], app['name'], False)
                     if detail:
                         app['appstream'] = True
                         d = detail.get_desc()
@@ -171,7 +171,7 @@ class Data:
 
     def save_apps_to_json(self, filename):
         with open(filename, "w") as data_file:
-            json.dump(self._json, data_file, indent=2) #sort_keys=True
+            json.dump(self._json, data_file, indent=2)  # sort_keys=True
             data_file.flush()
 
     @property
