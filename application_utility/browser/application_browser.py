@@ -88,7 +88,7 @@ class ApplicationBrowser(Gtk.Box):
 
         else:
             # InfoBar title
-            self.info_bar_title = Gtk.Box()
+            self.info_bar_title = Gtk.InfoBar()
             self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
             self.info_bar_title.set_show_close_button(True)
             self.info_bar_title.set_revealed(True)

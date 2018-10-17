@@ -46,10 +46,10 @@ class BaseConfig:
         self.file = {"desktop": "", "main": ""}
         self.dev = "--dev" in sys.argv
         if self.dev:
-            if os.environ.get("PLUGIN_HELLO") == True:
+            if os.environ.get("PLUGIN_HELLO"):
                 # running as plugin - env set in launch.sh
-                self._DATA_DIR = os.environ.get("PYTHONPATH")
-                self._PREF_FILE = f"{self._DATA_DIR}/share/preferences.json"
+                self._DATA_DIR = os.environ.get("PYTHONPATH") + "/share"
+                self._PREF_FILE = f"{self._DATA_DIR}/preferences.json"
             else:
                 # running as standalone
                 self._DATA_DIR = "./share"
