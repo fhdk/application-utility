@@ -24,7 +24,7 @@ import os
 import logging
 import tempfile
 import requests
-#from requests.exceptions import ConnectionError
+# from requests.exceptions import ConnectionError
 
 from application_utility.constants import txt
 
@@ -46,8 +46,14 @@ class BaseConfig:
         self.file = {"desktop": "", "main": ""}
         self.dev = "--dev" in sys.argv
         if self.dev:
-            self._DATA_DIR = "./share"
-            self._PREF_FILE = "./share/preferences.json"
+            if os.environ.get("PLUGIN_HELLO") == True:
+                # running as plugin - env set in launch.sh
+                self._DATA_DIR = os.environ.get("PYTHONPATH")
+                self._PREF_FILE = f"{self._DATA_DIR}/share/preferences.json"
+            else:
+                # running as standalone
+                self._DATA_DIR = "./share"
+                self._PREF_FILE = "./share/preferences.json"
             logging.basicConfig(stream=sys.stderr,
                                 level=logging.DEBUG,
                                 format='::(%(levelname)s): %(message)s')
@@ -109,7 +115,7 @@ class BaseConfig:
             if ret.status_code < 300:
                 logging.info("iso json to use: %s", src)
                 request = requests.get(src, allow_redirects=True)
-                #TODO create /tmp/m-apps ?
+                # TODO create /tmp/m-apps ?
                 tmp_file = tempfile.NamedTemporaryFile(delete=False) # dir="m-apps"
                 tmp_file.write(request.content)
                 tmp_file.close()
