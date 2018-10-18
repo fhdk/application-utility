@@ -396,7 +396,8 @@ class ApplicationBrowser(Gtk.Box):
             self.detail_label.set_markup(html)
             self.info_bar_appstream.show()
 
-    def on_close_clicked(self, widget):
+    @staticmethod
+    def on_close_clicked(widget):
         Gtk.main_quit()
 
     def on_tree_dblclick(self, treeview: Gtk.TreeView, event):
@@ -406,7 +407,7 @@ class ApplicationBrowser(Gtk.Box):
             path_info = treeview.get_path_at_pos(event.x, event.y)
             if path_info is None:
                 return
-            path, col, cellx, celly = path_info
+            path, col, cell_x, cell_y = path_info
             if self.app_store[path][PACKAGE] is not None:
                 pkg = self.config(self.app_store[path][PACKAGE])
                 if pkg:
@@ -465,7 +466,8 @@ class ApplicationBrowser(Gtk.Box):
             self.set_title_box(f"{txt.DOWNLOAD_NA}\n{txt.GITLAB} {txt.SERVER_NA}",
                                Gtk.MessageType.ERROR)
 
-    def on_query_tooltip_tree_view(self, widget: Gtk.TreeView, x, y, keyboard_tip: bool, tooltip):
+    @staticmethod
+    def on_query_tooltip_tree_view(widget: Gtk.TreeView, x, y, keyboard_tip: bool, tooltip):
         """Show tooltip only if installed"""
         is_found, x, y, model, path, iter_a = widget.get_tooltip_context(x, y, keyboard_tip)
         if is_found:
