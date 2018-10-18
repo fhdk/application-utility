@@ -143,7 +143,7 @@ class Data:
                 with open(filename, "r") as infile:
                     result = json.load(infile)
 
-            # transform strcture/datas
+            # transform structure/data
             db = Pamac.Database(config=Pamac.Config(conf_path="/etc/pamac.conf"))
             db.enable_appstream()
             for group in result:
@@ -164,6 +164,12 @@ class Data:
                                 d = d[:56] + ".."
                             app['description'] = d
                         # app['icon'] = detail.get_icon() why not ?
+                        # sometimes icon do not exist
+                        # icons can be fetched from local icon cache by using the app name
+                        # icons can also be fetched from the app-info folder
+                        #  arch structured
+                        #    /usr/share/app-info/icons/archlinux-arch-community/size/app_name.png
+                        #    /usr/share/app-info/icons/archlinux-arch-extra/size/app_name.png
 
         except OSError:
             pass

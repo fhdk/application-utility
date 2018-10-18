@@ -106,6 +106,10 @@ class ApplicationBrowser(Gtk.Box):
             # self.info_bar_title.set_show_close_button(True)
             # self.info_bar_title.set_revealed(True)
             # self.info_bar_title.connect("response", self.on_remove_title_box)
+            title_image = Gtk.Image()
+            title_image.set_size_request(100, 100)
+            title_image.set_from_file("/usr/share/icons/manjaro/maia/96x96.png")
+            self.info_bar_title.pack_start(title_image, expand=False, fill=False, padding=0)
             # title label
             self.title_label = Gtk.Label()
             self.title_label.set_markup(f"<b>{txt.MAU}</b>\n"
