@@ -46,8 +46,14 @@ class BaseConfig:
         self.file = {"desktop": "", "main": ""}
         self.dev = "--dev" in sys.argv
         if self.dev:
-            self._DATA_DIR = "./share"
-            self._PREF_FILE = "./share/preferences.json"
+            if os.environ.get("PLUGIN_HELLO"):
+                # running as plugin - env set in launch.sh
+                self._DATA_DIR = os.environ.get("PYTHONPATH") + "/share"
+                self._PREF_FILE = f"{self._DATA_DIR}/preferences.json"
+            else:
+                # running as standalone
+                self._DATA_DIR = "./share"
+                self._PREF_FILE = "./share/preferences.json"
             logging.basicConfig(stream=sys.stderr,
                                 level=logging.DEBUG,
                                 format='::(%(levelname)s): %(message)s')
