@@ -18,8 +18,8 @@ def update_databases():
     _adv = None
     _def = None
     try:
-        with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/advanced.json") as response:
-            _adv = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
+        # with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/advanced.json") as response:
+        #     _adv = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
         with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/default.json") as response:
             _def = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
     except (HTTPException, json.JSONDecodeError, URLError, timeout):
@@ -80,8 +80,7 @@ setup(
               'application_utility.translation',
               'application_utility.constants'],
     package_dir={'application_utility': 'application_utility'},
-    data_files=[('share/application-utility', ['share/advanced.json',
-                                               'share/default.json',
+    data_files=[('share/application-utility', ['share/default.json',
                                                'share/preferences.json']),
                 ('share/locale/da/LC_MESSAGES', ['locale/da/LC_MESSAGES/application_utility.mo']),
                 ],
