@@ -155,7 +155,7 @@ class Data:
                     use pamac/appstream for locale description
                     """
                     app['appstream'] = False
-                    detail = db.get_pkg_details(app['pkg'], app['name'])
+                    detail = db.get_pkg_details(app['pkg'], app['name'], False)
                     if detail:
                         app['appstream'] = True
                         d = detail.get_desc()

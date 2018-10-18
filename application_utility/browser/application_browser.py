@@ -80,7 +80,8 @@ class ApplicationBrowser(Gtk.Box):
             self.info_bar_title.connect("response", self.on_remove_title_box)
             # title label
             self.title_label = Gtk.Label()
-            self.title_label.set_markup(f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
+            self.title_label.set_markup(f"<b>{txt.MAM}</b>\n"
+                                        f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
             # pack title info
             self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
             # pack title info to app browser box
@@ -106,7 +107,7 @@ class ApplicationBrowser(Gtk.Box):
         self.info_bar_appstream = Gtk.InfoBar()
         self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
         self.info_bar_appstream.set_show_close_button(True)
-        self.info_bar_appstream.set_revealed(True)
+        self.info_bar_appstream.set_revealed(False)
         self.info_bar_appstream.connect("response", self.on_remove_detail_box)
         # app stream data
         self.detail_label = Gtk.Label()
@@ -307,12 +308,22 @@ class ApplicationBrowser(Gtk.Box):
             self.tree_view.expand_all()
         self.update_system_button.set_sensitive(not self.alpm.empty)
 
-    def treeview_cell_check_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
+    @staticmethod
+    def treeview_cell_check_data_function(column: Gtk.TreeViewColumn,
+                                          renderer_cell: Gtk.CellRenderer,
+                                          model: Gtk.TreeModel,
+                                          iter_a: Gtk.TreeIter,
+                                          user_data):
         """hide checkbox for groups"""
         value = model.get(iter_a, GROUP)
         renderer_cell.set_visible(not value[0])
 
-    def treeview_cell_app_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
+    @staticmethod
+    def treeview_cell_app_data_function(column: Gtk.TreeViewColumn,
+                                        renderer_cell: Gtk.CellRenderer,
+                                        model: Gtk.TreeModel,
+                                        iter_a: Gtk.TreeIter,
+                                        user_data):
         """change font if installed"""
         value = model.get(iter_a, INSTALLED)
         if value[0]:
@@ -320,7 +331,7 @@ class ApplicationBrowser(Gtk.Box):
         else:
             renderer_cell.props.weight = 400
 
-    def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
+    def on_remove_title_box(self, panel: Gtk.InfoBar, response_id: str):
         if self.info_bar_title:
             self.info_bar_title.hide()
             # Or not destroy ? for use set_title_box
@@ -371,7 +382,7 @@ class ApplicationBrowser(Gtk.Box):
         db = Pamac.Database(config=Pamac.Config(conf_path="/etc/pamac.conf"))
         db.enable_appstream()
 
-        detail = db.get_pkg_details(pkg['pkg'], pkg['name'])
+        detail = db.get_pkg_details(pkg['pkg'], pkg['name'], False)
         if detail:
             if self.info_bar_title:
                 self.info_bar_title.hide()
