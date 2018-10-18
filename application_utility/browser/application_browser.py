@@ -400,7 +400,7 @@ class ApplicationBrowser(Gtk.Box):
         db = Pamac.Database(config=Pamac.Config(conf_path="/etc/pamac.conf"))
         db.enable_appstream()
 
-        detail = db.get_pkg_details(pkg['pkg'], pkg['name'])
+        detail = db.get_pkg_details(pkg['pkg'], pkg['name'], False)
         if detail:
             if self.info_bar_title:
                 self.info_bar_title.hide()
