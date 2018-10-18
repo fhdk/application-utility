@@ -380,7 +380,13 @@ class ApplicationBrowser(Gtk.Box):
         as ?
         https://stackoverflow.com/questions/11549480/load-and-show-an-image-from-the-web-in-python-with-gtk-3
         """
-        if not self.info_bar_title or not self.info_bar_appstream:
+        if not self.info_bar_title:
+            return
+
+        try:
+            if self.info_bar_appstream:
+                pass
+        except AttributeError:
             return
 
         pkg = self.config(pkg)
@@ -538,7 +544,7 @@ class ApplicationBrowser(Gtk.Box):
     def net_check():
         """Check for internet connection"""
         resp = None
-        host = f"https://{txt.GITLAB}"
+        host = f"https://{txt.URL_GITLAB}"
         # noinspection PyBroadException
         try:
             resp = urllib.request.urlopen(host, timeout=2)

@@ -169,9 +169,9 @@ class BaseConfig:
             # TODO rewrite with self.preferences ... ?
             # TODO get Packages-Desktop and parse maintainers tags?
             if desktop in ("xfce", "kde", "gnome"):
-                src = f"{txt.OFFICIAL_ISO_URL}/{desktop}/{desktop}.json"
+                src = f"{txt.ISO_URL_OFFICIAL}/{desktop}/{desktop}.json"
             else:
-                src = f"{txt.COMMUNITY_ISO_URL}/{desktop}/{desktop}.json"
+                src = f"{txt.ISO_URL_COMMUNITY}/{desktop}/{desktop}.json"
             logging.debug("find iso url: %s", src)
             return self.download_file(src)
         else:
