@@ -1,2 +1,2 @@
-__version__ = "1.1.0dev"
-__all__ = ["browser", "__version__"]
+__version__ = "1.1.0.dev1"
+__all__ = ["browser", "__version__", "translation", "constants", "config"]
