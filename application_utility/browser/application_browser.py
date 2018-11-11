@@ -307,13 +307,27 @@ class ApplicationBrowser(Gtk.Box):
             self.tree_view.expand_all()
         self.update_system_button.set_sensitive(not self.alpm.empty)
 
-    def treeview_cell_check_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
-        """hide checkbox for groups"""
+    @staticmethod
+    def treeview_cell_check_data_function(column: Gtk.TreeViewColumn,
+                                          renderer_cell: Gtk.CellRenderer,
+                                          model: Gtk.TreeModel,
+                                          iter_a: Gtk.TreeIter,
+                                          user_data):
+        """
+        hide checkbox for groups
+        """
         value = model.get(iter_a, GROUP)
         renderer_cell.set_visible(not value[0])
 
-    def treeview_cell_app_data_function(self, column: Gtk.TreeViewColumn, renderer_cell: Gtk.CellRenderer, model: Gtk.TreeModel, iter_a: Gtk.TreeIter, user_data):
-        """change font if installed"""
+    @staticmethod
+    def treeview_cell_app_data_function(column: Gtk.TreeViewColumn,
+                                        renderer_cell: Gtk.CellRenderer,
+                                        model: Gtk.TreeModel,
+                                        iter_a: Gtk.TreeIter,
+                                        user_data):
+        """
+        change font if installed
+        """
         value = model.get(iter_a, INSTALLED)
         if value[0]:
             renderer_cell.props.weight = 600
@@ -457,12 +471,12 @@ class ApplicationBrowser(Gtk.Box):
                         data = json.loads(response.read().decode("utf8"))
                         self.write_json_file(data, file)
                 self.reload_app_data(True)
-                self.set_title_box(txt.DOWLOAD_COMPLETE)
+                self.set_title_box(txt.DOWNLOAD_COMPLETE)
             except Exception as e:
                 logging.error(e)
 
         else:
-            # or re-use panal-title for dialogs info ? it's more gtk3 ?
+            # or re-use panel-title for dialogs info ? it's more gtk3 ?
             self.set_title_box(f"{txt.DOWNLOAD_NA}\n{txt.GITLAB} {txt.SERVER_NA}",
                                Gtk.MessageType.ERROR)
 
