@@ -24,6 +24,7 @@
         "icon": "falkon",
         "description": "Qt based Web Browser",
         "pkg": "falkon",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -38,6 +39,7 @@
         "icon": "konqueror",
         "description": "Konqueror Web Browser",
         "pkg": "konqueror",
+        "filter": ["advanced"],
         "desktop": ["kde"],
         "extra": []
       },
@@ -46,6 +48,7 @@
         "icon": "midori",
         "description": "Lightweight Webbrowser",
         "pkg": "midori",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -53,6 +56,7 @@
         "icon": "netsurf",
         "description": "Light and Fast Web Browser",
         "pkg": "netsurf",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -89,6 +93,7 @@
         "icon": "geary",
         "description": "Send and receive mail",
         "pkg": "geary",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -97,6 +102,7 @@
         "description": "KDE E-mail client",
         "pkg": "kmail",
         "desktop": ["kde"],
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -163,6 +169,7 @@
         "icon": "geany",
         "description": "A fast and lightweight IDE using GTK+",
         "pkg": "geany",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -207,6 +214,7 @@
         "description": "Disk management system for Gnome",
         "pkg": "gnome-disk-utility",
         "desktop": ["!kde"],
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -214,6 +222,7 @@
         "icon": "gparted",
         "description": "Create, reorganize, and delete partitions",
         "pkg": "gparted",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -221,6 +230,7 @@
         "icon": "usb-creator",
         "description": "A graphical tool to copy a hybrid ISO onto a USB key.",
         "pkg": "isousb",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -285,8 +295,8 @@
         "name": "VirtualBox",
         "icon": "virtualbox",
         "description": "Run several virtual systems on a single host computer",
-        "pkg": "calibre",
-        "extra": []
+        "pkg": "virtualbox",
+        "extra": ["virtualbox-guest-iso"]
       },
       {
         "name": "Gnome Boxes",
@@ -588,7 +598,7 @@
       {
         "name": "Libre Office (Fresh)",
         "icon": "libreoffice-main",
-        "description": "Open Source Office Application (Lastest)",
+        "description": "Open Source Office Application (Latest)",
         "pkg": "libreoffice-fresh",
         "extra": []
       },

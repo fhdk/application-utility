@@ -18,8 +18,11 @@ def usage():
 
 
 def download_file(src: str) -> str:
-    """download file in tmp file
+    """
+    download file in tmp file
         return file name
+    :param src:
+    :return:
     """
     try:
         ret = requests.head(src, allow_redirects=True)
@@ -37,11 +40,16 @@ def download_file(src: str) -> str:
         logging.debug("url %s not found", src)
     except requests.exceptions.MissingSchema:
         logging.debug("bad url %s", src)
-    return None
+    return ""
 
 
 def get_arg_value(key: str, default: str = "") -> str:
-    """read param value"""
+    """
+    return value for argument or default
+    :param key:
+    :param default:
+    :return:
+    """
     for arg in sys.argv:
         if arg.lower().startswith(f"--{key}="):
             value = arg[len(key) + 3:]
@@ -52,9 +60,14 @@ def get_arg_value(key: str, default: str = "") -> str:
 
 
 def get_datafile(filedefault: str, key: str = "file") -> str:
-    """read param,
+    """
+    read param,
     if value is url then download file
     return empty if not exists
+
+    :param filedefault:
+    :param key:
+    :return:
     """
     arg_file = get_arg_value(key, filedefault)
     if arg_file.startswith("http"):
@@ -66,6 +79,11 @@ def get_datafile(filedefault: str, key: str = "file") -> str:
 
 
 def parse_iso_file(file_iso: str):
+    """
+    Parse Packages-Desktop file
+    :param file_iso:
+    :return:
+    """
     with open(file_iso) as f:
         for line in f:
             my_package = None
@@ -76,11 +94,10 @@ def parse_iso_file(file_iso: str):
             if m:
                 # remove all '>***'
                 pkg = line[:line.index('#')].split()[-1:][0]
-                my_package = {}
-                my_package['pkg'] = pkg
-                my_package['group'] = m.group(1).replace('"', '').strip()
-                my_package['name'] = None
-                my_package['icon'] = ""
+                my_package = {'pkg': pkg,
+                              'group': m.group(1).replace('"', '').strip(),
+                              'name': None,
+                              'icon': ""}
             m = re.search(r"name:(\"(.+)\"|([^ ]+))", line)
             if m:
                 my_package['name'] = m.group(1).replace('"', '')
@@ -91,11 +108,17 @@ def parse_iso_file(file_iso: str):
                 yield my_package
 
 
-def save_apps_to_json(json_data, filename: str):
+def save_apps_to_json(json_data: list, filename: str):
+    """
+    Save applications as json
+    :param json_data:
+    :param filename:
+    :return:
+    """
     with open(filename, "w", encoding="utf-8", newline='\r\n') as data_file:
         # json.dump(json_data, data_file, indent=2, sort_keys=True, ensure_ascii=False)
         out = json.dumps(json_data, indent=2, sort_keys=True, ensure_ascii=False)
-        # for humain readable ?
+        # for human readable ?
         out = out[1:-1]
         for line in out.split(r"\n"):
             print(line.replace(r'\"', '"'), file=data_file)
@@ -104,22 +127,22 @@ def save_apps_to_json(json_data, filename: str):
 
 
 def main():
-    # iso_profil = './Packages-Desktop'
-    iso_profil = get_datafile("")
-    if not iso_profil:
+    # iso_profile = './Packages-Desktop'
+    iso_profile = get_datafile("")
+    if not iso_profile:
         usage()
 
-    pkgs = list(parse_iso_file(iso_profil))
+    pkgs = list(parse_iso_file(iso_profile))
 
     groups = {x['group'] for x in pkgs}
-    print('Groups in iso profil: ', groups)
+    print('Groups in iso profile: ', groups)
 
     config = Pamac.Config(conf_path="/etc/pamac.conf")
     db = Pamac.Database(config=config)
     db.enable_appstream()
 
-    def get_pkg_in_group(pkgs, group):
-        for pkg in pkgs:
+    def get_pkg_in_group(packages: list, group):
+        for pkg in packages:
             try:
                 if group == pkg['group']:
                     pkg_pamac = db.get_pkg_details(pkg['pkg'], "")
