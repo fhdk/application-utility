@@ -20,4 +20,4 @@
 configuration
 """
 
-APP_URL="https://gitlab.manjaro.org/fhdk//raw/master/share/default.json"
+APP_URL = "https://gitlab.manjaro.org/fhdk/raw/master/share/default.json"
