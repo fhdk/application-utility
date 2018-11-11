@@ -2,7 +2,7 @@
   {
     "name": "Browsers",
     "icon": "browser",
-    "description": "Web browsning and communication",
+    "description": "Web browsing and communication",
     "apps": [
       {
         "name": "Chromium",
@@ -12,30 +12,59 @@
         "extra": []
       },
       {
-        "name": "Firefox",
-        "icon": "mozilla-firefox",
-        "description": "Mozilla Web Browser",
-        "pkg": "firefox",
-        "extra": [],
-        "desktop": ["xfce"]
+        "name": "Epiphany",
+        "icon": "epiphany",
+        "description": "Open source Web Browser",
+        "pkg": "epiphany",
+        "filter": ["advanced"],
+        "extra": []
       },
       {
         "name": "Falkon",
         "icon": "falkon",
         "description": "Qt based Web Browser",
         "pkg": "falkon",
-        "extra": [],
         "filter": ["advanced"],
-        "desktop": ["kde"]
-      },      
+        "extra": []
+      },
+      {
+        "name": "Firefox",
+        "icon": "mozilla-firefox",
+        "description": "Mozilla Web Browser",
+        "pkg": "firefox",
+        "extra": []
+      },
+      {
+        "name": "Konqueror",
+        "icon": "konqueror",
+        "description": "Konqueror Web Browser",
+        "pkg": "konqueror",
+        "filter": ["advanced"],
+        "desktop": ["kde"],
+        "extra": []
+      },
+      {
+        "name": "Midori",
+        "icon": "midori",
+        "description": "Lightweight Webbrowser",
+        "pkg": "midori",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "Netsurf",
+        "icon": "netsurf",
+        "description": "Light and Fast Web Browser",
+        "pkg": "netsurf",
+        "filter": ["advanced"],
+        "extra": []
+      },
       {
         "name": "Opera",
         "icon": "opera",
         "description": "Fast and secure webbrowser",
         "pkg": "opera",
-        "extra": [],
-        "filter": ["advanced"],
-        "desktop": ["!kde","!gnome"]
+        "extra": []
       }
     ]
   },
@@ -45,10 +74,43 @@
     "description": "E-mail, Calendar, Tasks",
     "apps": [
       {
+        "name": "Claws Mail",
+        "icon": "claws-mail",
+        "description": "Lightweight and fast GTK+ based Mail Client",
+        "pkg": "claws-mail",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
         "name": "Evolution",
         "icon": "evolution",
         "description": "Manage your email, contacts and schedule",
         "pkg": "evolution",
+        "extra": []
+      },
+      {
+        "name": "Geary",
+        "icon": "geary",
+        "description": "Send and receive mail",
+        "pkg": "geary",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "KMail",
+        "icon": "kmail",
+        "description": "KDE E-mail client",
+        "pkg": "kmail",
+        "desktop": ["kde"],
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "Sylpheed",
+        "icon": "sylpheed",
+        "description": "E-mail client",
+        "pkg": "sylpheed",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -64,28 +126,65 @@
     "name": "Backup",
     "icon": "deja-dup",
     "description": "Backup utilites",
-    "filter": ["advanced"],
     "apps": [
       {
         "name": "Deja Dup",
         "icon": "deja-dup",
         "description": "Keep your important documents safe from disater",
         "pkg": "deja-dup",
-        "extra": [],
-        "desktop": ["!kde","for test empty group !"]
+        "extra": []
+      },
+      {
+        "name": "Grsync",
+        "icon": "grsync",
+        "description": "Synchronize files and folders",
+        "pkg": "grsync",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "Timeshift",
+        "icon": "timeshift",
+        "description": "A system restore utility for Linux",
+        "pkg": "timeshift",
+        "extra": []
       }
     ]
   },
   {
     "name": "Text Editors",
     "icon": "text-editor",
-    "description": "Simple editors for text or code",
+    "description": "Various editors for text or code",
     "apps": [
+      {
+        "name": "Atom",
+        "icon": "atom",
+        "description": "A hackable text editor for the 21st Century",
+        "pkg": "atom",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "Geany",
+        "icon": "geany",
+        "description": "A fast and lightweight IDE using GTK+",
+        "pkg": "geany",
+        "filter": ["advanced"],
+        "extra": []
+      },
       {
         "name": "Mousepad",
         "icon": "mousepad",
         "description": "Simple Text Editor",
         "pkg": "mousepad",
+        "extra": []
+      },
+      {
+        "name": "Visual Studio Code OSS",
+        "icon": "visual-studio-code",
+        "description": "Microsoft Code Editor",
+        "pkg": "code",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -100,13 +199,22 @@
   {
     "name": "System Tools",
     "icon": "disk-utility",
-    "description": "System Utilities",
+    "description": "System utilities",
     "apps": [
+      {
+        "name": "Etcher",
+        "icon": "etcher-electron",
+        "description": "Graphical tool to write ISO to USB",
+        "pkg": "etcher",
+        "extra": []
+      },
       {
         "name": "Gnome Disks",
         "icon": "gnome-disks",
         "description": "Disk management system for Gnome",
         "pkg": "gnome-disk-utility",
+        "desktop": ["!kde"],
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -114,6 +222,15 @@
         "icon": "gparted",
         "description": "Create, reorganize, and delete partitions",
         "pkg": "gparted",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "IsoUSB",
+        "icon": "usb-creator",
+        "description": "A graphical tool to copy a hybrid ISO onto a USB key.",
+        "pkg": "isousb",
+        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -128,6 +245,14 @@
         "icon": "pamac-updater",
         "description": "Update your System, Add/Remove Software from repo and AUR",
         "pkg": "pamac",
+        "extra": []
+      },
+      {
+        "name": "Yay",
+        "icon": "terminal",
+        "description": "CLI AUR helper",
+        "pkg": "yay",
+        "filter": ["advanced"],
         "extra": []
       }
     ]
@@ -156,6 +281,28 @@
         "icon": "veracrypt",
         "description": "Disk encryption with strong security based on TrueCrypt",
         "pkg": "veracrypt",
+        "extra": []
+      }
+    ]
+  },
+  {
+    "name": "Virtual Computing",
+    "icon": "virt-manager",
+    "description": "Virtual Machine applications",
+    "filter": ["advanced"],
+    "apps": [
+      {
+        "name": "VirtualBox",
+        "icon": "virtualbox",
+        "description": "Run several virtual systems on a single host computer",
+        "pkg": "virtualbox",
+        "extra": ["virtualbox-guest-iso"]
+      },
+      {
+        "name": "Gnome Boxes",
+        "icon": "gnome-boxes",
+        "description": "Simple remote and virtual machines",
+        "pkg": "gnome-boxes",
         "extra": []
       }
     ]
@@ -196,8 +343,24 @@
       {
         "name": "qBittorrent",
         "icon": "qbittorrent",
-        "description": "Bittorrent Client",
+        "description": "A Qt based Bittorrent Client",
         "pkg": "qbittorrent",
+        "extra": []
+      },
+      {
+        "name": "Transmission GTK",
+        "icon": "transmission",
+        "description": "GTK based Bittorrent Client",
+        "pkg": "transmission-gtk",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "QTransmission",
+        "icon": "transmission",
+        "description": "QT based Bittorrent Client",
+        "pkg": "transmission-qt",
+        "filter": ["advanced"],
         "extra": []
       }
     ]
@@ -208,9 +371,31 @@
     "description": "Creating and editing graphics",
     "apps": [
       {
+        "name": "Blender",
+        "icon": "blender",
+        "description": "3D modeling and animation",
+        "pkg": "blender",
+        "filter": ["advanced"],
+        "extra": []
+      },
+      {
+        "name": "GIMP",
+        "icon": "gimp",
+        "description": "Create images and edit photographs",
+        "pkg": "gimp",
+        "extra": []
+      },
+      {
+        "name": "Inkscape",
+        "icon": "inkscape",
+        "description": "Vector Graphics Editor",
+        "pkg": "inkscape",
+        "extra": []
+      },
+      {
         "name": "Krita",
         "icon": "krita",
-        "description": "Create images and edit photographs",
+        "description": "Digital Painting Creative Freedom",
         "pkg": "krita",
         "extra": []
       },
@@ -236,12 +421,19 @@
     "description": "Viewers and organizers",
     "apps": [
       {
+        "name": "Gpicview",
+        "icon": "gpicview",
+        "description": "Lightweight Image Viewer",
+        "pkg": "gpicview",
+        "extra": []
+      },
+      {
         "name": "gThumb",
         "icon": "gthumb",
         "description": "View and organize your images",
-        "pkg": "viewnior",
+        "pkg": "gthumb",
         "extra": []
-      } ,
+      },
       {
         "name": "Gwenview",
         "icon": "gwenview",
@@ -250,10 +442,24 @@
         "extra": []
       },
       {
+        "name": "Ristretto",
+        "icon": "ristretto",
+        "description": "Free and lightweight image viewer",
+        "pkg": "ristretto",
+        "extra": []
+      },
+      {
         "name": "Shotwell",
         "icon": "shotwell",
         "description": "Popular Photo Manager",
         "pkg": "shotwell",
+        "extra": []
+      },
+      {
+        "name": "Viewnior",
+        "icon": "viewnior",
+        "description": "GTK based Elegant Image Viewer",
+        "pkg": "viewnior",
         "extra": []
       }
     ]
@@ -264,10 +470,31 @@
     "description": "Organize and play videos and movies",
     "apps": [
       {
+        "name": "Kodi",
+        "icon": "kodi",
+        "description": "Manage and view your media",
+        "pkg": "kodi",
+        "extra": []
+      },
+      {
+        "name": "Parole",
+        "icon": "parole",
+        "description": "Modern and simple media player",
+        "pkg": "parole",
+        "extra": []
+      },
+      {
         "name": "SM Player",
         "icon": "smplayer",
         "description": "A great MPlayer front end",
         "pkg": "smplayer",
+        "extra": []
+      },
+      {
+        "name": "Totem",
+        "icon": "totem",
+        "description": "Play movies",
+        "pkg": "totem",
         "extra": []
       },
       {
@@ -285,10 +512,31 @@
     "description": "Audio players",
     "apps": [
       {
+        "name": "Audacious",
+        "icon": "audacious",
+        "description": "Listen to music",
+        "pkg": "audacious",
+        "extra": []
+      },
+      {
         "name": "Clementine",
         "icon": "clementine",
         "description": "Play music files and internet radio",
         "pkg": "clementine",
+        "extra": []
+      },
+      {
+        "name": "DeadBeeF",
+        "icon": "deadbeef",
+        "description": "Listen to music",
+        "pkg": "deadbeef",
+        "extra": []
+      },
+      {
+        "name": "Lollypop",
+        "icon": "lollypop",
+        "description": "Play and organize your music collection",
+        "pkg": "deadbeef",
         "extra": []
       },
       {
@@ -301,15 +549,64 @@
     ]
   },
   {
+    "name": "Media recording/editing",
+    "icon": "kdenlive",
+    "description": "Audio and Video editing",
+    "apps": [
+      {
+        "name": "Audacity",
+        "icon": "audacity",
+        "description": "Record and Edit Audio files",
+        "pkg": "audacity",
+        "extra": []
+      },
+      {
+        "name": "Kdenlive",
+        "icon": "kdenlive",
+        "description": "Video Editor",
+        "pkg": "kdenlive",
+        "extra": []
+      },
+      {
+        "name": "OBS Studio",
+        "icon": "obs",
+        "description": "Open Source Streaming/Recording Application",
+        "pkg": "obs-studio",
+        "extra": []
+      },
+      {
+        "name": "Simple Screen Recorder",
+        "icon": "simple-ccsm",
+        "description": "Screen Capturing Application",
+        "pkg": "simplescreenrecorder",
+        "extra": []
+      }
+    ]
+  },
+  {
     "name": "Office Suites",
     "icon": "applications-office",
     "description": "Office suites like MS Office",
     "apps": [
       {
+        "name": "Calligra Office",
+        "icon": "calligrawords",
+        "description": "Qt Based Office Suite",
+        "pkg": "calligra",
+        "extra": []
+      },
+      {
         "name": "Libre Office (Fresh)",
-        "icon": "libreoffice-writer",
-        "description": "Open Source Office Application (Lastest)",
+        "icon": "libreoffice-main",
+        "description": "Open Source Office Application (Latest)",
         "pkg": "libreoffice-fresh",
+        "extra": []
+      },
+      {
+        "name": "Libre Office (Still)",
+        "icon": "libreoffice-main",
+        "description": "Open Source Office Application (Stable)",
+        "pkg": "libreoffice-still",
         "extra": []
       },
       {
@@ -317,6 +614,27 @@
         "icon": "ms-word",
         "description": "Microsoft Office Online",
         "pkg": "ms-office-online",
+        "extra": []
+      }
+    ]
+  },
+  {
+    "name": "Office Apps",
+    "icon": "gnumeric",
+    "description": "Stand alone applications",
+    "apps": [
+      {
+        "name": "Abiword",
+        "icon": "abiword",
+        "description": "Compose, Edit and view documents",
+        "pkg": "abiword",
+        "extra": []
+      },
+      {
+        "name": "Gnumeric",
+        "icon": "gnumeric",
+        "description": "A High Precision Spreadsheet Program",
+        "pkg": "gnumeric",
         "extra": []
       }
     ]
@@ -341,6 +659,13 @@
     "description": "PDF applications applications",
     "apps": [
       {
+        "name": "Epdfview",
+        "icon": "qpdfview",
+        "description": "Lightweight PDF document viewer",
+        "pkg": "epdfview",
+        "extra": []
+      },
+      {
         "name": "Evince",
         "icon": "evince",
         "description": "View multi page documents",
@@ -351,7 +676,21 @@
         "name": "Okular",
         "icon": "okular",
         "description": "Document Viewer",
-        "pkg": "okular",
+        "pkg": "Okular",
+        "extra": []
+      },
+      {
+        "name": "PDFMod",
+        "icon": "pdfmod",
+        "description": "Remove, extract and rotate pages in PDF Documents",
+        "pkg": "pdfmod",
+        "extra": []
+      },
+      {
+        "name": "Qpdfview",
+        "icon": "qpdfview",
+        "description": "Tabbed document viewer",
+        "pkg": "qpdfview",
         "extra": []
       }
     ]
