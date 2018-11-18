@@ -141,10 +141,10 @@ def main():
     db = Pamac.Database(config=config)
     db.enable_appstream()
 
-    def get_pkg_in_group(packages: list, group):
+    def get_pkg_in_group(packages: list, pkg_group):
         for pkg in packages:
             try:
-                if group == pkg['group']:
+                if pkg_group == pkg['group']:
                     pkg_pamac = db.get_pkg_details(pkg['pkg'], "")
                     # run script with LANG=C ! for no translation
                     pkg["description"] = pkg_pamac.props.desc
