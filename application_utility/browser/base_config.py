@@ -26,6 +26,9 @@ import tempfile
 import requests
 # from requests.exceptions import ConnectionError
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 from application_utility.constants import txt
 
 

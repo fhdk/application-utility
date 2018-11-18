@@ -27,6 +27,9 @@ import collections
 from .data import Data
 from .base_config import BaseConfig
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 
 class Config(BaseConfig, Data):
     """Configuration with data"""

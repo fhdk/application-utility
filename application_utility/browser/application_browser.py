@@ -35,6 +35,9 @@ from gi.repository import Gtk
 gi.require_version('Pamac', '1.0')
 from gi.repository import Pamac
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 # Applications class constants
 
 TITLE = f"{txt.MAU} v.{__version__}"
@@ -43,7 +46,9 @@ GROUP, ICON, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(7
 
 
 class ApplicationBrowser(Gtk.Box):
-    """Class Applications  with viw, title and btns"""
+    """
+    Class Applications with veiw, title and buttons
+    """
 
     def __init__(self, config: Config, window: Gtk.Window, orientation=Gtk.Orientation.VERTICAL, spacing=1):
         super().__init__(orientation=orientation, spacing=spacing, expand=True)
@@ -473,6 +478,7 @@ class ApplicationBrowser(Gtk.Box):
                 self.reload_app_data(True)
                 self.set_title_box(txt.DOWNLOAD_COMPLETE)
             except Exception as e:
+                print(e)
                 logging.error(e)
 
         else:

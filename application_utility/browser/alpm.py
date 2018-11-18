@@ -30,6 +30,9 @@ import subprocess
 gi.require_version("Pamac", "1.0")
 from gi.repository import Pamac
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 
 class Alpm:
     """system alpm commit"""
