@@ -103,9 +103,9 @@ An editor of choice e.g.
 ```bash
 git clone https://gitlab.manjaro.org/fhdk/application-utility.git
 cd application-utility
-sudo pacman -Syu python-pip python-virtualenvwrapper
+sudo pacman -Syu python-pip python-virtualenvwrapper gobject-introspection
 mkvirtualenv application-utility
-pip install mkdocs coverage babel flake8 transifex-client
+pip install mkdocs coverage babel flake8 transifex-client pygobject
 python setup.py develop
 
 ```
