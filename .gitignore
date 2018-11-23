@@ -37,9 +37,8 @@ mock/var/lib/application-utility/status.json
 .mr.developer.cfg
 .project
 .pydevproject
-.idea
+#.idea
 .vscode
-
 # Complexity
 output/*.html
 output/*/index.html
