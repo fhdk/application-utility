@@ -17,9 +17,6 @@
 # Authors: papajoke
 #          fhdk
 
-from application_utility.translation import i18n
-_ = i18n.language.gettext
-
 
 class NoAppInIsoError(Exception):
     """# never show App-install on isos ??"""

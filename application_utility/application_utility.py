@@ -18,14 +18,15 @@
 #          papajoke
 
 import gi
+import requests
+from requests.exceptions import ConnectionError
+import os
 import logging
+import sys
 
-from application_utility.browser.app_config import AppConfig
-from application_utility.browser.application_browser import ApplicationBrowser
+from .browser.app_config import AppConfig
+from .browser.application_browser import ApplicationBrowser
 from application_utility.__init__ import __version__
-from application_utility.translation import custom_help_formatter
-
-_ = custom_help_formatter.CustomHelpFormatter
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject, GdkPixbuf

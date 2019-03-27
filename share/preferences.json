@@ -2,7 +2,8 @@
   "data-set": "default",
   "user-path": "~/.config",
   "data-sets": [
-    "default"
+    "default",
+    "advanced"
   ],
   "url": "https://gitlab.manjaro.org/fhdk/application-utility/raw/master"
 }

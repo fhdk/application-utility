@@ -23,9 +23,6 @@ import sys
 
 from .config import Config
 
-from application_utility.translation import i18n
-_ = i18n.language.gettext
-
 
 class AppConfig(Config):
     """
@@ -37,5 +34,22 @@ class AppConfig(Config):
         self.pref = {"data-set": "default"}
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": f"{self._DATA_DIR}/default.json"}
-        self.file["main"] = self.get_datafile(self.file["main"], "file")
+        self.desktop = os.environ.get("XDG_SESSION_DESKTOP")
+
+        if len(sys.argv) > 1:  # and not "--dev" in sys.argv:
+            file = sys.argv[1]
+            if os.path.isfile(file):
+                self.file["main"] = file
+            else:
+                if file.startswith("http"):
+                    try:
+                        # TODO make only head() ?
+                        requests.get(file)
+                        self.url["main"] = file
+                        logging.info(f"json to use: f{self.url['main']}")
+                        # TODO save in self._MERGE_FILE
+                    except ConnectionError:
+                        logging.critical('json data not found')
+                    # else:
+                    # self.file["main"] = file
         return self
