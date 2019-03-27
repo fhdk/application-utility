@@ -30,6 +30,9 @@ import gi
 gi.require_version('Pamac', '1.0')
 from gi.repository import Pamac
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 
 class Data:
     def __init__(self):
@@ -155,7 +158,7 @@ class Data:
                     use pamac/appstream for locale description
                     """
                     app['appstream'] = False
-                    detail = db.get_pkg_details(app['pkg'], app['name'])
+                    detail = db.get_pkg_details(app['pkg'], app['name'], False)
                     if detail:
                         app['appstream'] = True
                         d = detail.get_desc()
@@ -174,6 +177,11 @@ class Data:
         except OSError:
             pass
         return result
+
+    def save_apps_to_json(self, filename):
+        with open(filename, "w") as data_file:
+            json.dump(self._json, data_file, indent=2)  # sort_keys=True
+            data_file.flush()
 
     @property
     def categories(self) -> Iterator[str]:
@@ -217,6 +225,34 @@ class Data:
         founds = [x for x in self.all() if x["name"] == name or x["pkg"] == name]
         if founds:
             return founds[0]
+
+    def append_app(self, group, app):
+        """add one application in database"""
+        if not group['group'] in self:
+            # create group
+            print(f" group {group['group']} not exist ")
+            self._json.append({
+                "name": group['group'],
+                "apps":[],
+                "icon":"emblem-new",
+                "description":"new group by iso json"
+            })
+            # TODO set default attributes in generator "desktop".json
+            print(set(self.categories))
+
+        else:
+            print(f" group {group['group']} exist ")
+        #exit(1)
+        if not app.get('name'):
+            app['name'] = app['pkg']
+        if not app.get('icon'):
+            app['icon'] = "emblem-package"
+        for g in self._json:
+            if g["name"] == group["group"]:
+                logging.debug(f"Add iso app: {app['name']} in group: %s", group["group"])
+                g["apps"].append(app)
+                #exit(1)
+
 
     @staticmethod
     def app_installed(package: str) -> bool:

@@ -1,0 +1,120 @@
+[
+  {
+    "group": "play",
+    "apps": [
+      {
+        "pkg": "steam-manjaro",
+        "name": "",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "group": "web",
+    "apps": [
+      {
+        "pkg": "kdenetwork-kget",
+        "name": "",
+        "icon": "net",
+        "description": ""
+      },
+      {
+        "pkg": "kdenetwork-kget",
+        "name": "",
+        "description": ""
+      },
+      {
+        "pkg": "kdenetwork-kget",
+        "name": "",
+        "icon": "net",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "group": "Printing",
+    "apps": [
+      {
+        "pkg": "cups",
+        "name": "cups",
+        "description": "Interface Web de CUPS"
+      },
+      {
+        "pkg": "print-manager",
+        "name": "print-manager",
+        "description": "Liste les touches d'impression "
+      },
+      {
+        "pkg": "system-config-printer",
+        "name": "system-config-printer",
+        "description": "Configurer les files d'attente d'imprimante"
+      }
+    ]
+  },
+  {
+    "group": "inet",
+    "apps": [
+      {
+        "pkg": "python-pysmbc",
+        "name": "python-pysmbc",
+        "description": "Python 3 bindings for libsmbclient"
+      }
+    ]
+  },
+  {
+    "group": "util",
+    "apps": [
+      {
+        "pkg": "samba",
+        "name": "samba",
+        "description": "SMB Fileserver and AD Domain server"
+      },
+      {
+        "pkg": "dmidecode",
+        "name": "dmidecode",
+        "icon": "inxi",
+        "description": "Desktop Management Interface table related utilities"
+      },
+      {
+        "pkg": "yakuake",
+        "name": "yakuake",
+        "description": "Drop-down Terminal"
+      }
+    ]
+  },
+  {
+    "group": "theme",
+    "apps": [
+      {
+        "pkg": "ttf-droid",
+        "name": "ttf-droid",
+        "description": "General-purpose fonts released by Google as part of Android"
+      },
+      {
+        "pkg": "plasma-workspace-wallpapers",
+        "name": "plasma-workspace-wallpapers",
+        "description": "Additional wallpapers for the Plasma Workspace"
+      },
+      {
+        "pkg": "oxygen",
+        "name": "oxygen",
+        "description": "KDE Oxygen style"
+      },
+      {
+        "pkg": "oxygen-icons",
+        "name": "oxygen-icons",
+        "description": "The Oxygen Icon Theme"
+      }
+    ]
+  },
+  {
+    "group": "email",
+    "apps": [
+      {
+        "pkg": "thunderbird",
+        "name": "thunderbird",
+        "description": "Lire et écrire des courriels"
+      }
+    ]
+  }
+]

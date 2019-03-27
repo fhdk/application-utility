@@ -25,6 +25,9 @@ import sys
 from .config import Config
 from .exceptions import NoAppInIsoError
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 
 class HelloConfig(Config):
     """
@@ -40,10 +43,12 @@ class HelloConfig(Config):
                 logging.basicConfig(level=logging.DEBUG)
             else:
                 logging.basicConfig(level=logging.DEBUG)
+        logging.debug("_DATA_DIR is %s", self._DATA_DIR)
         logging.debug("_PREF_FILE is %s", self._PREF_FILE)
         self.pref = self.read_json_file(self._PREF_FILE)
         # TODO to set ?
         self.url = {"desktop": "", "main": ""}
         self.file = {"desktop": "", "main": f"{self._DATA_DIR}/{self.pref['data-set']}.json"}
+        self.file["main"] = self.get_datafile(self.file["main"], "file")
         logging.debug("self.file is %s", self.file)
         return self
