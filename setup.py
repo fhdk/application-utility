@@ -11,25 +11,19 @@ from socket import timeout
 from urllib.error import URLError
 
 from setuptools import setup
+from application_utility.config import config
 
 
 def update_databases():
     """update database files from gitlab"""
-    _adv = None
-    _def = None
     try:
-        with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/advanced.json") as response:
-            _adv = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
-        with urlopen("https://gitlab.manjaro.org/fhdk//raw/master/share/default.json") as response:
-            _def = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
-    except (HTTPException, json.JSONDecodeError, URLError, timeout):
-        pass
-    if _adv:
+        with urlopen(config.APP_URL) as response:
+            apps = json.loads(response.read().decode("utf8"), object_pairs_hook=collections.OrderedDict)
         with open("share/advanced.json", "w") as outfile:
             json.dump(apps, outfile, sort_keys=True, indent=2)
-    if _def:
-        with open("share/default.json", "w") as outfile:
-            json.dump(apps, outfile, sort_keys=True, indent=2)
+
+    except (HTTPException, json.JSONDecodeError, URLError, timeout):
+        pass
 
 
 def read(*names, **kwargs):
@@ -77,13 +71,13 @@ setup(
     url='https://github.com/manjaro/',
     packages=['application_utility',
               'application_utility.browser',
+              'application_utility.config',
               'application_utility.translation',
               'application_utility.constants'],
     package_dir={'application_utility': 'application_utility'},
-    data_files=[('share/application-utility', ['share/advanced.json',
-                                               'share/default.json',
-                                               'share/preferences.json']),
+    data_files=[('share/application-utility', ['share/default.json', 'share/preferences.json']),
                 ('share/locale/da/LC_MESSAGES', ['locale/da/LC_MESSAGES/application_utility.mo']),
+                ('share/locale/fr/LC_MESSAGES', ['locale/fr/LC_MESSAGES/application_utility.mo']),
                 ],
     scripts=["scripts/manjaro-application-utility"],
     install_requires=requirements,

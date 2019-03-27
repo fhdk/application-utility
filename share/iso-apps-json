@@ -1,0 +1,179 @@
+#!/usr/bin/python
+import gi
+import sys
+import os
+import logging
+import re
+import json
+import tempfile
+import requests
+
+gi.require_version('Pamac', '1.0')
+from gi.repository import Pamac
+
+
+def usage():
+    print("usage: iso-apps-json --file=[https://]filename-Desktop --desktop=kde")
+    exit(1)
+
+
+def download_file(src: str) -> str:
+    """
+    download file in tmp file
+        return file name
+    :param src:
+    :return:
+    """
+    try:
+        ret = requests.head(src, allow_redirects=True)
+        if ret.status_code < 300:
+            logging.info("iso json to use: %s", src)
+            request = requests.get(src, allow_redirects=True)
+            # TODO create /tmp/m-apps ?
+            tmp_file = tempfile.NamedTemporaryFile(delete=False)  # dir="m-apps"
+            tmp_file.write(request.content)
+            tmp_file.close()
+            return tmp_file.name
+        else:
+            logging.debug("url %s bad access", src)
+    except requests.exceptions.ConnectionError:
+        logging.debug("url %s not found", src)
+    except requests.exceptions.MissingSchema:
+        logging.debug("bad url %s", src)
+    return ""
+
+
+def get_arg_value(key: str, default: str = "") -> str:
+    """
+    return value for argument or default
+    :param key:
+    :param default:
+    :return:
+    """
+    for arg in sys.argv:
+        if arg.lower().startswith(f"--{key}="):
+            value = arg[len(key) + 3:]
+            if value.startswith('"'):
+                value = value[1:-1]
+            return value
+    return default
+
+
+def get_datafile(filedefault: str, key: str = "file") -> str:
+    """
+    read param,
+    if value is url then download file
+    return empty if not exists
+
+    :param filedefault:
+    :param key:
+    :return:
+    """
+    arg_file = get_arg_value(key, filedefault)
+    if arg_file.startswith("http"):
+        arg_file = download_file(arg_file)
+    if os.path.isfile(arg_file):
+        return arg_file
+    else:
+        logging.warning("File not exist ? %s", arg_file)
+
+
+def parse_iso_file(file_iso: str):
+    """
+    Parse Packages-Desktop file
+    :param file_iso:
+    :return:
+    """
+    with open(file_iso) as f:
+        for line in f:
+            my_package = None
+            if line.startswith('#'):
+                continue
+            # m = re.search(r"\s#group:(?P<group>\w+)", line)
+            m = re.search(r"\s#group:(\"(.+)\"|([^ ]+))", line)
+            if m:
+                # remove all '>***'
+                pkg = line[:line.index('#')].split()[-1:][0]
+                my_package = {'pkg': pkg,
+                              'group': m.group(1).replace('"', '').strip(),
+                              'name': None,
+                              'icon': ""}
+            m = re.search(r"name:(\"(.+)\"|([^ ]+))", line)
+            if m:
+                my_package['name'] = m.group(1).replace('"', '')
+            m = re.search(r"icon:(?P<icon>\w+)", line)
+            if m:
+                my_package['icon'] = m.group('icon')
+            if my_package:
+                yield my_package
+
+
+def save_apps_to_json(json_data: list, filename: str):
+    """
+    Save applications as json
+    :param json_data:
+    :param filename:
+    :return:
+    """
+    with open(filename, "w", encoding="utf-8", newline='\r\n') as data_file:
+        # json.dump(json_data, data_file, indent=2, sort_keys=True, ensure_ascii=False)
+        out = json.dumps(json_data, indent=2, sort_keys=True, ensure_ascii=False)
+        # for human readable ?
+        out = out[1:-1]
+        for line in out.split(r"\n"):
+            print(line.replace(r'\"', '"'), file=data_file)
+        data_file.flush()
+        print(f"\nfile \"{filename}\" saved.")
+
+
+def main():
+    # iso_profile = './Packages-Desktop'
+    iso_profile = get_datafile("")
+    if not iso_profile:
+        usage()
+
+    pkgs = list(parse_iso_file(iso_profile))
+
+    groups = {x['group'] for x in pkgs}
+    print('Groups in iso profile: ', groups)
+
+    config = Pamac.Config(conf_path="/etc/pamac.conf")
+    db = Pamac.Database(config=config)
+    db.enable_appstream()
+
+    def get_pkg_in_group(packages: list, pkg_group):
+        for pkg in packages:
+            try:
+                if pkg_group == pkg['group']:
+                    pkg_pamac = db.get_pkg_details(pkg['pkg'], "")
+                    # run script with LANG=C ! for no translation
+                    pkg["description"] = pkg_pamac.props.desc
+                    pkg["name"] = pkg_pamac.props.name
+                    if not pkg["name"] or pkg["name"] == pkg["pkg"]:
+                        del pkg["name"]
+                    del pkg['group']  # generate exception after
+                    if not pkg['icon']:
+                        # TODO
+                        # find in theme
+                        # find in pkg_pamac.props.icon
+                        del pkg['icon']
+                    yield pkg
+            except KeyError:
+                pass
+
+    json_data = []
+    for group in groups:
+        pkgs_group = list(get_pkg_in_group(pkgs, group))
+        json_data.append({"group": group, "apps": pkgs_group})
+
+    json_data = json.dumps(json_data, indent=2)
+    print(json_data)
+
+    filename = get_arg_value("desktop", "desktop.json")
+    if not filename.endswith(".json"):
+        filename = filename + ".json"
+    save_apps_to_json(json_data, filename)
+
+
+if __name__ == "__main__":
+    main()

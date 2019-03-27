@@ -22,8 +22,8 @@ msgid "Manjaro Application Maintenance"
 msgstr "Manjaro Program Vedligeholdelse"
 
 #: application_utility/constants/txt.py:30
-msgid "Manjaro Program Hjælper"
-msgstr ""
+msgid "Manjaro Application Utility"
+msgstr "Manjaro Apps Utility"
 
 #: application_utility/constants/txt.py:31
 msgid "Select/Deselect apps you want to install/remove"

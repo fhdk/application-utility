@@ -22,9 +22,16 @@ Module alpm
 Install / remove packages
 use pamac-installer
 """
-import subprocess
+import gi
 import glob
 import logging
+import subprocess
+
+gi.require_version("Pamac", "1.0")
+from gi.repository import Pamac
+
+from application_utility.translation import i18n
+_ = i18n.language.gettext
 
 
 class Alpm:
@@ -131,3 +138,10 @@ class Alpm:
 
     def __str__(self):
         return f"pkg list install: {self.pkg_list_install}\n pkg list removal: {self.pkg_list_removal}"
+
+    @staticmethod
+    def pkg_exist(pkgname: str) ->bool:
+        """check if a package exist"""
+        config = Pamac.Config(conf_path="/etc/pamac.conf")
+        db = Pamac.Database(config=config)
+        return bool(db.search_pkgs(pkgname))

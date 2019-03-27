@@ -16,11 +16,8 @@
 #
 # Authors: papajoke
 #          fhdk
+"""
+configuration
+"""
 
-from application_utility.translation import i18n
-_ = i18n.language.gettext
-
-
-class NoAppInIsoError(Exception):
-    """# never show App-install on isos ??"""
-    pass
+APP_URL = "https://gitlab.manjaro.org/fhdk/raw/master/share/default.json"

@@ -35,6 +35,9 @@ from gi.repository import Gtk
 gi.require_version('Pamac', '1.0')
 from gi.repository import Pamac
 
+from application_utility.translation import i18n
+_ = i18n.language.gettext
+
 # Applications class constants
 
 TITLE = f"{txt.MAU} v.{__version__}"
@@ -43,7 +46,9 @@ GROUP, ICON, APPLICATION, DESCRIPTION, ACTIVE, PACKAGE, INSTALLED = list(range(7
 
 
 class ApplicationBrowser(Gtk.Box):
-    """Class Applications  with viw, title and btns"""
+    """
+    Class Applications with veiw, title and buttons
+    """
 
     def __init__(self, config: Config, window: Gtk.Window, orientation=Gtk.Orientation.VERTICAL, spacing=1):
         super().__init__(orientation=orientation, spacing=spacing, expand=True)
@@ -60,6 +65,8 @@ class ApplicationBrowser(Gtk.Box):
             pix_buf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
             window.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
 
+        self.info_bar_appstream = Gtk.InfoBar()
+
         # initialize data storage
         self.app_store = list()
         self.group_store = list()
@@ -69,7 +76,22 @@ class ApplicationBrowser(Gtk.Box):
         self.app_browser_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, expand=True)
         self.add(self.app_browser_box)
 
-        if isinstance(self.config, HelloConfig):
+        if not isinstance(self.config, HelloConfig):
+            # InfoBar title
+            self.info_bar_title = Gtk.InfoBar()
+            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
+            self.info_bar_title.set_show_close_button(True)
+            self.info_bar_title.set_revealed(True)
+            self.info_bar_title.connect("response", self.on_remove_title_box)
+            # title label
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
+            # pack title info
+            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
+            # pack title info to app browser box
+            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+
+        else:
             # InfoBar title
             self.info_bar_title = Gtk.InfoBar()
             self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
@@ -85,39 +107,19 @@ class ApplicationBrowser(Gtk.Box):
             # pack title info to app browser box
             self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
 
-            # InfoBar appstream detail
-            self.info_bar_appstream = Gtk.InfoBar()
-            self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
-            self.info_bar_appstream.set_show_close_button(True)
-            self.info_bar_appstream.set_revealed(True)
-            self.info_bar_appstream.connect("response", self.on_remove_detail_box)
-            self.info_bar_appstream.connect("close", self.on_signal_close)
-            # appstream data
-            self.detail_label = Gtk.Label()
-            self.detail_label.set_line_wrap(True)
-            self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
-            # pack appstream info to app browser box
-            self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
+        # InfoBar appstream detail
+        self.info_bar_appstream = Gtk.InfoBar()
+        self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
+        self.info_bar_appstream.set_show_close_button(True)
+        self.info_bar_appstream.set_revealed(True)
+        self.info_bar_appstream.connect("response", self.on_remove_detail_box)
+        # app stream data
+        self.detail_label = Gtk.Label()
+        self.detail_label.set_line_wrap(True)
+        self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
 
-        else:
-            # InfoBar title
-            self.info_bar_title = Gtk.Box()
-            # self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
-            # self.info_bar_title.set_show_close_button(True)
-            # self.info_bar_title.set_revealed(True)
-            # self.info_bar_title.connect("response", self.on_remove_title_box)
-            title_image = Gtk.Image()
-            title_image.set_size_request(100, 100)
-            title_image.set_from_file("/usr/share/icons/manjaro/maia/96x96.png")
-            self.info_bar_title.pack_start(title_image, expand=False, fill=False, padding=0)
-            # title label
-            self.title_label = Gtk.Label()
-            self.title_label.set_markup(f"<b>{txt.MAU}</b>\n"
-                                        f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
-            # pack title info
-            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
-            # pack title info to app browser box
-            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
+        # pack appstream info to app browser box
+        self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
 
         # button box
         self.button_box = Gtk.Box(spacing=10)
@@ -198,10 +200,8 @@ class ApplicationBrowser(Gtk.Box):
 
         # show time
         self.show_all()
-        # hide appstream data until needed - why does it not hide?
-        # not completely
-        # # if self.info_bar_appstream:
-        # self.info_bar_appstream.hide()
+        if self.info_bar_appstream:
+            self.info_bar_appstream.hide()
 
     def create_view_tree(self):
         """create gtk view and model"""
@@ -313,39 +313,35 @@ class ApplicationBrowser(Gtk.Box):
         self.update_system_button.set_sensitive(not self.alpm.empty)
 
     @staticmethod
+    def treeview_cell_check_data_function(column: Gtk.TreeViewColumn,
+                                          renderer_cell: Gtk.CellRenderer,
+                                          model: Gtk.TreeModel,
+                                          iter_a: Gtk.TreeIter,
+                                          user_data):
+        """
+        hide checkbox for groups
+        """
+        value = model.get(iter_a, GROUP)
+        renderer_cell.set_visible(not value[0])
+
+    @staticmethod
     def treeview_cell_app_data_function(column: Gtk.TreeViewColumn,
                                         renderer_cell: Gtk.CellRenderer,
                                         model: Gtk.TreeModel,
                                         iter_a: Gtk.TreeIter,
                                         user_data):
-        """change font if installed"""
+        """
+        change font if installed
+        """
         value = model.get(iter_a, INSTALLED)
         if value[0]:
             renderer_cell.props.weight = 600
         else:
             renderer_cell.props.weight = 400
 
-    @staticmethod
-    def treeview_cell_check_data_function(column: Gtk.TreeViewColumn,
-                                          renderer_cell: Gtk.CellRenderer,
-                                          model: Gtk.TreeModel,
-                                          iter_a: Gtk.TreeIter,
-                                          user_data):
-        """hide checkbox for groups"""
-        value = model.get(iter_a, GROUP)
-        renderer_cell.set_visible(not value[0])
-
-    @staticmethod
-    def on_signal_close(panel: Gtk.InfoBar):
-        if panel:
-            panel.hide()
-
-    @staticmethod
-    def on_remove_title_box(panel: Gtk.InfoBar, response_id: str):
-        if panel:
-            panel.hide()
-        # if self.info_bar_title:
-        #     self.info_bar_title.hide()
+    def on_remove_title_box(self, panel: Gtk.InfoBar, id: str):
+        if self.info_bar_title:
+            self.info_bar_title.hide()
             # Or not destroy ? for use set_title_box
             # self.title_box.destroy()
             # self.title_box = None
@@ -387,12 +383,6 @@ class ApplicationBrowser(Gtk.Box):
         if not self.info_bar_title:
             return
 
-        try:
-            if self.info_bar_appstream:
-                pass
-        except AttributeError:
-            return
-
         pkg = self.config(pkg)
         if not pkg or not pkg["appstream"]:
             return
@@ -400,7 +390,7 @@ class ApplicationBrowser(Gtk.Box):
         db = Pamac.Database(config=Pamac.Config(conf_path="/etc/pamac.conf"))
         db.enable_appstream()
 
-        detail = db.get_pkg_details(pkg['pkg'], pkg['name'])
+        detail = db.get_pkg_details(pkg['pkg'], pkg['name'], False)
         if detail:
             if self.info_bar_title:
                 self.info_bar_title.hide()
@@ -488,6 +478,7 @@ class ApplicationBrowser(Gtk.Box):
                 self.reload_app_data(True)
                 self.set_title_box(txt.DOWNLOAD_COMPLETE)
             except Exception as e:
+                print(e)
                 logging.error(e)
 
         else:
@@ -548,7 +539,7 @@ class ApplicationBrowser(Gtk.Box):
     def net_check():
         """Check for internet connection"""
         resp = None
-        host = f"https://{txt.URL_GITLAB}"
+        host = f"https://{txt.GITLAB}"
         # noinspection PyBroadException
         try:
             resp = urllib.request.urlopen(host, timeout=2)
