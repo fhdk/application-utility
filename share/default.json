@@ -48,7 +48,6 @@
         "icon": "midori",
         "description": "Lightweight Webbrowser",
         "pkg": "midori",
-        "filter": ["advanced"],
         "extra": []
       },
       {
@@ -110,7 +109,6 @@
         "icon": "sylpheed",
         "description": "E-mail client",
         "pkg": "sylpheed",
-        "filter": ["advanced"],
         "extra": []
       },
       {
