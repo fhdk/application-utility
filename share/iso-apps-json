@@ -8,7 +8,7 @@ import json
 import tempfile
 import requests
 
-gi.require_version('Pamac', '1.0')
+gi.require_version("Pamac", "8.0")
 from gi.repository import Pamac
 
 
