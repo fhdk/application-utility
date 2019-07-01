@@ -332,6 +332,13 @@
     "description": "FTP and Torrent apps",
     "apps": [
       {
+        "name": "Deluge",
+        "icon": "deluge",
+        "description": "Python based Bittorrent Client",
+        "pkg": "deluge",
+        "extra": []
+      },
+      {
         "name": "Filezilla",
         "icon": "filezilla",
         "description": "Graphical FTP/FTPS/SFTP browser",
@@ -440,6 +447,13 @@
         "extra": []
       },
       {
+        "name": "Pix",
+        "icon": "pix",
+        "description": "Pix is based on gThumb a photo organizer",
+        "pkg": "pix",
+        "extra": []
+      },
+      {
         "name": "Ristretto",
         "icon": "ristretto",
         "description": "Free and lightweight image viewer",
@@ -458,6 +472,13 @@
         "icon": "viewnior",
         "description": "GTK based Elegant Image Viewer",
         "pkg": "viewnior",
+        "extra": []
+      },
+      {
+        "name": "Xviewer",
+        "icon": "xviewer",
+        "description": "Xviewer is based on Eye of Gnome",
+        "pkg": "xviewer",
         "extra": []
       }
     ]
@@ -500,6 +521,13 @@
         "icon": "vlc",
         "description": "VLC media player, the openxource multimedia player",
         "pkg": "vlc",
+        "extra": []
+      },
+      {
+        "name": "Xplayer",
+        "icon": "xplayer",
+        "description": "Xplayer is based on Totem and plays both music an video",
+        "pkg": "xplayer",
         "extra": []
       }
     ]
@@ -689,6 +717,13 @@
         "icon": "qpdfview",
         "description": "Tabbed document viewer",
         "pkg": "qpdfview",
+        "extra": []
+      },
+      {
+        "name": "Xreader",
+        "icon": "xreader",
+        "description": "Xreader is based on Atril and acts as document and PDF reader",
+        "pkg": "xreader",
         "extra": []
       }
     ]
