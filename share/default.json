@@ -239,19 +239,25 @@
         "extra": []
       },
       {
-        "name": "Pamac",
-        "icon": "pamac-updater",
-        "description": "Update your System, Add/Remove Software from repo and AUR",
-        "pkg": "pamac",
-        "extra": []
+        "name": "Pamac CLI",
+        "icon": "utilities-terminal",
+        "description": "Update your System, Add/Remove Software, AUR helper",
+        "pkg": "pamac-cli",
+        "extra": ["pamac-common"]
       },
       {
-        "name": "Yay",
-        "icon": "terminal",
-        "description": "CLI AUR helper",
-        "pkg": "yay",
-        "filter": ["advanced"],
-        "extra": []
+        "name": "Pamac GTK",
+        "icon": "system-software-install",
+        "description": "Update your System, Add/Remove Software GTK, AUR helper",
+        "pkg": "pamac-gtk",
+        "extra": ["pamac-cli", "pamac-common"]
+      },
+      {
+        "name": "Pamac QT",
+        "icon": "system-software-install",
+        "description": "Update your System, Add/Remove Software QT, AUR helper",
+        "pkg": "pamac-qt",
+        "extra": ["pamac-cli", "pamac-common"]
       }
     ]
   },
