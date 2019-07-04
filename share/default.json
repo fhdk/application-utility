@@ -562,7 +562,7 @@
         "name": "Lollypop",
         "icon": "lollypop",
         "description": "Play and organize your music collection",
-        "pkg": "deadbeef",
+        "pkg": "lollypop",
         "extra": []
       },
       {
