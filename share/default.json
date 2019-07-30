@@ -647,7 +647,14 @@
         "description": "Microsoft Office Online",
         "pkg": "ms-office-online",
         "extra": []
-      }
+      },
+      {
+        "name": "FreeOffice",
+        "icon": "freeoffice",
+        "description": "Microsoft Office compatible suite",
+        "pkg": "freeoffice",
+        "extra": []
+      }     
     ]
   },
   {
