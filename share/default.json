@@ -181,27 +181,6 @@
         ]
     },
     {
-        "name": "E-Book",
-        "icon": "calibre",
-        "description": "E-book library apps",
-        "apps": [
-            {
-                "name": "Calibre",
-                "icon": "calibre-viewer",
-                "description": "The one stop solution to your e-book needs",
-                "pkg": "calibre",
-                "extra": []
-            },
-            {
-                "name": "FBReader",
-                "icon": "fbreader",
-                "description": "FBReader E-Book Reader",
-                "pkg": "fbreader",
-                "extra": []
-            }
-        ]
-    },
-    {
         "name": "Office Apps",
         "icon": "gnumeric",
         "description": "Stand alone applications",
@@ -218,6 +197,27 @@
                 "icon": "gnumeric",
                 "description": "A High Precision Spreadsheet Program",
                 "pkg": "gnumeric",
+                "extra": []
+            }
+        ]
+    },
+    {
+        "name": "E-Book",
+        "icon": "calibre",
+        "description": "E-book library apps",
+        "apps": [
+            {
+                "name": "Calibre",
+                "icon": "calibre-viewer",
+                "description": "The one stop solution to your e-book needs",
+                "pkg": "calibre",
+                "extra": []
+            },
+            {
+                "name": "FBReader",
+                "icon": "fbreader",
+                "description": "FBReader E-Book Reader",
+                "pkg": "fbreader",
                 "extra": []
             }
         ]
@@ -332,75 +332,6 @@
                 "icon": "xreader",
                 "description": "Xreader is based on Atril and acts as document and PDF reader",
                 "pkg": "xreader",
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "Chat",
-        "icon": "internet-chat",
-        "description": "Online messaging and chat",
-        "apps": [
-            {
-                "name": "HexChat",
-                "icon": "hexchat",
-                "description": "Graphic IRC Client",
-                "pkg": "hexchat",
-                "extra": []
-            },
-            {
-                "name": "Pidgin Messenger",
-                "icon": "pidgin",
-                "description": "Instant messaging Client",
-                "pkg": "pidgin",
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "File Sharing",
-        "icon": "transmission",
-        "description": "FTP and Torrent apps",
-        "apps": [
-            {
-                "name": "Deluge",
-                "icon": "deluge",
-                "description": "Python based Bittorrent Client",
-                "pkg": "deluge",
-                "extra": []
-            },
-            {
-                "name": "Filezilla",
-                "icon": "filezilla",
-                "description": "Graphical FTP/FTPS/SFTP browser",
-                "pkg": "filezilla",
-                "extra": []
-            },
-            {
-                "name": "qBittorrent",
-                "icon": "qbittorrent",
-                "description": "A Qt based Bittorrent Client",
-                "pkg": "qbittorrent",
-                "extra": []
-            },
-            {
-                "name": "Transmission GTK",
-                "icon": "transmission",
-                "description": "GTK based Bittorrent Client",
-                "pkg": "transmission-gtk",
-                "filter": [
-                    "advanced"
-                ],
-                "extra": []
-            },
-            {
-                "name": "QTransmission",
-                "icon": "transmission",
-                "description": "QT based Bittorrent Client",
-                "pkg": "transmission-qt",
-                "filter": [
-                    "advanced"
-                ],
                 "extra": []
             }
         ]
@@ -642,6 +573,75 @@
                 "icon": "simple-ccsm",
                 "description": "Screen Capturing Application",
                 "pkg": "simplescreenrecorder",
+                "extra": []
+            }
+        ]
+    },
+    {
+        "name": "Chat",
+        "icon": "internet-chat",
+        "description": "Online messaging and chat",
+        "apps": [
+            {
+                "name": "HexChat",
+                "icon": "hexchat",
+                "description": "Graphic IRC Client",
+                "pkg": "hexchat",
+                "extra": []
+            },
+            {
+                "name": "Pidgin Messenger",
+                "icon": "pidgin",
+                "description": "Instant messaging Client",
+                "pkg": "pidgin",
+                "extra": []
+            }
+        ]
+    },
+    {
+        "name": "File Sharing",
+        "icon": "transmission",
+        "description": "FTP and Torrent apps",
+        "apps": [
+            {
+                "name": "Deluge",
+                "icon": "deluge",
+                "description": "Python based Bittorrent Client",
+                "pkg": "deluge",
+                "extra": []
+            },
+            {
+                "name": "Filezilla",
+                "icon": "filezilla",
+                "description": "Graphical FTP/FTPS/SFTP browser",
+                "pkg": "filezilla",
+                "extra": []
+            },
+            {
+                "name": "qBittorrent",
+                "icon": "qbittorrent",
+                "description": "A Qt based Bittorrent Client",
+                "pkg": "qbittorrent",
+                "extra": []
+            },
+            {
+                "name": "Transmission GTK",
+                "icon": "transmission",
+                "description": "GTK based Bittorrent Client",
+                "pkg": "transmission-gtk",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "QTransmission",
+                "icon": "transmission",
+                "description": "QT based Bittorrent Client",
+                "pkg": "transmission-qt",
+                "filter": [
+                    "advanced"
+                ],
                 "extra": []
             }
         ]
