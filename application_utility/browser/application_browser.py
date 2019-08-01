@@ -32,7 +32,7 @@ from application_utility.constants import txt
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
-gi.require_version("Pamac", ">=8.0")
+gi.require_version("Pamac", "8.0")
 from gi.repository import Pamac
 
 from application_utility.translation import i18n
