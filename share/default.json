@@ -181,6 +181,31 @@
         ]
     },
     {
+        "name": "Font packages",
+        "icon": "",
+        "description": "Extra fonts",
+        "apps": [
+            {
+                "name": "Google Noto TTF - CJK",
+                "icon": "",
+                "description": "CJK",
+                "pkg": "noto-fonts-cjk"
+            },
+            {
+                "name": "Google Noto TTF - extra",
+                "icon": "",
+                "description": "additional font variants",
+                "pkg": "noto-fonts-extra"
+            },
+            {
+                "name": "Google Noto emoji",
+                "icon": "",
+                "description": "emoji font",
+                "pkg": "noto-fonts-emoji"
+            }
+        ]
+    },
+    {
         "name": "Office Apps",
         "icon": "gnumeric",
         "description": "Stand alone applications",
@@ -524,7 +549,7 @@
                 "icon": "deadbeef",
                 "description": "Listen to music",
                 "pkg": "deadbeef",
-                "extra": []
+                "extra": ["ffmpeg", "libmad", "mpg123"]
             },
             {
                 "name": "Lollypop",
