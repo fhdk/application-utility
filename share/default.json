@@ -152,7 +152,7 @@
             },
             {
                 "name": "FreeOffice",
-                "icon": "freeoffice",
+                "icon": "ms-word",
                 "description": "Microsoft Office compatible suite",
                 "pkg": "freeoffice",
                 "extra": []
