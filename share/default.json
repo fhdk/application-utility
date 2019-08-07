@@ -186,22 +186,28 @@
         "description": "Extra fonts",
         "apps": [
             {
-                "name": "Google Noto TTF - CJK",
+                "name": "Google Noto TTF",
                 "icon": "",
-                "description": "CJK",
-                "pkg": "noto-fonts-cjk"
+                "description": "Google Noto font",
+                "pkg": "noto-fonts"
             },
             {
-                "name": "Google Noto TTF - extra",
+                "name": "Google Noto TTF - CJK",
                 "icon": "",
-                "description": "additional font variants",
-                "pkg": "noto-fonts-extra"
+                "description": "Google Noto China Japan Korea",
+                "pkg": "noto-fonts-cjk"
             },
             {
                 "name": "Google Noto emoji",
                 "icon": "",
                 "description": "emoji font",
                 "pkg": "noto-fonts-emoji"
+            },
+            {
+                "name": "Google Noto TTF - extra",
+                "icon": "",
+                "description": "additional font variants",
+                "pkg": "noto-fonts-extra"
             }
         ]
     },
