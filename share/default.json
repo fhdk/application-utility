@@ -177,6 +177,13 @@
                 "description": "Microsoft Office Online",
                 "pkg": "ms-office-online",
                 "extra": []
+            },
+            {
+                "name": "OnlyOffice Desktop Editors",
+                "icon": "ms-word",
+                "description": "Open-source office suite that combines text, spreadsheet and presentation editors.",
+                "pkg": "onlyoffice-desktopeditors",
+                "extra": []
             }
         ]
     },
