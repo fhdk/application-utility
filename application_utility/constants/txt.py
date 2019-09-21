@@ -55,8 +55,3 @@ DOWNLOAD_COMPLETE = _("App data has been downloaded and list is reset")
 SYSTEM_UPDATED = _("Your system has been updated")
 DOWNLOAD_NA = _("Download not available")
 SERVER_NA = _("server could not be reached")
-
-
-
-
-

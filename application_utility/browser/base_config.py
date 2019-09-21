@@ -27,6 +27,7 @@ import requests
 # from requests.exceptions import ConnectionError
 
 from application_utility.translation import i18n
+
 _ = i18n.language.gettext
 
 from application_utility.constants import txt
@@ -66,7 +67,7 @@ class BaseConfig:
         raise NotImplementedError
 
     @staticmethod
-    def read_json_file(filename: str, dictionary: bool = True) ->list:
+    def read_json_file(filename: str, dictionary: bool = True) -> list:
         """
         Read json data from file
         """
@@ -85,17 +86,17 @@ class BaseConfig:
         return result
 
     @staticmethod
-    def get_arg_value(key: str, default: str = "") ->str:
+    def get_arg_value(key: str, default: str = "") -> str:
         """read param value"""
         for arg in sys.argv:
             if arg.lower().startswith(f"--{key}="):
-                value = arg[len(key)+3:]
+                value = arg[len(key) + 3:]
                 if value.startswith('"'):
                     value = value[1:-1]
                 return value
         return default
 
-    def get_datafile(self, filedefault: str, key: str = "file") ->str:
+    def get_datafile(self, filedefault: str, key: str = "file") -> str:
         """read param,
         if value is url then download file
         return empty if not exists
@@ -109,7 +110,7 @@ class BaseConfig:
             logging.warning("File not exist ? %s", arg_file)
 
     @staticmethod
-    def download_file(src: str) ->str:
+    def download_file(src: str) -> str:
         """download file in tmp file
             return file name
         """
@@ -119,7 +120,7 @@ class BaseConfig:
                 logging.info("iso json to use: %s", src)
                 request = requests.get(src, allow_redirects=True)
                 # TODO create /tmp/m-apps ?
-                tmp_file = tempfile.NamedTemporaryFile(delete=False) # dir="m-apps"
+                tmp_file = tempfile.NamedTemporaryFile(delete=False)  # dir="m-apps"
                 tmp_file.write(request.content)
                 tmp_file.close()
                 return tmp_file.name
@@ -132,7 +133,7 @@ class BaseConfig:
         return None
 
     @staticmethod
-    def get_desktop() ->str:
+    def get_desktop() -> str:
         """ get local desktop"""
         desktop = BaseConfig.get_arg_value("desktop")
         if not desktop:
@@ -158,33 +159,33 @@ class BaseConfig:
         return desktop.lower()
 
     @staticmethod
-    def get_manjaro_desktop(find_desktop: str, prefix: bool = True) ->str:
+    def get_manjaro_desktop(find_desktop: str, prefix: bool = True) -> str:
         """return generator on all manjaro desktop available"""
         desks = ["xfce", "kde", "gnome"]
         if find_desktop in desks:
             if prefix:
-                find_desktop = "manjaro/"+find_desktop
+                find_desktop = "manjaro/" + find_desktop
             return find_desktop
         desks = ["openbox", "mate", "deepin", "bspwm", "cinnamon", "lxqt", "awesome", "budgie", "lxde", "i3", "webdad"]
         if find_desktop in desks:
             if prefix:
-                find_desktop = "community/"+find_desktop
+                find_desktop = "community/" + find_desktop
             return find_desktop
         return ""
 
-    #TODO to remove or move to tests
+    # TODO to remove or move to tests
     @staticmethod
     def get_desktop_tests():
         for test in ["LXDE", "lxde", 'MATE', 'mate', "budgie-desktop", "/usr/share/xsessions/plasma"]:
             os.environ["DESKTOP_SESSION"] = test
             desktop = BaseConfig.get_desktop()
-            print("desktop", desktop, "for env:"+test)
+            print("desktop", desktop, "for env:" + test)
             desktop = BaseConfig.get_manjaro_desktop(desktop)
             print("\t", desktop)
 
-    def get_iso_filename(self) ->str:
+    def get_iso_filename(self) -> str:
         """get filename from env, if url create temp file
-        can use parameter: 
+        can use parameter:
             app.py --iso="https://gitlab.manjaro.org/papajoke/application-utility/raw/dev/share/kde.json"
             app.py --iso="/home/****.json"
             app.py --desktop=gnome
@@ -208,6 +209,6 @@ class BaseConfig:
         else:
             return src
 
-#test desktops
-#BaseConfig.get_desktop_tests()
-#exit(0)
+# test desktops
+# BaseConfig.get_desktop_tests()
+# exit(0)

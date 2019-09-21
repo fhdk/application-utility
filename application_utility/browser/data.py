@@ -27,10 +27,12 @@ from typing import Iterator
 
 import gi
 
+# /usr/share/gir-10.0/Pamac-9.0.gir
 gi.require_version("Pamac", "9.0")
 from gi.repository import Pamac
 
 from application_utility.translation import i18n
+
 _ = i18n.language.gettext
 
 

@@ -18,6 +18,7 @@
 #          fhdk
 
 from application_utility.translation import i18n
+
 _ = i18n.language.gettext
 
 

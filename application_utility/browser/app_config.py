@@ -24,6 +24,7 @@ import sys
 from .config import Config
 
 from application_utility.translation import i18n
+
 _ = i18n.language.gettext
 
 

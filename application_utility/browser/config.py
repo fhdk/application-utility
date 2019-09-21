@@ -28,6 +28,7 @@ from .data import Data
 from .base_config import BaseConfig
 
 from application_utility.translation import i18n
+
 _ = i18n.language.gettext
 
 
@@ -64,7 +65,7 @@ class Config(BaseConfig, Data):
         iso_file = self.get_iso_filename()
         if iso_file:
             # iso to merge found
-            #iso_json = json.loads(iso_file)
+            # iso_json = json.loads(iso_file)
             with open(iso_file, "rb") as infile:
                 iso_json = json.loads(
                     infile.read().decode("utf8"),
@@ -80,4 +81,4 @@ class Config(BaseConfig, Data):
             self.save_apps_to_json(self._MERGE_FILE)
             # load complete json
             self.load_from_file(self._MERGE_FILE)
-            #exit(0)
+            # exit(0)
