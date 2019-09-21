@@ -1,6 +1,6 @@
 import gi
 
-gi.require_version("Pamac", "8.0")
+gi.require_version("Pamac", "9.0")
 from gi.repository import Pamac
 
 
