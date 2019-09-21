@@ -27,7 +27,7 @@ import glob
 import logging
 import subprocess
 
-gi.require_version("Pamac", "8.0")
+gi.require_version("Pamac", "9.0")
 from gi.repository import Pamac
 
 from application_utility.translation import i18n
