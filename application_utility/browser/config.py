@@ -25,7 +25,7 @@ import urllib.request
 import json
 import collections
 from .data import Data
-from .base_config import BaseConfig
+from application_utility.config.base_config import BaseConfig
 
 from application_utility.translation import i18n
 

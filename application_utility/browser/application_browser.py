@@ -23,7 +23,7 @@ import logging
 import os
 import urllib.request
 
-from .hello_config import HelloConfig
+from application_utility.config.hello_config import HelloConfig
 from .config import Config
 from .alpm import Alpm
 from application_utility import __version__
@@ -67,6 +67,7 @@ class ApplicationBrowser(Gtk.Box):
             pix_buf96 = Gtk.IconTheme.get_default().load_icon(icon, 96, 0)
             window.set_icon_list([pix_buf24, pix_buf32, pix_buf48, pix_buf64, pix_buf96])
 
+        # appstream data
         self.info_bar_appstream = Gtk.InfoBar()
 
         # initialize data storage
@@ -78,67 +79,26 @@ class ApplicationBrowser(Gtk.Box):
         self.app_browser_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, expand=True)
         self.add(self.app_browser_box)
 
-        if not isinstance(self.config, HelloConfig):
-            # InfoBar title
-            self.info_bar_title = Gtk.InfoBar()
-            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
-            self.info_bar_title.set_show_close_button(True)
-            self.info_bar_title.set_revealed(True)
-            self.info_bar_title.connect("response", self.on_remove_title_box)
-            # title label
-            self.title_label = Gtk.Label()
-            self.title_label.set_markup(f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
-            # pack title info
-            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
-            # pack title info to app browser box
-            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
-
-        else:
-            # InfoBar title
-            self.info_bar_title = Gtk.InfoBar()
-            self.info_bar_title.set_message_type(Gtk.MessageType.OTHER)
-            self.info_bar_title.set_show_close_button(True)
-            self.info_bar_title.set_revealed(True)
-            self.info_bar_title.connect("response", self.on_remove_title_box)
-            # title label
-            self.title_label = Gtk.Label()
-            self.title_label.set_markup(f"<b>{txt.MAM}</b>\n"
-                                        f"{txt.SELECT_APPS} <b>{txt.BTN_UPDATE_SYSTEM}</b> {txt.WHEN_READY}. ")
-            # pack title info
-            self.info_bar_title.pack_start(self.title_label, expand=True, fill=True, padding=0)
-            # pack title info to app browser box
-            self.app_browser_box.pack_start(self.info_bar_title, expand=False, fill=True, padding=0)
-
-        # InfoBar appstream detail
         self.info_bar_appstream = Gtk.InfoBar()
         self.info_bar_appstream.set_message_type(Gtk.MessageType.OTHER)
         self.info_bar_appstream.set_show_close_button(True)
-        self.info_bar_appstream.set_revealed(True)
+        self.info_bar_appstream.set_revealed(False)
         self.info_bar_appstream.connect("response", self.on_remove_detail_box)
-        # app stream data
         self.detail_label = Gtk.Label()
         self.detail_label.set_line_wrap(True)
-        self.info_bar_appstream.pack_start(self.detail_label, expand=True, fill=True, padding=0)
-
-        # pack appstream info to app browser box
+        self.info_bar_appstream.pack_start(self.detail_label, expand=False, fill=True, padding=0)
         self.app_browser_box.pack_start(self.info_bar_appstream, expand=False, fill=True, padding=0)
 
-        # button box
         self.button_box = Gtk.Box(spacing=10)
-        # advanced button
         advanced_button = Gtk.ToggleButton(label=f"{txt.BTN_ADVANCED}")
         advanced_button.set_tooltip_text(f"{txt.BTN_ADVANCED_TIP}")
         advanced_button.connect("clicked", self.on_advanced_clicked)
-        # download button
         download_button = Gtk.Button(label=f"{txt.BTN_DOWNLOAD}")
         download_button.set_tooltip_text(f"{txt.BTN_DOWNLOAD_TIP}")
         download_button.connect("clicked", self.on_download_clicked)
-        # reset button
         reset_button = Gtk.Button(label=f"{txt.BTN_RESET}")
         reset_button.set_tooltip_text(f"{txt.BTN_RESET_TIP}")
         reset_button.connect("clicked", self.on_reload_clicked)
-
-        # update system button
         self.update_system_button = Gtk.Button(label=f"{txt.BTN_UPDATE_SYSTEM}")
         self.update_system_button.set_tooltip_text(f"{txt.BTN_UPDATE_SYSTEM_TIP}")
         self.update_system_button.connect("clicked", self.on_update_system_clicked)
@@ -155,15 +115,9 @@ class ApplicationBrowser(Gtk.Box):
         group_combo.set_active(0)
 
         # Packing button box
-        # advanced button
         self.button_box.pack_start(advanced_button, expand=False, fill=False, padding=10)
-
-        # group combo combo
         self.button_box.pack_start(group_combo, False, False, 10)
-
-        # update system button
         self.button_box.pack_end(self.update_system_button, expand=False, fill=False, padding=10)
-
         # with Hello, we have btn "HOME" so check if we are Manjaro Hello
         if not isinstance(self.config, HelloConfig):
             # create close button if stand alone
@@ -172,26 +126,17 @@ class ApplicationBrowser(Gtk.Box):
             close_button.connect("clicked", self.on_close_clicked)
             # pack close button
             self.button_box.pack_end(close_button, expand=False, fill=False, padding=10)
-
-        # reload button
         self.button_box.pack_end(reset_button, expand=False, fill=False, padding=10)
-
-        # download button
         # self.button_box.pack_end(download_button, expand=False, fill=False, padding=10)
-
-        # pack button box to app browser
         self.app_browser_box.pack_start(self.button_box, expand=False, fill=False, padding=10)
-
         # create view and app store
         self.tree_view, self.app_store = self.create_view_tree()
-
         # create a scrollable window
         app_window = Gtk.ScrolledWindow()
         app_window.set_vexpand(True)
         app_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         # add window to tree view
         app_window.add(self.tree_view)
-
         # setup grid
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -199,7 +144,6 @@ class ApplicationBrowser(Gtk.Box):
         # add grid to app browser
         self.app_browser_box.add(grid)
         grid.attach(app_window, 0, 0, 5, len(self.app_store))
-
         # show time
         self.show_all()
         if self.info_bar_appstream:
@@ -382,9 +326,6 @@ class ApplicationBrowser(Gtk.Box):
         as ?
         https://stackoverflow.com/questions/11549480/load-and-show-an-image-from-the-web-in-python-with-gtk-3
         """
-        if not self.info_bar_title:
-            return
-
         pkg = self.config(pkg)
         if not pkg or not pkg["appstream"]:
             return
@@ -392,13 +333,10 @@ class ApplicationBrowser(Gtk.Box):
         db = Pamac.Database(config=Pamac.Config(conf_path="/etc/pamac.conf"))
         db.enable_appstream()
 
-        detail = db.get_pkg_details(pkg['pkg'], pkg['name'], False)
+        detail = db.get_pkg(pkg['pkg'])
         if detail:
-            if self.info_bar_title:
-                self.info_bar_title.hide()
             if not detail.get_long_desc() and not detail.get_url():  # ? not detail.get_screenshot() ?
                 return
-            # logging.info(dir(detail))
             long_desc = detail.get_long_desc()
             while len(long_desc) < 250:
                 long_desc = long_desc + " "
@@ -413,7 +351,7 @@ class ApplicationBrowser(Gtk.Box):
             #     html += f"<a href=\"{detail.get_screenshot().replace('&','&amp;')}\">picture</a>\n"
             #
             # logging.info(detail.get_screenshot())
-
+            self.info_bar_appstream.set_revealed(True)
             self.detail_label.set_markup(html)
             self.info_bar_appstream.show()
 
@@ -524,45 +462,3 @@ class ApplicationBrowser(Gtk.Box):
             self.set_title_box(f"{txt.SYSTEM_UPDATED}", Gtk.MessageType.INFO)
             # reload json for view new apps installed
             self.reload_app_data(True)
-
-    @staticmethod
-    def fix_path(path):
-        """Make good paths.
-        :param path: path to fix
-        :type path: str
-        :return: fixed path
-        :rtype: str
-        """
-        if "~" in path:
-            path = path.replace("~", os.path.expanduser("~"))
-        return path
-
-    @staticmethod
-    def net_check():
-        """Check for internet connection"""
-        resp = None
-        host = f"https://{txt.GITLAB}"
-        # noinspection PyBroadException
-        try:
-            resp = urllib.request.urlopen(host, timeout=2)
-        except Exception:
-            pass
-        return bool(resp)
-
-    @staticmethod
-    def write_json_file(data, filename, dictionary=False):
-        """Writes data to file as json
-        :param data
-        :param filename:
-        :param dictionary:
-        """
-        try:
-            if dictionary:
-                with open(filename, "wb") as outfile:
-                    json.dump(data, outfile)
-            else:
-                with open(filename, "w") as outfile:
-                    json.dump(data, outfile, indent=2)
-            return True
-        except OSError:
-            return False

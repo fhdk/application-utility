@@ -229,16 +229,16 @@ class Data:
             print(f" group {group['group']} not exist ")
             self._json.append({
                 "name": group['group'],
-                "apps":[],
-                "icon":"emblem-new",
-                "description":"new group by iso json"
+                "apps": [],
+                "icon": "emblem-new",
+                "description": "new group by iso json"
             })
             # TODO set default attributes in generator "desktop".json
             print(set(self.categories))
 
         else:
             print(f" group {group['group']} exist ")
-        #exit(1)
+        # exit(1)
         if not app.get('name'):
             app['name'] = app['pkg']
         if not app.get('icon'):
@@ -247,8 +247,7 @@ class Data:
             if g["name"] == group["group"]:
                 logging.debug(f"Add iso app: {app['name']} in group: %s", group["group"])
                 g["apps"].append(app)
-                #exit(1)
-
+                # exit(1)
 
     @staticmethod
     def app_installed(package: str) -> bool:

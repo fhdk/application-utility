@@ -18,38 +18,31 @@
 #          fhdk
 
 
-import logging
 import os
-import sys
 
-from .config import Config
-from .exceptions import NoAppInIsoError
+from application_utility.browser.config import Config
 
 from application_utility.translation import i18n
 
 _ = i18n.language.gettext
 
 
-class HelloConfig(Config):
+class IsoConfig(Config):
     """
-    Created in Manjaro-Hello
+    for iso only ?
+    usefull ? not sure ...
+    "live_path": "/run/miso/bootmnt/manjaro",
     """
 
+    def __init__(self, application):
+        # raise NoAppInIsoError()
+        if not os.path.isfile(self.pref["live_path"]):
+            raise ImportError(path=self.pref["live_path"])
+        super().__init__(application)
+
     def load(self):
-        """ load data"""
-        if os.path.isfile("/run/miso/bootmnt/manjaro"):
-            raise NoAppInIsoError()
-        else:
-            if "--dev" in sys.argv:
-                logging.basicConfig(level=logging.DEBUG)
-            else:
-                logging.basicConfig(level=logging.DEBUG)
-        logging.debug("_DATA_DIR is %s", self._DATA_DIR)
-        logging.debug("_PREF_FILE is %s", self._PREF_FILE)
-        self.pref = self.read_json_file(self._PREF_FILE)
-        # TODO to set ?
+        """to override live iso ? desktop ?"""
+        # TODO to set
         self.url = {"desktop": "", "main": ""}
-        self.file = {"desktop": "", "main": f"{self._DATA_DIR}/{self.pref['data-set']}.json"}
-        self.file["main"] = self.get_datafile(self.file["main"], "file")
-        logging.debug("self.file is %s", self.file)
+        self.file = {"desktop": "", "main": ""}
         return self

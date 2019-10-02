@@ -31,6 +31,7 @@ gi.require_version("Pamac", "9.0")
 from gi.repository import Pamac
 
 from application_utility.translation import i18n
+
 _ = i18n.language.gettext
 
 
@@ -140,7 +141,7 @@ class Alpm:
         return f"pkg list install: {self.pkg_list_install}\n pkg list removal: {self.pkg_list_removal}"
 
     @staticmethod
-    def pkg_exist(pkgname: str) ->bool:
+    def pkg_exist(pkgname: str) -> bool:
         """check if a package exist"""
         config = Pamac.Config(conf_path="/etc/pamac.conf")
         db = Pamac.Database(config=config)

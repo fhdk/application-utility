@@ -63,7 +63,9 @@ class BaseConfig:
                                 format='::(%(levelname)s): %(message)s')
 
     def load(self):
-        """to override live iso ? desktop ?"""
+        """
+        to override live iso ? desktop ?
+        """
         raise NotImplementedError
 
     @staticmethod
@@ -87,7 +89,9 @@ class BaseConfig:
 
     @staticmethod
     def get_arg_value(key: str, default: str = "") -> str:
-        """read param value"""
+        """
+        read parameter value
+        """
         for arg in sys.argv:
             if arg.lower().startswith(f"--{key}="):
                 value = arg[len(key) + 3:]
@@ -97,7 +101,8 @@ class BaseConfig:
         return default
 
     def get_datafile(self, filedefault: str, key: str = "file") -> str:
-        """read param,
+        """
+        read param,
         if value is url then download file
         return empty if not exists
         """
@@ -130,7 +135,7 @@ class BaseConfig:
             logging.debug("url %s not found", src)
         except requests.exceptions.MissingSchema:
             logging.debug("bad url %s", src)
-        return None
+        return ""
 
     @staticmethod
     def get_desktop() -> str:
@@ -191,7 +196,7 @@ class BaseConfig:
             app.py --desktop=gnome
         """
         # TODO
-        # to rewrite by a maintener
+        # to rewrite by a maintainer
 
         desktop = self.get_desktop()
         # test if exist
