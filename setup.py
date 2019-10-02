@@ -11,7 +11,6 @@ from socket import timeout
 from urllib.error import URLError
 
 from setuptools import setup
-from application_utility.config import config
 
 
 def update_databases():
@@ -73,8 +72,9 @@ setup(
     packages=['application_utility',
               'application_utility.browser',
               'application_utility.config',
-              'application_utility.translation',
-              'application_utility.constants'],
+              'application_utility.constants',
+              'application_utility.functions',
+              'application_utility.translation'],
     package_dir={'application_utility': 'application_utility'},
     data_files=[('share/applications', ['desktop/application-utility.desktop']),
                 ('share/application-utility', ['share/default.json', 'share/preferences.json']),
