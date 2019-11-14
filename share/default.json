@@ -5,6 +5,13 @@
         "description": "Web browsing and communication",
         "apps": [
             {
+                "name": "Brave",
+                "icon": "brave",
+                "description": "Closed source adblocking browser",
+                "pkg": "brave",
+                "extra": []
+            },
+            {
                 "name": "Chromium",
                 "icon": "chromium",
                 "description": "Open Sourced Chrome Browser",
