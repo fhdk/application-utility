@@ -68,7 +68,7 @@ setup(
     long_description=README + '\n\n' + CHANGELOG,
     author="fhdk, papajoke",
     author_email='fh@manjaro.org',
-    url='https://github.com/manjaro/',
+    url='https://gitlab.manjaro.org/',
     packages=['application_utility',
               'application_utility.browser',
               'application_utility.config',
