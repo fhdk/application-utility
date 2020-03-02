@@ -355,7 +355,7 @@
                 "name": "Okular",
                 "icon": "okular",
                 "description": "Document Viewer",
-                "pkg": "Okular",
+                "pkg": "okular",
                 "extra": []
             },
             {
