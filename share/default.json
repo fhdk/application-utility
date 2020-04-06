@@ -226,6 +226,27 @@
         ]
     },
     {
+        "name": "Manjaro extended language support",
+        "icon": "gnumeric",
+        "description": "Manjaro extended language support",
+        "apps": [
+          {
+            "name": "Manjaro Asian Input Support Fcitx",
+            "icon": "gnumeric",
+            "description": "Manjaro extended language support with fcitx support",
+            "pkg": "manjaro-asian-input-support-fcitx",
+            "extra": []
+          },
+          {
+            "name": "Manjaro Asian Input Support Ibus",
+            "icon": "gnumeric",
+            "description": "Manjaro extended language support with ibus support",
+            "pkg": "manjaro-asian-input-support-ibus",
+            "extra": []
+          }
+        ]
+    },
+    {
         "name": "Office Apps",
         "icon": "gnumeric",
         "description": "Stand alone applications",
