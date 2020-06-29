@@ -182,7 +182,7 @@
                 "name": "MS Office Online",
                 "icon": "ms-word",
                 "description": "Microsoft Office Online",
-                "pkg": "ms-office-online",
+                "pkg": "microsoft-office-web-jak",
                 "extra": []
             },
             {
