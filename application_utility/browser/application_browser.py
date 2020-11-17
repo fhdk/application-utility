@@ -168,12 +168,12 @@ class ApplicationBrowser(Gtk.Box):
 
         # column model: group name column
         renderer = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn(f"{txt.COL_GROUP}", renderer, text=GROUP)
+        column = Gtk.TreeViewColumn(f"{txt.COL_GROUP}", renderer, text=APPLICATION)
         tree_view.append_column(column)
 
         # column model: app name column
-        renderer = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn(f"{txt.COL_APPLICATION}", renderer, text=APPLICATION)
+        #renderer = Gtk.CellRendererText()
+        #column = Gtk.TreeViewColumn(f"{txt.COL_APPLICATION}", renderer, text=APPLICATION)
         # column.set_resizable(False)
         column.set_cell_data_func(renderer, self.treeview_cell_app_data_function, None)
         tree_view.append_column(column)
