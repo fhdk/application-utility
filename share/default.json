@@ -1,8 +1,8 @@
 [
     {
-        "name": "Browsers",
-        "icon": "browser",
-        "description": "Web browsing and communication",
+        "name": "Internet",
+        "icon": "applications-internet",
+        "description": "Communication & News",
         "apps": [
             {
                 "name": "Brave",
@@ -81,14 +81,7 @@
                 "description": "Fast and secure webbrowser",
                 "pkg": "opera",
                 "extra": []
-            }
-        ]
-    },
-    {
-        "name": "E-mail",
-        "icon": "mail-client",
-        "description": "E-mail, Calendar, Tasks",
-        "apps": [
+            },
             {
                 "name": "Claws Mail",
                 "icon": "claws-mail",
@@ -142,13 +135,68 @@
                 "description": "Send and receive mail, contacts and schedule",
                 "pkg": "thunderbird",
                 "extra": []
+            },
+            {
+                "name": "HexChat",
+                "icon": "hexchat",
+                "description": "Graphic IRC Client",
+                "pkg": "hexchat",
+                "extra": []
+            },
+            {
+                "name": "Pidgin Messenger",
+                "icon": "pidgin",
+                "description": "Instant messaging Client",
+                "pkg": "pidgin",
+                "extra": []
+            },
+            {
+                "name": "Deluge",
+                "icon": "deluge",
+                "description": "Python based Bittorrent Client",
+                "pkg": "deluge",
+                "extra": []
+            },
+            {
+                "name": "Filezilla",
+                "icon": "filezilla",
+                "description": "Graphical FTP/FTPS/SFTP browser",
+                "pkg": "filezilla",
+                "extra": []
+            },
+            {
+                "name": "qBittorrent",
+                "icon": "qbittorrent",
+                "description": "A Qt based Bittorrent Client",
+                "pkg": "qbittorrent",
+                "extra": []
+            },
+            {
+                "name": "Transmission GTK",
+                "icon": "transmission",
+                "description": "GTK based Bittorrent Client",
+                "pkg": "transmission-gtk",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "QTransmission",
+                "icon": "transmission",
+                "description": "QT based Bittorrent Client",
+                "pkg": "transmission-qt",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
             }
         ]
     },
     {
-        "name": "Office Suites",
+        "name": "Office",
         "icon": "applications-office",
-        "description": "Office suites like MS Office",
+        "description": "Office applications",
         "apps": [
             {
                 "name": "Calligra Office",
@@ -191,14 +239,104 @@
                 "description": "Open-source office suite that combines text, spreadsheet and presentation editors.",
                 "pkg": "onlyoffice-desktopeditors",
                 "extra": []
+            },
+            {
+                "name": "Abiword",
+                "icon": "abiword",
+                "description": "Compose, Edit and view documents",
+                "pkg": "abiword",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "Gnumeric",
+                "icon": "gnumeric",
+                "description": "A High Precision Spreadsheet Program",
+                "pkg": "gnumeric",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
             }
         ]
     },
     {
-        "name": "Font packages",
-        "icon": "font_truetype",
-        "description": "Extra fonts",
+        "name": "Document Readers",
+        "icon": "applications-office",
+        "description": "EBook and PDF reader applications",
         "apps": [
+            {
+                "name": "Epdfview",
+                "icon": "qpdfview",
+                "description": "Lightweight PDF document viewer",
+                "pkg": "epdfview",
+                "extra": []
+            },
+            {
+                "name": "Evince",
+                "icon": "evince",
+                "description": "View multi page documents",
+                "pkg": "evince",
+                "extra": []
+            },
+            {
+                "name": "Okular",
+                "icon": "okular",
+                "description": "Document Viewer",
+                "pkg": "okular",
+                "extra": []
+            },
+            {
+                "name": "PDFMod",
+                "icon": "pdfmod",
+                "description": "Remove, extract and rotate pages in PDF Documents",
+                "pkg": "pdfmod",
+                "extra": []
+            },
+            {
+                "name": "Qpdfview",
+                "icon": "qpdfview",
+                "description": "Tabbed document viewer",
+                "pkg": "qpdfview",
+                "extra": []
+            },
+            {
+                "name": "Xreader",
+                "icon": "xreader",
+                "description": "Xreader is based on Atril and acts as document and PDF reader",
+                "pkg": "xreader",
+                "extra": []
+            },
+            {
+                "name": "Calibre",
+                "icon": "calibre-viewer",
+                "description": "The one stop solution to your e-book needs",
+                "pkg": "calibre",
+                "extra": []
+            },
+            {
+                "name": "FBReader",
+                "icon": "fbreader",
+                "description": "FBReader E-Book Reader",
+                "pkg": "fbreader",
+                "extra": []
+            }
+        ]
+    },
+    {
+        "name": "Printing, Fonts and input",
+        "icon": "applications-other",
+        "description": "Printer support, fonts and input",
+        "apps": [
+            {
+                "name": "Manjaro Printing",
+                "icon": "printer",
+                "description": "Printing Meta Package",
+                "pkg": "manjaro-printer",
+                "extra": []
+            },
             {
                 "name": "Google Noto TTF",
                 "icon": "font_truetype",
@@ -222,75 +360,26 @@
                 "icon": "font_truetype",
                 "description": "additional font variants",
                 "pkg": "noto-fonts-extra"
-            }
-        ]
-    },
-    {
-        "name": "Manjaro extended language support",
-        "icon": "gnumeric",
-        "description": "Manjaro extended language support",
-        "apps": [
-          {
-            "name": "Manjaro Asian Input Support Fcitx",
-            "icon": "gnumeric",
-            "description": "Manjaro extended language support with fcitx support",
-            "pkg": "manjaro-asian-input-support-fcitx",
-            "extra": []
-          },
-          {
-            "name": "Manjaro Asian Input Support Ibus",
-            "icon": "gnumeric",
-            "description": "Manjaro extended language support with ibus support",
-            "pkg": "manjaro-asian-input-support-ibus",
-            "extra": []
-          }
-        ]
-    },
-    {
-        "name": "Office Apps",
-        "icon": "gnumeric",
-        "description": "Stand alone applications",
-        "apps": [
-            {
-                "name": "Abiword",
-                "icon": "abiword",
-                "description": "Compose, Edit and view documents",
-                "pkg": "abiword",
-                "extra": []
             },
             {
-                "name": "Gnumeric",
+                "name": "Manjaro Asian Input Support Fcitx",
                 "icon": "gnumeric",
-                "description": "A High Precision Spreadsheet Program",
-                "pkg": "gnumeric",
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "E-Book",
-        "icon": "calibre",
-        "description": "E-book library apps",
-        "apps": [
-            {
-                "name": "Calibre",
-                "icon": "calibre-viewer",
-                "description": "The one stop solution to your e-book needs",
-                "pkg": "calibre",
+                "description": "Manjaro extended language support with fcitx support",
+                "pkg": "manjaro-asian-input-support-fcitx",
                 "extra": []
             },
             {
-                "name": "FBReader",
-                "icon": "fbreader",
-                "description": "FBReader E-Book Reader",
-                "pkg": "fbreader",
+                "name": "Manjaro Asian Input Support Ibus",
+                "icon": "gnumeric",
+                "description": "Manjaro extended language support with ibus support",
+                "pkg": "manjaro-asian-input-support-ibus",
                 "extra": []
             }
         ]
     },
     {
         "name": "Text Editors",
-        "icon": "text-editor",
+        "icon": "applications-development",
         "description": "Various editors for text or code",
         "apps": [
             {
@@ -340,72 +429,9 @@
         ]
     },
     {
-        "name": "Printing",
-        "icon": "printer",
-        "description": "Support for printing CUPS, HPLIP",
-        "apps": [
-            {
-                "name": "Manjaro Printing",
-                "icon": "printer",
-                "description": "Printing Meta Package",
-                "pkg": "manjaro-printer",
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "PDF",
-        "icon": "pdfeditor",
-        "description": "PDF applications applications",
-        "apps": [
-            {
-                "name": "Epdfview",
-                "icon": "qpdfview",
-                "description": "Lightweight PDF document viewer",
-                "pkg": "epdfview",
-                "extra": []
-            },
-            {
-                "name": "Evince",
-                "icon": "evince",
-                "description": "View multi page documents",
-                "pkg": "evince",
-                "extra": []
-            },
-            {
-                "name": "Okular",
-                "icon": "okular",
-                "description": "Document Viewer",
-                "pkg": "okular",
-                "extra": []
-            },
-            {
-                "name": "PDFMod",
-                "icon": "pdfmod",
-                "description": "Remove, extract and rotate pages in PDF Documents",
-                "pkg": "pdfmod",
-                "extra": []
-            },
-            {
-                "name": "Qpdfview",
-                "icon": "qpdfview",
-                "description": "Tabbed document viewer",
-                "pkg": "qpdfview",
-                "extra": []
-            },
-            {
-                "name": "Xreader",
-                "icon": "xreader",
-                "description": "Xreader is based on Atril and acts as document and PDF reader",
-                "pkg": "xreader",
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "Graphics Creating",
-        "icon": "applications-accessories",
-        "description": "Creating and editing graphics",
+        "name": "Graphics",
+        "icon": "applications-graphics",
+        "description": "Creating, Organizing and Editing graphics",
         "apps": [
             {
                 "name": "Blender",
@@ -451,14 +477,7 @@
                 "description": "Drawing program for children",
                 "pkg": "tuxpaint",
                 "extra": []
-            }
-        ]
-    },
-    {
-        "name": "Graphics Organizing",
-        "icon": "applications-graphics",
-        "description": "Viewers and organizers",
-        "apps": [
+            },
             {
                 "name": "Gpicview",
                 "icon": "gpicview",
@@ -518,8 +537,8 @@
         ]
     },
     {
-        "name": "Video/Movie",
-        "icon": "video-player",
+        "name": "Multimedia",
+        "icon": "applications-multimedia",
         "description": "Organize and play videos and movies",
         "apps": [
             {
@@ -563,14 +582,7 @@
                 "description": "Xplayer is based on Totem and plays both music an video",
                 "pkg": "xplayer",
                 "extra": []
-            }
-        ]
-    },
-    {
-        "name": "Audio",
-        "icon": "musicbrainz",
-        "description": "Audio players",
-        "apps": [
+            },
             {
                 "name": "Audacious",
                 "icon": "audacious",
@@ -590,7 +602,11 @@
                 "icon": "deadbeef",
                 "description": "Listen to music",
                 "pkg": "deadbeef",
-                "extra": ["ffmpeg", "libmad", "mpg123"]
+                "extra": [
+                    "ffmpeg",
+                    "libmad",
+                    "mpg123"
+                ]
             },
             {
                 "name": "Lollypop",
@@ -605,14 +621,7 @@
                 "description": "Gnome music playing application",
                 "pkg": "rhythmbox",
                 "extra": []
-            }
-        ]
-    },
-    {
-        "name": "Media recording/editing",
-        "icon": "kdenlive",
-        "description": "Audio and Video editing",
-        "apps": [
+            },
             {
                 "name": "Audacity",
                 "icon": "audacity",
@@ -644,79 +653,31 @@
         ]
     },
     {
-        "name": "Chat",
-        "icon": "internet-chat",
-        "description": "Online messaging and chat",
+        "name": "Utilities",
+        "icon": "applications-utilities",
+        "description": "Encryption, Backup",
         "apps": [
             {
-                "name": "HexChat",
-                "icon": "hexchat",
-                "description": "Graphic IRC Client",
-                "pkg": "hexchat",
+                "name": "KeePassX",
+                "icon": "keepassx",
+                "description": "Cross Platform Password Manager",
+                "pkg": "keepassx",
                 "extra": []
             },
             {
-                "name": "Pidgin Messenger",
-                "icon": "pidgin",
-                "description": "Instant messaging Client",
-                "pkg": "pidgin",
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "File Sharing",
-        "icon": "transmission",
-        "description": "FTP and Torrent apps",
-        "apps": [
-            {
-                "name": "Deluge",
-                "icon": "deluge",
-                "description": "Python based Bittorrent Client",
-                "pkg": "deluge",
+                "name": "SeaHorse",
+                "icon": "seahorse",
+                "description": "Manage your passwords and encryption keys",
+                "pkg": "seahorse",
                 "extra": []
             },
             {
-                "name": "Filezilla",
-                "icon": "filezilla",
-                "description": "Graphical FTP/FTPS/SFTP browser",
-                "pkg": "filezilla",
+                "name": "VeraCrypt",
+                "icon": "veracrypt",
+                "description": "Disk encryption with strong security based on TrueCrypt",
+                "pkg": "veracrypt",
                 "extra": []
             },
-            {
-                "name": "qBittorrent",
-                "icon": "qbittorrent",
-                "description": "A Qt based Bittorrent Client",
-                "pkg": "qbittorrent",
-                "extra": []
-            },
-            {
-                "name": "Transmission GTK",
-                "icon": "transmission",
-                "description": "GTK based Bittorrent Client",
-                "pkg": "transmission-gtk",
-                "filter": [
-                    "advanced"
-                ],
-                "extra": []
-            },
-            {
-                "name": "QTransmission",
-                "icon": "transmission",
-                "description": "QT based Bittorrent Client",
-                "pkg": "transmission-qt",
-                "filter": [
-                    "advanced"
-                ],
-                "extra": []
-            }
-        ]
-    },
-    {
-        "name": "Backup",
-        "icon": "deja-dup",
-        "description": "Backup utilites",
-        "apps": [
             {
                 "name": "Deja Dup",
                 "icon": "deja-dup",
@@ -744,46 +705,34 @@
         ]
     },
     {
-        "name": "Security",
-        "icon": "security-high",
-        "description": "Security oriented utilities",
-        "filter": [
-            "advanced"
-        ],
-        "apps": [
-            {
-                "name": "KeePassX",
-                "icon": "keepassx",
-                "description": "Cross Platform Password Manager",
-                "pkg": "keepassx",
-                "extra": []
-            },
-            {
-                "name": "SeaHorse",
-                "icon": "seahorse",
-                "description": "Manage your passwords and encryption keys",
-                "pkg": "seahorse",
-                "extra": []
-            },
-            {
-                "name": "VeraCrypt",
-                "icon": "veracrypt",
-                "description": "Disk encryption with strong security based on TrueCrypt",
-                "pkg": "veracrypt",
-                "extra": []
-            }
-        ]
-    },
-    {
         "name": "System Tools",
-        "icon": "disk-utility",
+        "icon": "applications-system",
         "description": "System utilities",
         "apps": [
+            {
+                "name": "VirtualBox",
+                "icon": "virtualbox",
+                "description": "Run several virtual systems on a single host computer",
+                "pkg": "virtualbox",
+                "extra": [
+                    "virtualbox-guest-iso"
+                ]
+            },
+            {
+                "name": "Gnome Boxes",
+                "icon": "gnome-boxes",
+                "description": "Simple remote and virtual machines",
+                "pkg": "gnome-boxes",
+                "extra": []
+            },
             {
                 "name": "Etcher",
                 "icon": "etcher-electron",
                 "description": "Graphical tool to write ISO to USB",
                 "pkg": "etcher",
+                "filter": [
+                    "advanced"
+                ],
                 "extra": []
             },
             {
@@ -844,42 +793,6 @@
                     "pamac-cli",
                     "pamac-common"
                 ]
-            },
-            {
-                "name": "Pamac QT",
-                "icon": "system-software-install",
-                "description": "Update your System, Add/Remove Software QT, AUR helper",
-                "pkg": "pamac-qt",
-                "extra": [
-                    "pamac-cli",
-                    "pamac-common"
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Virtual Computing",
-        "icon": "virt-manager",
-        "description": "Virtual Machine applications",
-        "filter": [
-            "advanced"
-        ],
-        "apps": [
-            {
-                "name": "VirtualBox",
-                "icon": "virtualbox",
-                "description": "Run several virtual systems on a single host computer",
-                "pkg": "virtualbox",
-                "extra": [
-                    "virtualbox-guest-iso"
-                ]
-            },
-            {
-                "name": "Gnome Boxes",
-                "icon": "gnome-boxes",
-                "description": "Simple remote and virtual machines",
-                "pkg": "gnome-boxes",
-                "extra": []
             }
         ]
     }
