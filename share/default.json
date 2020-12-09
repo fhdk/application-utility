@@ -36,7 +36,10 @@
                 "filter": [
                     "advanced"
                 ],
-                "extra": []
+                "extra": [],
+                "desktop": [
+                    "!gnome"
+                ]
             },
             {
                 "name": "Firefox",
@@ -54,7 +57,7 @@
                     "advanced"
                 ],
                 "desktop": [
-                    "kde"
+                    "!gnome"
                 ],
                 "extra": []
             },
@@ -80,6 +83,13 @@
                 "icon": "opera",
                 "description": "Fast and secure webbrowser",
                 "pkg": "opera",
+                "extra": []
+            },
+            {
+                "name": "Vivaldi",
+                "icon": "vivaldi",
+                "description": "Configurable browser for power users",
+                "pkg": "vivaldi",
                 "extra": []
             },
             {
@@ -115,7 +125,7 @@
                 "description": "KDE E-mail client",
                 "pkg": "kmail",
                 "desktop": [
-                    "kde"
+                    "!gnome"
                 ],
                 "filter": [
                     "advanced"
@@ -151,6 +161,27 @@
                 "extra": []
             },
             {
+                "name": "Slack web",
+                "icon": "slack-web-jak",
+                "description": "Wrapper for slack online",
+                "pkg": "slack-web-jak",
+                "extra": []
+            },
+            {
+                "name": "Telegram",
+                "icon": "telegram-desktop",
+                "description": "Official Telegram Desktop client",
+                "pkg": "telegram-desktop",
+                "extra": []
+            },
+            {
+                "name": "Whatsapp web",
+                "icon": "whatsapp-web-jak",
+                "description": "Wrapper for whatsapp online",
+                "pkg": "whatsapp-web-jak",
+                "extra": []
+            },
+            {
                 "name": "Deluge",
                 "icon": "deluge",
                 "description": "Python based Bittorrent Client",
@@ -169,6 +200,29 @@
                 "icon": "qbittorrent",
                 "description": "A Qt based Bittorrent Client",
                 "pkg": "qbittorrent",
+                "extra": [],
+                "desktop": [
+                    "!gnome"
+                ]
+            },
+            {
+                "name": "QTransmission",
+                "icon": "transmission",
+                "description": "QT based Bittorrent Client",
+                "pkg": "transmission-qt",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": [],
+                "desktop": [
+                    "!gnome"
+                ]
+            },
+            {
+                "name": "Syncthing",
+                "icon": "syncthing-gtk",
+                "description": "Cross Platform file synchronization tool",
+                "pkg": "syncthing-gtk",
                 "extra": []
             },
             {
@@ -176,16 +230,6 @@
                 "icon": "transmission",
                 "description": "GTK based Bittorrent Client",
                 "pkg": "transmission-gtk",
-                "filter": [
-                    "advanced"
-                ],
-                "extra": []
-            },
-            {
-                "name": "QTransmission",
-                "icon": "transmission",
-                "description": "QT based Bittorrent Client",
-                "pkg": "transmission-qt",
                 "filter": [
                     "advanced"
                 ],
@@ -286,6 +330,16 @@
                 "icon": "okular",
                 "description": "Document Viewer",
                 "pkg": "okular",
+                "extra": [],
+                "desktop": [
+                    "!gnome"
+                ]
+            },
+            {
+                "name": "Paperwork",
+                "icon": "paperwork",
+                "description": "Document manager for GNOME to manage scanned documents and PDFs",
+                "pkg": "paperwork",
                 "extra": []
             },
             {
@@ -300,6 +354,16 @@
                 "icon": "qpdfview",
                 "description": "Tabbed document viewer",
                 "pkg": "qpdfview",
+                "desktop": [
+                    "!gnome"
+                ],
+                "extra": []
+            },
+            {
+                "name": "Xournalpp",
+                "icon": "xournalpp",
+                "description": "Easy pdf editing tool",
+                "pkg": "xournalpp",
                 "extra": []
             },
             {
@@ -630,6 +694,12 @@
                 "extra": []
             },
             {
+                "name": "Flowblade",
+                "icon": "flowblade",
+                "description": "Multitrack non-linear video editor",
+                "pkg": "flowblade",
+                "extra": []
+            },            {
                 "name": "Kdenlive",
                 "icon": "kdenlive",
                 "description": "Video Editor",
@@ -641,6 +711,27 @@
                 "icon": "obs",
                 "description": "Open Source Streaming/Recording Application",
                 "pkg": "obs-studio",
+                "extra": []
+            },
+            {
+                "name": "Openshot",
+                "icon": "openshot",
+                "description": "Award-winning free and open-source video editor",
+                "pkg": "obs-studio",
+                "extra": []
+            },
+            {
+                "name": "Shotcut",
+                "icon": "shotcut",
+                "description": "Cross-platform Qt based Video Editor",
+                "pkg": "shotcut",
+                "extra": []
+            },
+            {
+                "name": "Pitivi",
+                "icon": "pitivi",
+                "description": "Editor for audio/video projects",
+                "pkg": "pitivi",
                 "extra": []
             },
             {
@@ -658,24 +749,20 @@
         "description": "Encryption, Backup",
         "apps": [
             {
-                "name": "KeePassX",
-                "icon": "keepassx",
-                "description": "Cross Platform Password Manager",
-                "pkg": "keepassx",
+                "name": "Backintime",
+                "icon": "deja-dup",
+                "description": "Simple backup system",
+                "pkg": "backintime",
                 "extra": []
             },
             {
-                "name": "SeaHorse",
-                "icon": "seahorse",
-                "description": "Manage your passwords and encryption keys",
-                "pkg": "seahorse",
-                "extra": []
-            },
-            {
-                "name": "VeraCrypt",
-                "icon": "veracrypt",
-                "description": "Disk encryption with strong security based on TrueCrypt",
-                "pkg": "veracrypt",
+                "name": "Borg",
+                "icon": "deja-dup",
+                "description": "Deduplicating backup program with compression and authenticated encryption",
+                "pkg": "borg",
+                "filter": [
+                    "advanced"
+                ],
                 "extra": []
             },
             {
@@ -701,6 +788,41 @@
                 "description": "A system restore utility for Linux",
                 "pkg": "timeshift",
                 "extra": []
+            },
+            {
+                "name": "Bitwarden",
+                "icon": "bitwarden",
+                "description": "Secure and free cloud based password manager.",
+                "pkg": "bitwarden",
+                "extra": []
+            },
+            {
+                "name": "Enpass",
+                "icon": "enpass",
+                "description": "Premium Cross-platform Password Manager",
+                "pkg": "enpass",
+                "extra": []
+            },
+            {
+                "name": "KeePassX",
+                "icon": "keepassx",
+                "description": "Cross Platform Password Manager",
+                "pkg": "keepassx",
+                "extra": []
+            },
+            {
+                "name": "SeaHorse",
+                "icon": "seahorse",
+                "description": "Manage your passwords and encryption keys",
+                "pkg": "seahorse",
+                "extra": []
+            },
+            {
+                "name": "VeraCrypt",
+                "icon": "veracrypt",
+                "description": "Disk encryption with strong security based on TrueCrypt",
+                "pkg": "veracrypt",
+                "extra": []
             }
         ]
     },
@@ -709,32 +831,6 @@
         "icon": "applications-system",
         "description": "System utilities",
         "apps": [
-            {
-                "name": "VirtualBox",
-                "icon": "virtualbox",
-                "description": "Run several virtual systems on a single host computer",
-                "pkg": "virtualbox",
-                "extra": [
-                    "virtualbox-guest-iso"
-                ]
-            },
-            {
-                "name": "Gnome Boxes",
-                "icon": "gnome-boxes",
-                "description": "Simple remote and virtual machines",
-                "pkg": "gnome-boxes",
-                "extra": []
-            },
-            {
-                "name": "Etcher",
-                "icon": "etcher-electron",
-                "description": "Graphical tool to write ISO to USB",
-                "pkg": "etcher",
-                "filter": [
-                    "advanced"
-                ],
-                "extra": []
-            },
             {
                 "name": "Gnome Disks",
                 "icon": "gnome-disks",
@@ -759,23 +855,6 @@
                 "extra": []
             },
             {
-                "name": "IsoUSB",
-                "icon": "usb-creator",
-                "description": "A graphical tool to copy a hybrid ISO onto a USB key.",
-                "pkg": "isousb",
-                "filter": [
-                    "advanced"
-                ],
-                "extra": []
-            },
-            {
-                "name": "Mintstick",
-                "icon": "mintstick",
-                "description": "Format or wirte imges to usb sticks (Linux Mint tool).",
-                "pkg": "mintstick",
-                "extra": []
-            },
-            {
                 "name": "Pamac CLI",
                 "icon": "utilities-terminal",
                 "description": "Update your System, Add/Remove Software, AUR helper",
@@ -793,6 +872,70 @@
                     "pamac-cli",
                     "pamac-common"
                 ]
+            },
+            {
+                "name": "Alma",
+                "icon": "mintstick",
+                "description": "Tool for creating persistent live isos",
+                "pkg": "alma-git",
+                "extra": []
+            },
+            {
+                "name": "Etcher",
+                "icon": "etcher-electron",
+                "description": "Graphical tool to write ISO to USB",
+                "pkg": "etcher",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "IsoUSB",
+                "icon": "usb-creator",
+                "description": "A graphical tool to copy a hybrid ISO onto a USB key.",
+                "pkg": "isousb",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "Mintstick",
+                "icon": "mintstick",
+                "description": "Format or wirte imges to usb sticks (Linux Mint tool).",
+                "pkg": "mintstick",
+                "extra": []
+            },
+            {
+                "name": "Ventoy",
+                "icon": "mintstick",
+                "description": "Tool for creating multiboot isos",
+                "pkg": "ventoy",
+                "extra": []
+            },
+            {
+                "name": "Gnome Boxes",
+                "icon": "gnome-boxes",
+                "description": "Simple remote and virtual machines",
+                "pkg": "gnome-boxes",
+                "extra": []
+            },
+            {
+                "name": "VirtualBox",
+                "icon": "virtualbox",
+                "description": "Run several virtual systems on a single host computer",
+                "pkg": "virtualbox",
+                "extra": [
+                    "virtualbox-guest-iso"
+                ]
+            },
+            {
+                "name": "Virt-manager",
+                "icon": "virt-manager",
+                "description": "Desktop user interface for managing virtual machines",
+                "pkg": "virt-manager",
+                "extra": []
             }
         ]
     }
