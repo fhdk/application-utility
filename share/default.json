@@ -177,8 +177,15 @@
             {
                 "name": "Whatsapp",
                 "icon": "whatsapp-web-jak",
-                "description": "Wrapper for whatsapp online",
+                "description": "Desktop app for whatsapp",
                 "pkg": "whatsapp-for-linux",
+                "extra": []
+            },
+            {
+                "name": "Whatsapp web",
+                "icon": "whatsapp-web-jak",
+                "description": "Wrapper for whatsapp online",
+                "pkg": "whatsapp-web-jak",
                 "extra": []
             },
             {
