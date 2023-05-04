@@ -46,7 +46,7 @@ LANGUAGES += ["en_US"]
 #  (nothing to change here for you)
 gettext.install(True)
 gettext.bindtextdomain(APP_NAME, LOCALE_DIR)
-gettext.bind_textdomain_codeset(APP_NAME, codeset=CODESET)
+# gettext.bind_textdomain_codeset(APP_NAME, codeset=CODESET)
 gettext.textdomain(APP_NAME)
 language = gettext.translation(APP_NAME, LOCALE_DIR, LANGUAGES, fallback=True)
 
